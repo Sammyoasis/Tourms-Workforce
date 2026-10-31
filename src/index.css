@@ -1,0 +1,57 @@
+@import "tailwindcss";
+
+@theme {
+  --font-display: "Montserrat", sans-serif;
+  --font-sans: "Inter", sans-serif;
+  --font-mono: "JetBrains Mono", monospace;
+
+  --color-tourms-charcoal: #0F1F1C;
+  --color-tourms-green: #0E5A46;
+  --color-tourms-green-dark: #08382B;
+  --color-tourms-green-light: #E7F3EF;
+  --color-tourms-ivory: #F7F7EE;
+  --color-tourms-ivory-dark: #EBEBDD;
+  --color-tourms-amber: #C98A3A;
+  --color-tourms-amber-accessible: #8E5A18;
+}
+
+@layer base {
+  body {
+    font-family: var(--font-sans);
+    color: #0F1F1C;
+    background-color: #F7F7EE;
+    line-height: 1.6;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-display);
+    letter-spacing: -0.015em;
+  }
+}
+
+/* Accessibility & Focus Indicators */
+:focus-visible {
+  outline: 2px solid #0E5A46;
+  outline-offset: 2px;
+}
+
+/* Tabular figures for data tables and numbers */
+.tabular-nums {
+  font-variant-numeric: tabular-nums;
+}
+
+/* Scrollbar refinement */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #F7F7EE;
+}
+::-webkit-scrollbar-thumb {
+  background: #C4C8C5;
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #0E5A46;
+}

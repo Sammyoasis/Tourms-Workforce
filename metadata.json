@@ -1,0 +1,6 @@
+{
+  "name": "TOURMS AGRO-SOLUTIONS",
+  "description": "Agricultural work, opportunity and knowledge platform connecting professionals, employers, organisations and verified opportunities across Nigeria.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

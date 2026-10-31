@@ -1,0 +1,173 @@
+import React, { useState } from 'react';
+import { UserRole, AdminSubRole } from '../../types';
+import { Shield, User, Briefcase, Globe, Layers, ChevronDown } from 'lucide-react';
+
+export interface RoleBarProps {
+  currentRole: UserRole;
+  adminSubRole: AdminSubRole;
+  onRoleChange: (role: UserRole) => void;
+  onAdminSubRoleChange: (subRole: AdminSubRole) => void;
+  onJumpToScreen: (screenId: string) => void;
+  onOpenStateSpecimens: () => void;
+  currentScreenId?: string;
+}
+
+export const CANONICAL_SCREENS = [
+  // GROUP A: PUBLIC EXPERIENCE
+  { id: 'screen-01', label: 'Screen 01: Home Desktop', path: '/' },
+  { id: 'screen-02', label: 'Screen 02: Home Mobile Preview', path: '/?mobile=1' },
+  { id: 'screen-03', label: 'Screen 03: Jobs Desktop (Tourms Workforce)', path: '/jobs' },
+  { id: 'screen-04', label: 'Screen 04: Jobs Mobile View', path: '/jobs?mobile=1' },
+  { id: 'screen-05', label: 'Screen 05: Job Detail Desktop', path: '/jobs/job-001' },
+  { id: 'screen-06', label: 'Screen 06: Job Detail Mobile (Sticky Apply)', path: '/jobs/job-001?mobile=1' },
+
+  // GROUP B: WORKER EXPERIENCE
+  { id: 'screen-07', label: 'Screen 07: Worker Onboarding (8 Steps)', path: '/worker/onboarding' },
+  { id: 'screen-08', label: 'Screen 08: Worker Profile Desktop (Capability-First)', path: '/worker/profile' },
+  { id: 'screen-09', label: 'Screen 09: Worker Profile Mobile', path: '/worker/profile?mobile=1' },
+
+  // GROUP C: EMPLOYER EXPERIENCE
+  { id: 'screen-10', label: 'Screen 10: Employer Dashboard Desktop', path: '/employer' },
+  { id: 'screen-11', label: 'Screen 11: Post a Job — Step 1 (Role Identity)', path: '/employer/post-job?step=1' },
+  { id: 'screen-12', label: 'Screen 12: Post a Job — Step 2 (Responsibilities)', path: '/employer/post-job?step=2' },
+  { id: 'screen-13', label: 'Screen 13: Post a Job — Step 3 (Skills & Capabilities)', path: '/employer/post-job?step=3' },
+  { id: 'screen-14', label: 'Screen 14: Post a Job — Step 4 (Qualifications)', path: '/employer/post-job?step=4' },
+  { id: 'screen-14b', label: 'Screen 14b: Post a Job — Step 5 (Location & Schedule)', path: '/employer/post-job?step=5' },
+  { id: 'screen-14c', label: 'Screen 14c: Post a Job — Step 6 (Compensation)', path: '/employer/post-job?step=6' },
+  { id: 'screen-15', label: 'Screen 15: Post a Job — Step 7 (Review & Submit)', path: '/employer/post-job?step=7' },
+
+  // GROUP D: ADMINISTRATION
+  { id: 'screen-16', label: 'Screen 16: Admin Dashboard Console', path: '/admin' },
+  { id: 'screen-17', label: 'Screen 17: Admin Jobs Review Queue', path: '/admin/jobs-queue' },
+  { id: 'screen-18', label: 'Screen 18: Admin Job Review & Approval', path: '/admin/job-review/job-008' },
+  { id: 'screen-19', label: 'Screen 19: Admin Employer Verification (CAC)', path: '/admin/employers' },
+  { id: 'screen-20', label: 'Screen 20: Admin Worker Management', path: '/admin/workers' },
+  { id: 'screen-21', label: 'Screen 21: Admin Opportunities Review', path: '/admin/opportunities-review' },
+  { id: 'screen-22', label: 'Screen 22: Admin Insights & Editorial Flow', path: '/admin/content' },
+  { id: 'screen-23', label: 'Screen 23: Admin Reports & Moderation Queue', path: '/admin/reports' },
+  { id: 'screen-24', label: 'Screen 24: Admin Users & Role Permissions', path: '/admin/users' }
+];
+
+export const RoleBar: React.FC<RoleBarProps> = ({
+  currentRole,
+  adminSubRole,
+  onRoleChange,
+  onAdminSubRoleChange,
+  onJumpToScreen,
+  onOpenStateSpecimens,
+  currentScreenId
+}) => {
+  const [isExpanded, setIsExpanded] = useState(false);
+
+  return (
+    <aside
+      aria-label="Product Architecture & Screen Reviewer"
+      className="bg-[#0F1F1C] text-[#F7F7EE] border-b border-[#243B36] text-xs py-1.5 px-3 z-50 sticky top-0"
+    >
+      <div className="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-2">
+        {/* Left: Persona Switcher */}
+        <div className="flex items-center gap-1.5 flex-wrap">
+          <span className="text-[#8A9C96] font-medium mr-1 hidden sm:inline">Active View:</span>
+
+          <button
+            onClick={() => onRoleChange('public')}
+            className={`px-2.5 py-1 rounded inline-flex items-center gap-1 transition-colors min-h-[32px] cursor-pointer ${
+              currentRole === 'public'
+                ? 'bg-[#0E5A46] text-white font-semibold'
+                : 'text-[#A0B0AB] hover:text-white hover:bg-[#1A312D]'
+            }`}
+          >
+            <Globe className="w-3 h-3" />
+            <span>Public Visitor</span>
+          </button>
+
+          <button
+            onClick={() => onRoleChange('worker')}
+            className={`px-2.5 py-1 rounded inline-flex items-center gap-1 transition-colors min-h-[32px] cursor-pointer ${
+              currentRole === 'worker'
+                ? 'bg-[#0E5A46] text-white font-semibold'
+                : 'text-[#A0B0AB] hover:text-white hover:bg-[#1A312D]'
+            }`}
+          >
+            <User className="w-3 h-3" />
+            <span>Worker Profile</span>
+          </button>
+
+          <button
+            onClick={() => onRoleChange('employer')}
+            className={`px-2.5 py-1 rounded inline-flex items-center gap-1 transition-colors min-h-[32px] cursor-pointer ${
+              currentRole === 'employer'
+                ? 'bg-[#0E5A46] text-white font-semibold'
+                : 'text-[#A0B0AB] hover:text-white hover:bg-[#1A312D]'
+            }`}
+          >
+            <Briefcase className="w-3 h-3" />
+            <span>Employer Console</span>
+          </button>
+
+          <button
+            onClick={() => onRoleChange('admin')}
+            className={`px-2.5 py-1 rounded inline-flex items-center gap-1 transition-colors min-h-[32px] cursor-pointer ${
+              currentRole === 'admin'
+                ? 'bg-[#C98A3A] text-[#0F1F1C] font-bold'
+                : 'text-[#A0B0AB] hover:text-white hover:bg-[#1A312D]'
+            }`}
+          >
+            <Shield className="w-3 h-3" />
+            <span>Admin Operational</span>
+          </button>
+
+          {/* Admin Role Selector if admin */}
+          {currentRole === 'admin' && (
+            <select
+              value={adminSubRole}
+              onChange={(e) => onAdminSubRoleChange(e.target.value as AdminSubRole)}
+              className="bg-[#1A312D] text-[#F7F7EE] border border-[#3A4B47] rounded px-2 py-1 text-xs focus:outline-none focus:ring-1 focus:ring-[#C98A3A] min-h-[32px]"
+              aria-label="Admin sub-role permission filter"
+            >
+              <option value="super_admin">Role: Super Admin</option>
+              <option value="operations">Role: Operations</option>
+              <option value="verification">Role: Verification</option>
+              <option value="editorial">Role: Editorial</option>
+              <option value="support">Role: Support</option>
+              <option value="analyst">Role: Analyst</option>
+            </select>
+          )}
+        </div>
+
+        {/* Right: Screen Direct Jump & States Specimen Viewer */}
+        <div className="flex items-center gap-2 flex-wrap ml-auto">
+          {/* Quick Screen Select Dropdown */}
+          <div className="flex items-center gap-1 text-xs">
+            <span className="text-[#8A9C96] hidden md:inline">24 Screens:</span>
+            <select
+              value={currentScreenId || ''}
+              onChange={(e) => {
+                if (e.target.value) onJumpToScreen(e.target.value);
+              }}
+              className="bg-[#1A312D] text-white border border-[#3A4B47] rounded px-2 py-1 text-xs focus:outline-none focus:ring-1 focus:ring-[#0E5A46] min-h-[32px] max-w-[200px] sm:max-w-[260px] truncate"
+              aria-label="Jump to specific screen 1 through 24"
+            >
+              <option value="">Jump to Screen (1 – 24)...</option>
+              {CANONICAL_SCREENS.map((s) => (
+                <option key={s.id} value={s.id}>
+                  {s.label}
+                </option>
+              ))}
+            </select>
+          </div>
+
+          {/* State Specimens Drawer Button */}
+          <button
+            onClick={onOpenStateSpecimens}
+            className="px-2.5 py-1 text-xs bg-[#243B36] hover:bg-[#344F49] text-[#C98A3A] font-semibold border border-[#3A4B47] rounded inline-flex items-center gap-1 min-h-[32px] transition-colors cursor-pointer"
+            title="Inspect loading, empty, error, and validation states"
+          >
+            <Layers className="w-3.5 h-3.5" />
+            <span className="hidden sm:inline">Interaction States</span>
+          </button>
+        </div>
+      </div>
+    </aside>
+  );
+};

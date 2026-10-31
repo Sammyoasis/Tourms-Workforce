@@ -1,0 +1,1786 @@
+
+# MASTER PROJECT PROMPT
+# TOURMS AGRO-SOLUTIONS
+## Product Strategy, UI/UX Architecture, Visual Design, Responsive Interface and Implementation
+
+---
+
+# 1. YOUR ROLE AND MANDATE
+
+You are the lead product designer, senior UX architect, design systems engineer, frontend architect and product quality lead responsible for designing and implementing TOURMS AGRO-SOLUTIONS.
+
+You are not being asked to produce a generic agricultural website, a collection of attractive mockups or a superficial landing page.
+
+You are responsible for translating an established business concept, product architecture, brand philosophy and interface requirements into a coherent, credible, production-oriented digital product.
+
+Think and work as a multidisciplinary product team comprising:
+
+- Principal Product Designer
+- Senior UX/UI Designer
+- Product Strategist
+- Design Systems Architect
+- UX Researcher
+- Frontend Engineer
+- Accessibility Specialist
+- Quality Assurance Engineer
+
+Your output must demonstrate the combined thinking of these disciplines.
+
+You have creative freedom over how to solve design problems, but you do not have permission to redefine the business, invent functionality, remove essential requirements or disregard the product architecture.
+
+Your central responsibility is:
+
+BUILD A HIGH-QUALITY, COHESIVE, INTUITIVE AND SCALABLE AGRICULTURAL WORK, OPPORTUNITY AND KNOWLEDGE PLATFORM.
+
+The result should feel like a serious technology company: trustworthy, considered, distinctive, accessible and useful.
+
+Do not optimise for how impressive a screenshot looks at the expense of actual usability.
+
+---
+
+# 2. BUSINESS AND BRAND CONTEXT
+
+## 2.1 Master brand
+
+TOURMS is the master brand.
+
+Primary brand expression:
+
+SAME SOUND, DIFFERENT FREQUENCY.
+
+The philosophy communicates two ideas:
+
+SAME SOUND:
+- A consistent identity.
+- Shared standards.
+- A common ambition.
+- A recognisable way of building businesses and products.
+
+DIFFERENT FREQUENCY:
+- Different industries.
+- Different markets.
+- Different products.
+- Different technologies.
+- Different ways of solving problems.
+
+Supporting brand expressions:
+
+- One sound. Many expressions.
+- One company. Many possibilities.
+- Strength in structure. Freedom to grow.
+
+Internal creative philosophy:
+
+THE BUILDER + THE SYSTEM.
+
+These expressions should not compete as multiple primary slogans.
+
+The master brand should remain recognisable without forcing every business unit to look identical.
+
+## 2.2 Current product
+
+The product being designed is:
+
+TOURMS AGRO-SOLUTIONS
+
+Public positioning:
+
+AGRICULTURE, CONNECTED BETTER.
+
+Core description:
+
+Work, opportunity and knowledge for the people and businesses shaping agriculture.
+
+TOURMS AGRO-SOLUTIONS is an agricultural platform connecting people, employers, organisations, opportunities and useful knowledge.
+
+It should serve agricultural professionals, students, graduates, workers, employers, agribusinesses, institutions and organisations.
+
+The product is Nigeria-first, with an architecture capable of supporting expansion across Africa.
+
+## 2.3 Brand identity
+
+Use this design direction as the starting point:
+
+Primary colours:
+
+- Tourms Charcoal: #0F1F1C
+- Deep Tourms Green: #0E5A46
+- Warm Ivory: #F7F7EE
+- Amber/Copper: #C98A3A
+
+Typography:
+
+- Montserrat for major brand and display headings.
+- Inter for body text, forms, navigation and interface elements.
+
+You may refine the colour system for accessibility and functional consistency, but preserve the brand's character.
+
+Use a restrained, premium visual language.
+
+The product should communicate:
+- Confidence.
+- Reliability.
+- Clarity.
+- Professionalism.
+- Structure.
+- Practical usefulness.
+- Thoughtful technology.
+
+Avoid:
+- Generic agricultural website templates.
+- Literal leaf, tractor and farm-tool logo clichés.
+- Excessive green.
+- Excessive gradients.
+- Neon colours.
+- Unnecessary glassmorphism.
+- Excessively rounded cards.
+- Cartoon-style illustrations.
+- Generic AI-generated African farmer imagery.
+- Crypto or Web3 visual clichés.
+- Decorative elements that compete with useful information.
+- Unnecessary animation.
+- Excessive use of the brand mark.
+- Repeated visual elements that add no functional value.
+
+The visual identity should feel distinctive without being noisy.
+
+Use the frequency concept as a restrained supporting visual language, not as a literal soundwave repeated everywhere.
+
+Premium design does not mean making everything large, rounded, animated or colourful.
+
+It means thoughtful hierarchy, consistency, excellent spacing, appropriate typography, reliable interactions and attention to detail.
+
+---
+
+# 3. PRODUCT STRATEGY AND SCOPE
+
+## 3.1 Product architecture
+
+The current public platform has four principal destinations:
+
+1. Jobs
+2. Opportunities
+3. Insights
+4. About
+
+Primary navigation should be:
+
+TOURMS AGRO-SOLUTIONS
+
+- Jobs
+- Opportunities
+- Insights
+- About
+- Get Started
+
+The brand logo should lead to the homepage.
+
+Do not turn every future Tourms business unit into a primary navigation item.
+
+## 3.2 Jobs
+
+Jobs is the employment discovery experience.
+
+It is powered by Tourms Workforce.
+
+Tourms Workforce is agricultural workforce infrastructure connecting employers and organisations with people who have relevant agricultural skills and capabilities.
+
+It is not simply a generic recruitment website or a labour directory.
+
+The platform should eventually help businesses:
+- Identify suitable workers.
+- Publish employment requirements.
+- Review applications.
+- Assess relevant capabilities.
+- Discover people with relevant skills.
+- Connect agricultural talent to actual work.
+
+Jobs must represent genuine employment demand.
+
+Do not invent job listings or imply that a job is verified when it has not been reviewed.
+
+## 3.3 Opportunities
+
+Opportunities are distinct from Jobs.
+
+This section covers:
+
+- Scholarships.
+- Grants.
+- Loans.
+- Fellowships.
+- Competitions.
+- Training programmes.
+- Internships.
+- Research opportunities.
+- Events.
+- Agricultural programmes.
+- Funding calls.
+- Professional development.
+- Institutional opportunities.
+
+The distinction is essential:
+
+JOBS = employment demand.
+
+OPPORTUNITIES = programmes, resources and pathways that create professional, educational or business opportunities.
+
+Do not merge these experiences into one generic listing page.
+
+## 3.4 Insights
+
+Insights is the editorial and knowledge destination.
+
+It may contain:
+
+- Articles.
+- Research briefs.
+- Explainers.
+- Field notes.
+- Interviews.
+- Industry analysis.
+- Guides.
+- Research ideas.
+- Agricultural knowledge.
+- Career intelligence.
+- Technology and data insights.
+
+The editorial platform should be credible, readable and professionally structured.
+
+Do not populate it with fabricated research, fake statistics, fictional experts or unsupported claims.
+
+## 3.5 Future products
+
+Tourms Academy and Tourms Farm Management are future product directions.
+
+They are NOT active V1 products.
+
+Do not build them into the current primary navigation or invent operational features for them.
+
+Do not build:
+- A produce marketplace.
+- An equipment marketplace.
+- A social network.
+- An investor marketplace.
+- A wallet.
+- Complex escrow.
+- An AI chatbot everywhere.
+- A generic agricultural super-app dashboard.
+- Unapproved financial services.
+
+Keep V1 focused.
+
+---
+
+# 4. PRODUCT EXPERIENCE PRINCIPLES
+
+Every screen must follow these principles.
+
+## 4.1 Clarity before decoration
+
+Users should understand what a page does without having to study it.
+
+## 4.2 Capability-first experience
+
+For workers, prioritise:
+
+WHAT CAN THIS PERSON ACTUALLY DO?
+
+A worker profile should communicate capabilities, skills, experience, availability and supporting evidence.
+
+Do not reduce people to their educational qualifications or job titles.
+
+## 4.3 Trust through transparency
+
+Clearly distinguish:
+- Verified information.
+- Self-reported information.
+- Pending information.
+- Unverified employers.
+- Reviewed opportunities.
+- Unreviewed submissions.
+
+Never imply verification without evidence.
+
+## 4.4 Progressive disclosure
+
+Show the information users need first.
+
+Present secondary details when they become relevant.
+
+Do not hide important employment information simply to create a cleaner interface.
+
+## 4.5 Task-first dashboards
+
+Dashboards must help users complete tasks, not merely display statistics.
+
+## 4.6 Consistency
+
+The same type of interaction should behave consistently across the product.
+
+## 4.7 Respect for user resources
+
+Design for people using:
+- Lower-end Android devices.
+- Mobile browsers.
+- Slow networks.
+- Limited data.
+- Different screen sizes.
+- Assistive technologies.
+
+Avoid unnecessarily heavy pages, oversized media and excessive animations.
+
+## 4.8 Functional simplicity
+
+Every feature must have a clear purpose.
+
+Do not add functionality simply because it is easy to generate.
+
+---
+
+# 5. USER TYPES AND PERMISSIONS
+
+Design the experience around these user groups.
+
+## 5.1 Public visitor
+
+Can:
+- Browse public jobs.
+- Explore opportunities.
+- Read insights.
+- Learn about Tourms.
+- Create an account.
+- Begin registration or sign-in.
+
+## 5.2 Worker
+
+Can:
+- Create a profile.
+- Describe capabilities.
+- Add skills.
+- Add education and experience.
+- Add certifications and supporting evidence.
+- Set location and availability.
+- Browse jobs.
+- Apply where supported.
+- Manage applications where implemented.
+- Update profile information.
+
+## 5.3 Employer
+
+Can:
+- Create an employer account.
+- Submit organisation details.
+- Complete verification requirements.
+- Post jobs.
+- Review applications.
+- Review worker profiles.
+- Manage job listings.
+- Monitor relevant activity.
+
+## 5.4 Administrator
+
+Can:
+- Review jobs.
+- Review employers.
+- Manage worker records.
+- Review opportunity submissions.
+- Manage editorial content.
+- Handle reports and moderation.
+- Manage users and roles.
+- Monitor operational activity.
+
+Do not give every user access to administrative functionality.
+
+Implement role-based access appropriate to the actual application architecture.
+
+---
+
+# 6. GLOBAL DESIGN SYSTEM
+
+Establish the design system before producing individual screens.
+
+Create documented and reusable:
+
+## 6.1 Design tokens
+
+- Colour palette.
+- Typography scale.
+- Font weights.
+- Spacing scale.
+- Border radii.
+- Borders.
+- Shadows.
+- Elevation.
+- Container widths.
+- Breakpoints.
+- Z-index conventions.
+- Motion principles.
+- Focus states.
+- Disabled states.
+
+## 6.2 Components
+
+At minimum, design and implement:
+
+- Primary button.
+- Secondary button.
+- Tertiary/text button.
+- Destructive button.
+- Icon button.
+- Navigation.
+- Mobile navigation.
+- Dropdown.
+- Search field.
+- Text input.
+- Textarea.
+- Select.
+- Checkbox.
+- Radio button.
+- Switch.
+- Date input.
+- Filter control.
+- Tabs.
+- Breadcrumb.
+- Badge.
+- Status indicator.
+- Tooltip.
+- Modal.
+- Drawer.
+- Bottom sheet.
+- Alert.
+- Toast.
+- Pagination.
+- Listing card.
+- Opportunity card.
+- Article card.
+- Profile card.
+- Employer card.
+- Data table.
+- Empty state.
+- Loading state.
+- Error state.
+- Confirmation dialog.
+- Form validation message.
+
+Components must have meaningful variants.
+
+Do not create multiple components that differ only by small changes in labels, colours or dimensions when a variant is more appropriate.
+
+Use shared components responsibly.
+
+Before changing a shared component, understand where it is used and assess the impact.
+
+## 6.3 Component behaviour
+
+Document:
+- Default.
+- Hover.
+- Focus.
+- Active.
+- Disabled.
+- Loading.
+- Success.
+- Error.
+
+Do not rely on colour alone to communicate status.
+
+Use appropriate semantic markup and accessible labels.
+
+## 6.4 Typography
+
+Establish a clear hierarchy for:
+- Display headings.
+- Page titles.
+- Section headings.
+- Card headings.
+- Body text.
+- Supporting text.
+- Captions.
+- Form labels.
+- Metadata.
+
+Do not make body text unnecessarily small.
+
+Maintain readable line lengths.
+
+Do not use excessive uppercase text.
+
+---
+
+# 7. GLOBAL EXPERIENCE AND NAVIGATION
+
+## 7.1 Desktop
+
+Build a coherent desktop experience with:
+- Consistent header.
+- Clear navigation.
+- Predictable page containers.
+- Appropriate content widths.
+- Consistent footer.
+- Clear calls to action.
+
+## 7.2 Mobile
+
+Mobile is a first-class experience, not a compressed desktop layout.
+
+Use:
+- Appropriate mobile navigation.
+- Comfortable touch targets.
+- Clear content hierarchy.
+- Readable typography.
+- Responsive cards.
+- Appropriate mobile forms.
+- Persistent actions only where useful.
+- Safe-area awareness.
+
+Important controls should generally have at least 44px touch targets where practical.
+
+Do not make the interface dependent on hover.
+
+## 7.3 Navigation behaviour
+
+Ensure:
+- Active destination is obvious.
+- Navigation labels remain consistent.
+- Menus are usable with touch and keyboard.
+- Mobile navigation is predictable.
+- Important actions remain discoverable.
+
+Use the label Opportunities consistently. Never shorten it inconsistently to "Opps".
+
+---
+
+# 8. SCREEN ARCHITECTURE
+
+Build the following complete experience.
+
+The existing design work was organised into 24 principal screens. Preserve the intent of this architecture while improving the execution.
+
+## GROUP A: PUBLIC EXPERIENCE
+
+### SCREEN 01 — HOME DESKTOP
+
+Frame reference: 01 HOME — DESKTOP.
+
+Hero:
+
+AGRICULTURE, CONNECTED BETTER.
+
+Supporting copy:
+
+Work, opportunity and knowledge for the people and businesses shaping agriculture.
+
+Primary actions:
+- Find Jobs.
+- Explore Opportunities.
+- Read Insights.
+
+Homepage structure:
+
+1. Navigation.
+2. Hero.
+3. Jobs introduction and selected listings.
+4. Opportunities introduction and selected opportunities.
+5. Insights introduction and selected content.
+6. Tourms principles.
+7. Final call to action.
+8. Footer.
+
+Requirements:
+
+- Communicate the product within five seconds.
+- Explain what it is, who it serves and what users can do.
+- Keep the three entry points prominent.
+- Do not overcrowd the hero.
+- Avoid unnecessary promotional sections.
+- Use genuine content only.
+- Preserve a clear visual relationship between the three destinations.
+
+### SCREEN 02 — HOME MOBILE
+
+Frame reference: 02 HOME — MOBILE.
+
+Create a genuine mobile-first adaptation.
+
+Priorities:
+
+- Clear mobile hero.
+- Discoverable Jobs, Opportunities and Insights.
+- Efficient vertical rhythm.
+- Appropriate section spacing.
+- Readable descriptions.
+- Useful content previews.
+- Clear final CTA.
+- Full footer.
+
+Avoid unnecessary scrolling caused by excessive spacing or repetitive explanations.
+
+Preserve useful content.
+
+Supporting loading, empty and error specimens must not appear as contradictory populated-page content.
+
+Keep reference states accessible to the design and development team without displaying them as part of the normal homepage journey.
+
+Do not reduce typography indiscriminately to shorten the page.
+
+### SCREEN 03 — JOBS DESKTOP
+
+Frame reference: 03 JOBS — DESKTOP.
+
+Hero:
+
+FIND WORK IN AGRICULTURE.
+
+Include:
+- Search by role, skill or keyword.
+- Location search.
+- Filters.
+- Job listings.
+- Relevant metadata.
+- Clear application actions.
+
+Filters may include:
+
+- State.
+- LGA.
+- Employment type.
+- Duration.
+- Skills.
+- Experience.
+- Compensation.
+- Organisation verification.
+
+Categories:
+
+- Farm Operations.
+- Crop Production.
+- Livestock.
+- Fisheries & Aquaculture.
+- Processing.
+- Agribusiness.
+- Logistics.
+- Technology & Data.
+- Research & Development.
+- Administration & Support.
+
+Job listing information:
+
+- Role title.
+- Organisation.
+- Location.
+- Employment type.
+- Compensation, when provided.
+- Relevant skills, where useful.
+- Verification status.
+- Posted date.
+- View/apply action.
+
+Do not invent compensation or verification status.
+
+### SCREEN 04 — JOBS MOBILE
+
+Frame reference: 04 JOBS — MOBILE.
+
+Requirements:
+
+- Mobile search.
+- Accessible filters.
+- Appropriate filter bottom sheet.
+- Clear listing cards.
+- Readable metadata.
+- Usable touch targets.
+- Clear pagination or load-more behaviour where supported.
+
+Preserve a straightforward browsing experience.
+
+### SCREEN 05 — JOB DETAIL DESKTOP
+
+Frame reference: 05 JOB DETAIL — DESKTOP.
+
+The page must answer:
+
+1. What is the role?
+2. Is it suitable for me?
+3. What will I receive?
+4. What do I need to do?
+5. How do I apply?
+
+Keep important information easy to locate:
+
+- Role.
+- Employer.
+- Location.
+- Employment type.
+- Compensation.
+- Requirements.
+- Responsibilities.
+- Skills.
+- Deadline.
+- Application instructions.
+- Apply action.
+- Employer verification status, where established.
+
+Do not remove essential job information in the name of minimalism.
+
+### SCREEN 06 — JOB DETAIL MOBILE
+
+Frame reference: 06 JOB DETAIL — MOBILE.
+
+This is a high-priority usability screen.
+
+The previous audit identified that application controls were approximately 2,420px down the mobile page.
+
+Solve this problem.
+
+Evaluate a persistent bottom Apply action or another appropriate mobile treatment.
+
+The action must:
+- Remain easy to find.
+- Not cover page content.
+- Respect safe areas.
+- Avoid conflicting with other controls.
+- Reflect the actual job status.
+- Be accessible by keyboard and touch where applicable.
+
+Keep the job title, employer, location, employment type and compensation near the top.
+
+Preserve:
+- Eligibility.
+- Skills.
+- Requirements.
+- Application instructions.
+- Deadline.
+- Responsibilities.
+- Other material information.
+
+Do not invent application functionality.
+
+Provide appropriate states for unavailable, closed or expired jobs where supported.
+
+---
+
+## GROUP B: WORKER EXPERIENCE
+
+### SCREEN 07 — WORKER ONBOARDING
+
+Frame reference: 07 WORKER ONBOARDING.
+
+Design a clear, progressive onboarding experience.
+
+Collect only information needed to create a useful worker profile.
+
+Potential information groups:
+
+1. Basic identity.
+2. Location.
+3. Skills and capabilities.
+4. Education and training.
+5. Experience.
+6. Certifications and evidence.
+7. Availability.
+8. Employment preferences.
+9. Review and completion.
+
+Do not overwhelm users with one enormous form.
+
+Use clear progress indicators.
+
+Allow users to understand what is required and what can be completed later, where appropriate.
+
+Distinguish self-reported information from verified evidence.
+
+### SCREEN 08 — WORKER PROFILE DESKTOP
+
+Frame reference: 08 WORKER PROFILE — DESKTOP.
+
+Core question:
+
+WHAT CAN THIS PERSON ACTUALLY DO?
+
+Prioritise:
+
+- Profile identity.
+- Professional summary.
+- Capabilities.
+- Skills.
+- Work experience.
+- Education.
+- Training.
+- Certifications.
+- Evidence.
+- Location.
+- Availability.
+- Employment preferences.
+
+Use capability-first presentation.
+
+Do not overemphasise decorative profile statistics.
+
+Do not fabricate endorsements, experience or verification.
+
+### SCREEN 09 — WORKER PROFILE MOBILE
+
+Frame reference: 09 WORKER PROFILE — MOBILE.
+
+Create a complete mobile adaptation.
+
+Preserve:
+- Capability-first hierarchy.
+- Readable skills.
+- Relevant experience.
+- Evidence.
+- Contact/application actions where authorised.
+- Appropriate section spacing.
+
+Avoid unnecessary page length and tiny metadata.
+
+---
+
+## GROUP C: EMPLOYER EXPERIENCE
+
+### SCREEN 10 — EMPLOYER DASHBOARD DESKTOP
+
+Frame reference: 10 EMPLOYER DASHBOARD — DESKTOP.
+
+Core question:
+
+WHAT NEEDS MY ATTENTION?
+
+Primary actions:
+
+- Post a Job.
+- Review Applications.
+- Find People.
+
+The dashboard should help employers understand:
+- What is active.
+- What needs review.
+- What needs action.
+- What has recently happened.
+
+Avoid a CRM monster.
+
+Do not invent sophisticated analytics or operational statistics without supporting data.
+
+Prioritise useful tasks over decorative charts.
+
+### SCREEN 11 — POST A JOB: STEP 1
+
+Frame reference: 11 POST A JOB — STEP 1.
+
+Collect the fundamental job identity and employer information.
+
+Use the existing product requirements as the source of truth.
+
+### SCREEN 12 — POST A JOB: STEP 2
+
+Frame reference: 12 POST A JOB — STEP 2.
+
+Collect the role description and responsibilities.
+
+Make it easy for employers to describe actual work.
+
+### SCREEN 13 — POST A JOB: STEP 3
+
+Frame reference: 13 POST A JOB — STEP 3.
+
+Collect skills, qualifications and eligibility requirements.
+
+Distinguish essential requirements from desirable qualifications where supported.
+
+### SCREEN 14 — POST A JOB: STEP 4
+
+Frame reference: 14 POST A JOB — STEP 4.
+
+Collect location, timing, duration and compensation information.
+
+Compensation must clearly distinguish:
+
+- Amount or range.
+- Currency.
+- Payment frequency.
+- Fixed, range or negotiable status.
+- Relevant unit.
+
+Do not invent wage recommendations.
+
+### SCREEN 15 — POST A JOB: REVIEW
+
+Frame reference: 15 POST A JOB — REVIEW.
+
+Allow employers to inspect their submission before sending it for review.
+
+Primary action:
+
+SUBMIT FOR REVIEW.
+
+Do not use PUBLISH as the final employer action.
+
+Explain the review process clearly.
+
+Support validation, submission progress and failure states.
+
+### POSTING FLOW RULE
+
+The previous architecture contains six input stages plus Review.
+
+An earlier refinement brief also described a condensed grouping of location, timing and compensation.
+
+Do not silently restructure this flow.
+
+Preserve the six-input-stage-plus-Review architecture unless a documented product decision explicitly approves a different arrangement.
+
+Ensure the progress indicator and step labels are mathematically consistent.
+
+The earlier audit identified a mismatch between seven displayed stages and a "STEP 1 OF 6" label. Resolve the inconsistency.
+
+---
+
+## GROUP D: ADMINISTRATION
+
+The administration environment must feel like a serious operational console.
+
+It should not look like the public marketing website with a sidebar added.
+
+Core question:
+
+WHAT NEEDS TOURMS' ATTENTION RIGHT NOW?
+
+Use clear hierarchy, dense but readable information and task-oriented navigation.
+
+Initial admin roles:
+
+- Super Admin.
+- Operations.
+- Verification.
+- Editorial.
+- Support.
+- Analyst.
+
+Do not create dozens of speculative permissions.
+
+### SCREEN 16 — ADMIN DASHBOARD
+
+Frame reference: 16 ADMIN DASHBOARD — DESKTOP.
+
+Show operational priorities:
+
+- Jobs awaiting review.
+- Employers awaiting verification.
+- Worker issues.
+- Opportunity submissions.
+- Content awaiting publication.
+- Reports.
+- Recent activity.
+
+Prioritise queues, actions and operational attention.
+
+Do not invent business metrics.
+
+### SCREEN 17 — ADMIN JOBS REVIEW QUEUE
+
+Frame reference: 17 ADMIN JOBS REVIEW QUEUE.
+
+Provide:
+
+- Job listings awaiting review.
+- Employer information.
+- Submission date.
+- Review status.
+- Priority where supported.
+- Search and filters.
+- Clear review actions.
+
+### SCREEN 18 — ADMIN JOB REVIEW / APPROVAL
+
+Frame reference: 18 ADMIN JOB REVIEW / APPROVAL.
+
+Allow administrators to inspect:
+- Job details.
+- Employer information.
+- Requirements.
+- Compensation information.
+- Missing information.
+- Policy issues.
+- Review history.
+
+Actions should be explicit:
+
+- Approve.
+- Request changes.
+- Reject.
+- Return for clarification.
+
+Use confirmation for consequential actions.
+
+Record review outcomes appropriately.
+
+### SCREEN 19 — ADMIN EMPLOYER VERIFICATION
+
+Frame reference: 19 ADMIN EMPLOYER VERIFICATION.
+
+Show:
+- Organisation details.
+- Submitted evidence.
+- Verification status.
+- Review notes.
+- Missing information.
+- Decision history.
+
+Never display an organisation as verified without an actual approved decision.
+
+### SCREEN 20 — ADMIN WORKER MANAGEMENT
+
+Frame reference: 20 ADMIN WORKER MANAGEMENT.
+
+Support:
+- Worker records.
+- Profile review.
+- Skills.
+- Supporting evidence.
+- Reported issues.
+- Account status.
+- Appropriate administrative actions.
+
+Respect privacy.
+
+Do not expose sensitive personal information unnecessarily.
+
+### SCREEN 21 — ADMIN OPPORTUNITIES REVIEW
+
+Frame reference: 21 ADMIN OPPORTUNITIES REVIEW.
+
+Review:
+- Opportunity title.
+- Provider.
+- Category.
+- Eligibility.
+- Location.
+- Deadline.
+- Source.
+- Supporting information.
+- Publication status.
+
+Lifecycle:
+
+SUBMITTED → VERIFIED → PUBLISHED → EXPIRED.
+
+Do not mark opportunities as verified without source review.
+
+### SCREEN 22 — ADMIN INSIGHTS / CONTENT MANAGEMENT
+
+Frame reference: 22 ADMIN INSIGHTS / CONTENT MANAGEMENT.
+
+Support:
+- Content drafts.
+- Editorial review.
+- Publication.
+- Scheduling.
+- Categorisation.
+- Content status.
+- Author information.
+- Preview.
+
+Editorial lifecycle:
+
+DRAFT → IN REVIEW → APPROVED → SCHEDULED/PUBLISHED → ARCHIVED.
+
+### SCREEN 23 — ADMIN REPORTS & MODERATION
+
+Frame reference: 23 ADMIN REPORTS & MODERATION.
+
+Provide a structured moderation workflow:
+
+- Issue.
+- Severity.
+- Priority.
+- Assigned owner.
+- Status.
+- Required action.
+- Resolution.
+- Audit trail.
+
+Avoid an unstructured list of reports without actionable management tools.
+
+### SCREEN 24 — ADMIN USERS & ROLES
+
+Frame reference: 24 ADMIN USERS & ROLES.
+
+Support:
+- User accounts.
+- Role assignment.
+- Access permissions.
+- Account status.
+- Administrative history.
+- Appropriate access controls.
+
+Keep the permission model understandable.
+
+---
+
+# 9. DATA, TRUST AND CONTENT RULES
+
+The interface must never create an impression that unverified information is established fact.
+
+Do not invent:
+- Jobs.
+- Employers.
+- Worker profiles.
+- Certifications.
+- Reviews.
+- Ratings.
+- Compensation.
+- Application statistics.
+- Opportunity deadlines.
+- Research findings.
+- Organisation verification.
+- Testimonials.
+- User numbers.
+- Business traction.
+
+When realistic example content is necessary for a prototype, label it clearly as sample or demonstration content.
+
+Use consistent status language.
+
+Examples:
+
+- Self-reported.
+- Awaiting review.
+- Verified.
+- Approved.
+- Published.
+- Rejected.
+- Requires changes.
+- Expired.
+- Closed.
+
+Do not make unsupported behavioural claims.
+
+For example, do not claim that employers consistently review capability cards before reading experience history unless actual research establishes this.
+
+Do not claim that search data is never retained unless the actual data policy and implementation establish it.
+
+Design privacy statements around verified product behaviour.
+
+---
+
+# 10. INTERACTION AND STATE ARCHITECTURE
+
+A complete interface must not be designed only around its happy path.
+
+For relevant screens, design:
+
+- Initial state.
+- Loading state.
+- Populated state.
+- Empty state.
+- Error state.
+- Success state.
+- Disabled state.
+- Validation state.
+- Confirmation state.
+- Permission-restricted state.
+- Unavailable state.
+
+Examples:
+
+Jobs:
+- Listings available.
+- No jobs found.
+- No jobs published.
+- Search loading.
+- Search failed.
+- Filters active.
+- Job expired.
+
+Applications:
+- Application available.
+- Application submitted.
+- Application unavailable.
+- Application closed.
+- Required information missing.
+- Submission failed.
+
+Employer:
+- No jobs posted.
+- Job draft.
+- Job submitted for review.
+- Job approved.
+- Job rejected.
+- Application received.
+
+Admin:
+- Queue populated.
+- Queue empty.
+- Review in progress.
+- Review completed.
+- Action failed.
+- Permission denied.
+
+Do not append every reference specimen to the visible normal page.
+
+Organise reference states in clearly named design documentation, isolated story views or other appropriate reference structures.
+
+They must remain inspectable without creating contradictory user-facing experiences.
+
+---
+
+# 11. UX WRITING
+
+Write in clear, professional, natural English.
+
+Avoid:
+- Unnecessary jargon.
+- Generic marketing language.
+- Empty claims.
+- Excessive text.
+- Ambiguous buttons.
+- Overly formal language.
+- Artificially enthusiastic wording.
+- Repetitive explanations.
+
+Use specific action labels.
+
+Examples:
+
+- Find Jobs.
+- Explore Opportunities.
+- Read Insights.
+- Create Worker Profile.
+- Post a Job.
+- Submit for Review.
+- Review Applications.
+- Save Changes.
+
+Every page should communicate:
+1. Where am I?
+2. What can I do here?
+3. What information do I need?
+4. What happens next?
+
+Use consistent labels across desktop, mobile and admin environments.
+
+---
+
+# 12. RESPONSIVE DESIGN
+
+Implement and test at minimum:
+
+- 360px mobile.
+- 390px mobile.
+- 430px mobile.
+- 768px tablet.
+- 1024px laptop/tablet landscape.
+- 1280px desktop.
+- 1440px desktop.
+- Wider desktop layouts where appropriate.
+
+Do not simply scale desktop components down.
+
+Review:
+- Navigation.
+- Cards.
+- Tables.
+- Search.
+- Filters.
+- Forms.
+- Drawers.
+- Modals.
+- Sticky actions.
+- Dashboards.
+- Footer.
+- Long content.
+- Empty states.
+
+Ensure there is no:
+- Horizontal overflow.
+- Clipped text.
+- Overlapping controls.
+- Unusable tables.
+- Hidden primary actions.
+- Inaccessible navigation.
+- Excessive page length caused by avoidable spacing.
+
+---
+
+# 13. ACCESSIBILITY
+
+Use WCAG 2.2 AA as the target.
+
+At minimum:
+
+- Normal text contrast should generally meet 4.5:1.
+- Large text should meet the appropriate contrast threshold.
+- Controls should have sufficient contrast.
+- Focus indicators must be visible.
+- Keyboard navigation must work.
+- Forms must have labels.
+- Errors must be understandable.
+- Semantic headings must be logical.
+- Images must have appropriate alternative text.
+- Status must not be conveyed through colour alone.
+- Interactive targets should generally be at least 44px where practical.
+- Persistent actions must not obscure content.
+- Screen-reader behaviour must be considered.
+
+Previous design audits identified these specific issues:
+
+- Muted progress text on ivory: approximately 2.84:1 contrast.
+- Empty-field placeholder text on white: approximately 1.83:1.
+- Copper placeholder-preview text: approximately 2.92:1.
+- Some mobile filter/sort controls: 39px high.
+- A menu control: 36px high.
+
+Treat these as issues requiring verification and correction.
+
+Do not recolour disabled controls indiscriminately. Assess their intended state and contrast separately.
+
+Do not claim accessibility compliance without testing.
+
+---
+
+# 14. PERFORMANCE AND NIGERIAN CONTEXT
+
+This is a Nigeria-first platform.
+
+Account for:
+- Inconsistent internet connectivity.
+- Lower-end Android devices.
+- Mobile-first browsing.
+- Limited data budgets.
+- Slow page loads.
+- Users across different states and LGAs.
+- Different levels of digital literacy.
+
+The interface should support:
+
+- Efficient page loading.
+- Optimised images.
+- Minimal unnecessary JavaScript.
+- Responsive media.
+- Graceful loading behaviour.
+- Clear network failure feedback.
+- Form preservation where feasible.
+- Appropriate empty and error states.
+
+Location architecture should accommodate Nigeria's 36 states and FCT and the relevant LGAs/Area Councils.
+
+Do not assume all users are in Lagos or Ibadan.
+
+Do not hardcode location examples as actual user locations.
+
+---
+
+# 15. VISUAL DESIGN QUALITY
+
+The design should be premium and distinctive.
+
+Use:
+- Strong typography.
+- Intentional whitespace.
+- Clear hierarchy.
+- Restrained colour.
+- Thoughtful composition.
+- Consistent grids.
+- Appropriate visual emphasis.
+- Purposeful imagery.
+- Subtle motion.
+- Well-crafted interface details.
+
+Avoid making all sections look like identical card grids.
+
+Use different layouts when the content requires them.
+
+The public homepage, job discovery pages, worker profiles, employer dashboards and admin console should feel like related parts of one product, not identical templates.
+
+Do not overdecorate.
+
+Do not add unnecessary visual effects to compensate for weak information architecture.
+
+Do not use imagery that creates a false impression of actual Tourms operations.
+
+If suitable imagery is unavailable, prefer clean, intentional interface design over generic stock-like imagery.
+
+---
+
+# 16. TECHNOLOGY AND IMPLEMENTATION
+
+First inspect the available project workspace.
+
+Determine:
+- Whether a repository already exists.
+- Whether there is an existing framework.
+- Whether a design system exists.
+- Whether components already exist.
+- Whether there are established conventions.
+- Whether backend services are connected.
+- Whether the project has working routes.
+- Whether existing code should be preserved.
+
+Do not destroy or replace an existing codebase without understanding it.
+
+If no project exists, propose a sensible modern implementation architecture.
+
+A suitable default for a web application may include:
+
+- Next.js.
+- React.
+- TypeScript.
+- Tailwind CSS.
+- Accessible component primitives.
+- A documented reusable design system.
+
+Use the existing project stack if it is already established and suitable.
+
+Do not introduce dependencies unnecessarily.
+
+Separate:
+- UI components.
+- Page layouts.
+- Business logic.
+- Data models.
+- API services.
+- Authentication.
+- Permissions.
+- Validation.
+- Design tokens.
+
+Use maintainable code.
+
+Do not put the entire application into one enormous component.
+
+Do not generate fake backend functionality and present it as production-ready.
+
+Where backend integration is unavailable, create clearly identified mock data and interfaces that can be connected later.
+
+Do not expose secret keys.
+
+If Supabase or another backend already exists, inspect its schema and integration before designing assumptions around it.
+
+Do not modify production data or database schemas without explicit authorisation.
+
+---
+
+# 17. DESIGN DELIVERABLES
+
+The completed project must contain:
+
+1. A complete responsive public homepage.
+2. Jobs desktop and mobile experiences.
+3. Job detail desktop and mobile experiences.
+4. Worker onboarding.
+5. Worker profile desktop and mobile.
+6. Employer dashboard.
+7. Complete job-posting flow.
+8. Admin dashboard.
+9. Admin jobs review queue.
+10. Admin job review and approval.
+11. Admin employer verification.
+12. Admin worker management.
+13. Admin opportunities review.
+14. Admin insights/content management.
+15. Admin reports and moderation.
+16. Admin users and roles.
+17. Relevant loading, empty, error, success and validation states.
+18. Global navigation.
+19. Consistent responsive footer.
+20. Reusable design system and component library.
+
+Also produce:
+
+- DESIGN.md — visual identity and design principles.
+- PRODUCT_SPEC.md — product scope and architecture.
+- SCREEN_INVENTORY.md — screen and route inventory.
+- COMPONENTS.md — reusable component documentation.
+- INTERACTION_SPEC.md — interaction and state behaviour.
+- RESPONSIVE_SPEC.md — responsive behaviour.
+- ACCESSIBILITY_AUDIT.md — accessibility findings.
+- IMPLEMENTATION_NOTES.md — technical decisions and limitations.
+- README.md — setup and usage instructions.
+
+If the chosen environment supports editable design exports or Figma integration, make those available as additional deliverables. Do not make successful Figma export a prerequisite for completing the actual product.
+
+---
+
+# 18. QUALITY ASSURANCE
+
+Test the actual interface.
+
+Do not rely exclusively on static code inspection.
+
+Check:
+
+- Navigation.
+- Internal links.
+- Forms.
+- Buttons.
+- Search.
+- Filters.
+- Tabs.
+- Dropdowns.
+- Drawers.
+- Modals.
+- Responsive behaviour.
+- Empty states.
+- Error states.
+- Loading states.
+- Validation.
+- Accessibility.
+- Visual consistency.
+- Page overflow.
+- Content hierarchy.
+
+If browser automation is available, use it.
+
+Inspect the product at mobile and desktop sizes.
+
+Capture screenshots for visual review.
+
+Check for:
+- Broken routes.
+- Dead buttons.
+- Placeholder content presented as real.
+- Inconsistent spacing.
+- Incorrect typography.
+- Unreadable metadata.
+- Poor contrast.
+- Broken mobile layouts.
+- Repeated components with inconsistent styling.
+- Missing interaction states.
+
+Fix issues you identify.
+
+Do not claim a test passed unless you actually ran it.
+
+---
+
+# 19. WORKING METHOD
+
+Work in controlled phases, but do not turn the project into a chain of unnecessary approval requests.
+
+You have authority to make normal design decisions within this specification.
+
+You should not ask me to approve every colour, margin, component or ordinary layout choice.
+
+Use your professional judgement.
+
+However, stop and seek clarification when a decision would:
+
+- Change the approved business model.
+- Introduce a new major product.
+- Change the product's V1 scope.
+- Change the posting workflow architecture.
+- Require unsupported business claims.
+- Introduce financial or legal functionality.
+- Require destructive changes to an existing project.
+- Require a production backend change with material consequences.
+- Conflict with the approved brand or product direction.
+
+## PHASE 1 — DISCOVERY
+
+Inspect the workspace and supplied reference materials.
+
+Identify what exists and what is missing.
+
+Produce a concise discovery report.
+
+Do not assume an empty workspace if files are present.
+
+## PHASE 2 — PRODUCT AND DESIGN ARCHITECTURE
+
+Establish:
+
+- Information architecture.
+- User journeys.
+- Navigation.
+- Screen inventory.
+- Component architecture.
+- Design tokens.
+- Responsive strategy.
+- Interaction patterns.
+
+Resolve inconsistencies in the requirements transparently.
+
+Do not invent product decisions.
+
+## PHASE 3 — DESIGN SYSTEM
+
+Build the foundational design system.
+
+Ensure components and styles can be reused consistently.
+
+## PHASE 4 — PUBLIC EXPERIENCE
+
+Build:
+- Homepage.
+- Jobs.
+- Job details.
+- Opportunities.
+- Insights.
+- About.
+
+Ensure desktop and mobile experiences are complete.
+
+## PHASE 5 — WORKER EXPERIENCE
+
+Build:
+- Worker onboarding.
+- Worker profile.
+- Relevant worker account experiences.
+
+## PHASE 6 — EMPLOYER EXPERIENCE
+
+Build:
+- Employer dashboard.
+- Job-posting workflow.
+- Relevant application management experiences.
+
+## PHASE 7 — ADMIN EXPERIENCE
+
+Build all eight admin screens and their relevant states.
+
+## PHASE 8 — REFINEMENT
+
+Review:
+- Hierarchy.
+- Spacing.
+- Typography.
+- Consistency.
+- Responsiveness.
+- Accessibility.
+- Navigation.
+- Interaction quality.
+
+## PHASE 9 — QUALITY ASSURANCE
+
+Run the available tests and visual checks.
+
+Correct identified problems.
+
+## PHASE 10 — HANDOFF
+
+Provide the complete deliverables, documentation, setup instructions and known limitations.
+
+---
+
+# 20. NON-NEGOTIABLE EXECUTION RULES
+
+1. Do not redesign the business.
+2. Do not invent product functionality.
+3. Do not fabricate data or traction.
+4. Do not remove required screens.
+5. Do not merge Jobs and Opportunities.
+6. Do not make future products appear operational.
+7. Do not make mobile an afterthought.
+8. Do not sacrifice accessibility for aesthetics.
+9. Do not use generic templates without meaningful adaptation.
+10. Do not create decorative dashboards without operational value.
+11. Do not use placeholder content as genuine business information.
+12. Do not make every screen a copy of the homepage.
+13. Do not sacrifice maintainability for speed.
+14. Do not claim that unimplemented features work.
+15. Do not stop after building the homepage.
+16. Do not stop after producing static mockups when the requested deliverable is a working interface.
+17. Do not silently change the approved posting workflow.
+18. Do not make unsupported privacy, verification or performance claims.
+19. Preserve existing useful work in the repository.
+20. Document assumptions, limitations and outstanding decisions.
+
+---
+
+# 21. ACCEPTANCE CRITERIA
+
+The project is not complete merely because all pages exist.
+
+It is complete when:
+
+PRODUCT:
+- The product is immediately understandable.
+- Jobs, Opportunities and Insights are distinct.
+- The user journeys make sense.
+- Worker, employer and administrator experiences are coherent.
+- V1 scope is respected.
+
+DESIGN:
+- The interface has a recognisable Tourms identity.
+- Typography and spacing are consistent.
+- Components are reusable.
+- Visual hierarchy is strong.
+- The interface feels professional and trustworthy.
+
+UX:
+- Important actions are easy to find.
+- Forms are understandable.
+- Dashboards prioritise tasks.
+- Mobile interactions are comfortable.
+- Important information remains accessible.
+- Empty, loading, error and success states are considered.
+
+ACCESSIBILITY:
+- Contrast has been checked.
+- Touch targets are appropriate.
+- Keyboard interactions work where implemented.
+- Forms are labelled.
+- Focus states are visible.
+- Accessibility limitations are documented.
+
+ENGINEERING:
+- Routes work.
+- Components are maintainable.
+- Responsive layouts work.
+- Interactions behave as documented.
+- No critical broken links or dead controls remain.
+- Tests have been run and reported honestly.
+
+HANDOFF:
+- Documentation is complete.
+- Setup instructions are clear.
+- Outstanding dependencies are identified.
+- The next development steps are understandable.
+
+---
+
+# 22. FINAL CREATIVE DIRECTION
+
+Think of TOURMS AGRO-SOLUTIONS as a serious African technology platform being built for long-term relevance.
+
+It should not look like a student project, a generic agricultural directory or an ordinary recruitment template.
+
+It should feel like a product designed by a team that understands:
+
+- Agriculture.
+- People.
+- Employment.
+- Organisations.
+- Information.
+- Technology.
+- Trust.
+- Business operations.
+
+The product must make complexity understandable.
+
+It must connect things that should work together.
+
+It must respect users' time, money, information and trust.
+
+The interface should communicate confidence without unnecessary noise.
+
+The brand should be recognisable without dominating the product.
+
+The experience should be simple without being simplistic.
+
+The technology should be useful without being unnecessarily complicated.
+
+OUR STANDARD:
+
+BUILD WITH PURPOSE.
+MAKE COMPLEXITY UNDERSTANDABLE.
+CONNECT WHAT SHOULD WORK TOGETHER.
+DESIGN FOR REAL PEOPLE AND REAL WORK.
+
+TOURMS AGRO-SOLUTIONS
+
+AGRICULTURE, CONNECTED BETTER.
+
+SAME SOUND, DIFFERENT FREQUENCY.
