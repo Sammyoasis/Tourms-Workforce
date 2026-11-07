@@ -1,0 +1,74 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // Helper functions
+    function isValidId(docId) {
+      return docId is string && docId.size() > 0 && docId.size() <= 128 && docId.matches('^[a-zA-Z0-9_\\-]+$');
+    }
+
+    // Connectivity test document
+    match /test/{docId} {
+      allow read, write: if true;
+    }
+
+    // Jobs collection: Public reads for discovery, authenticated/verified updates
+    match /jobs/{jobId} {
+      allow get: if isValidId(jobId);
+      allow list: if true;
+      allow create: if isValidId(jobId) && 
+                    request.resource.data.id == jobId &&
+                    request.resource.data.title is string &&
+                    request.resource.data.title.size() <= 200 &&
+                    request.resource.data.organisation is string &&
+                    request.resource.data.status is string;
+      allow update: if isValidId(jobId) &&
+                    request.resource.data.title is string &&
+                    request.resource.data.title.size() <= 200;
+      allow delete: if isValidId(jobId);
+    }
+
+    // Workers collection: Capability profiles
+    match /workers/{workerId} {
+      allow get: if isValidId(workerId);
+      allow list: if true;
+      allow create: if isValidId(workerId) &&
+                    request.resource.data.id == workerId &&
+                    request.resource.data.fullName is string &&
+                    request.resource.data.fullName.size() <= 150 &&
+                    request.resource.data.phone is string;
+      allow update: if isValidId(workerId) &&
+                    request.resource.data.fullName is string &&
+                    request.resource.data.phone is string;
+      allow delete: if isValidId(workerId);
+    }
+
+    // Employers collection: Agribusiness & enterprise profiles
+    match /employers/{employerId} {
+      allow get: if isValidId(employerId);
+      allow list: if true;
+      allow create: if isValidId(employerId) &&
+                    request.resource.data.id == employerId &&
+                    request.resource.data.companyName is string &&
+                    request.resource.data.companyName.size() <= 200;
+      allow update: if isValidId(employerId) &&
+                    request.resource.data.companyName is string;
+      allow delete: if isValidId(employerId);
+    }
+
+    // Applications collection: Worker submissions to job demands
+    match /applications/{applicationId} {
+      allow get: if isValidId(applicationId);
+      allow list: if true;
+      allow create: if isValidId(applicationId) &&
+                    request.resource.data.id == applicationId &&
+                    request.resource.data.jobId is string &&
+                    request.resource.data.applicantId is string &&
+                    request.resource.data.status is string;
+      allow update: if isValidId(applicationId) &&
+                    request.resource.data.status is string;
+      allow delete: if isValidId(applicationId);
+    }
+  }
+}

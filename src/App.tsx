@@ -16,7 +16,9 @@ import {
   SAMPLE_OPPORTUNITIES,
   SAMPLE_INSIGHTS,
   SAMPLE_WORKER,
+  SAMPLE_WORKERS,
   SAMPLE_EMPLOYER,
+  SAMPLE_EMPLOYERS,
   SAMPLE_APPLICATIONS,
   SAMPLE_MODERATION_REPORTS,
   SAMPLE_ADMIN_USERS
@@ -28,6 +30,19 @@ import { Footer } from './components/layout/Footer';
 import { StateSpecimenDrawer } from './components/dev/StateSpecimenDrawer';
 import { Modal } from './components/ui/Modal';
 import { Button } from './components/ui/Button';
+import { AuthModal } from './components/auth/AuthModal';
+import { testConnection } from './lib/firebase';
+import {
+  subscribeFirestoreJobs,
+  saveFirestoreJob,
+  updateFirestoreJobStatus,
+  subscribeFirestoreApplications,
+  saveFirestoreApplication,
+  updateFirestoreApplicationStatus,
+  saveFirestoreWorker,
+  saveFirestoreEmployer,
+  seedInitialFirestoreData
+} from './services/firestoreService';
 
 // Public views
 import { HomeView } from './components/public/HomeView';
@@ -44,6 +59,7 @@ import { WorkerProfileView } from './components/worker/WorkerProfileView';
 // Employer views
 import { EmployerDashboard } from './components/employer/EmployerDashboard';
 import { PostJobWizard } from './components/employer/PostJobWizard';
+import { EmployerOnboarding } from './components/employer/EmployerOnboarding';
 
 // Admin views
 import { AdminConsoleLayout } from './components/admin/AdminConsoleLayout';
@@ -57,29 +73,201 @@ import { AdminContentManagementView } from './components/admin/AdminContentManag
 import { AdminReportsModerationView } from './components/admin/AdminReportsModerationView';
 import { AdminUsersRolesView } from './components/admin/AdminUsersRolesView';
 
-import { UserCheck, Building2, Briefcase, User, Sparkles } from 'lucide-react';
+// Payment & Engagement views (Screens 25 - 39)
+import { WorkerPaymentHub } from './components/worker/WorkerPaymentHub';
+import { EmployerPaymentHub } from './components/employer/EmployerPaymentHub';
+import { AdminPaymentsHub } from './components/admin/AdminPaymentsHub';
+import {
+  EngagementOffer,
+  PaymentTransaction,
+  EngagementDispute,
+  RefundRequest
+} from './types/payment';
+import {
+  SAMPLE_ENGAGEMENTS,
+  SAMPLE_PAYMENT_TRANSACTIONS,
+  SAMPLE_DISPUTES,
+  SAMPLE_REFUNDS
+} from './data/samplePayments';
+
+import { UserCheck, Building2, Briefcase, User, Sparkles, Smartphone, Monitor, Wifi, Battery, Signal, ArrowLeftRight } from 'lucide-react';
 
 function AppContent() {
   // Navigation & State
   const [currentPath, setCurrentPath] = useState<string>('/');
-  const [userRole, setUserRole] = useState<UserRole>('public');
+  const [userRole, setUserRole] = useState<UserRole>(() => {
+    try {
+      const saved = localStorage.getItem('tourms_user_role');
+      if (saved && ['public', 'worker', 'employer', 'admin'].includes(saved)) {
+        return saved as UserRole;
+      }
+    } catch {}
+    return 'public';
+  });
   const [adminSubRole, setAdminSubRole] = useState<AdminSubRole>('super_admin');
   const [isMobilePreview, setIsMobilePreview] = useState<boolean>(false);
+  const [mobileDeviceWidth, setMobileDeviceWidth] = useState<'390' | '360' | 'full'>('390');
   const [currentScreenId, setCurrentScreenId] = useState<string>('screen-01');
 
-  // Interactive Specimen Drawer
+  // Interactive Specimen Drawer & Modals
   const [specimensDrawerOpen, setSpecimensDrawerOpen] = useState(false);
   const [getStartedModalOpen, setGetStartedModalOpen] = useState(false);
+  const [authModalOpen, setAuthModalOpen] = useState(false);
+  const [authModalDefaultTab, setAuthModalDefaultTab] = useState<'worker_reg' | 'employer_reg' | 'signin'>('worker_reg');
 
-  // Core Data Store
-  const [jobs, setJobs] = useState<JobListing[]>(SAMPLE_JOBS);
+  // Core Data Store with safe localStorage persistence
+  const [jobs, setJobs] = useState<JobListing[]>(() => {
+    try {
+      const saved = localStorage.getItem('tourms_jobs');
+      if (saved) return JSON.parse(saved);
+    } catch {}
+    return SAMPLE_JOBS;
+  });
   const [opportunities, setOpportunities] = useState<OpportunityListing[]>(SAMPLE_OPPORTUNITIES);
   const [insights, setInsights] = useState<InsightArticle[]>(SAMPLE_INSIGHTS);
-  const [workerProfile, setWorkerProfile] = useState<WorkerProfile>(SAMPLE_WORKER);
-  const [employerProfile, setEmployerProfile] = useState<EmployerProfile>(SAMPLE_EMPLOYER);
-  const [applications, setApplications] = useState<JobApplication[]>(SAMPLE_APPLICATIONS);
+  const [workerProfile, setWorkerProfile] = useState<WorkerProfile>(() => {
+    try {
+      const saved = localStorage.getItem('tourms_worker_profile');
+      if (saved) return JSON.parse(saved);
+    } catch {}
+    return SAMPLE_WORKER;
+  });
+  const [employerProfile, setEmployerProfile] = useState<EmployerProfile>(() => {
+    try {
+      const saved = localStorage.getItem('tourms_employer_profile');
+      if (saved) return JSON.parse(saved);
+    } catch {}
+    return SAMPLE_EMPLOYER;
+  });
+  const [applications, setApplications] = useState<JobApplication[]>(() => {
+    try {
+      const saved = localStorage.getItem('tourms_applications');
+      if (saved) return JSON.parse(saved);
+    } catch {}
+    return SAMPLE_APPLICATIONS;
+  });
   const [reports, setReports] = useState<ModerationReport[]>(SAMPLE_MODERATION_REPORTS);
   const [users, setUsers] = useState<SystemUser[]>(SAMPLE_ADMIN_USERS);
+
+  // Payment & Engagement Module State (Screens 25 - 39)
+  const [engagements, setEngagements] = useState<EngagementOffer[]>(() => {
+    try {
+      const saved = localStorage.getItem('tourms_engagements');
+      if (saved) return JSON.parse(saved);
+    } catch {}
+    return SAMPLE_ENGAGEMENTS;
+  });
+
+  const [paymentTransactions, setPaymentTransactions] = useState<PaymentTransaction[]>(() => {
+    try {
+      const saved = localStorage.getItem('tourms_payment_transactions');
+      if (saved) return JSON.parse(saved);
+    } catch {}
+    return SAMPLE_PAYMENT_TRANSACTIONS;
+  });
+
+  const [disputes, setDisputes] = useState<EngagementDispute[]>(() => {
+    try {
+      const saved = localStorage.getItem('tourms_disputes');
+      if (saved) return JSON.parse(saved);
+    } catch {}
+    return SAMPLE_DISPUTES;
+  });
+
+  const [refunds, setRefunds] = useState<RefundRequest[]>(() => {
+    try {
+      const saved = localStorage.getItem('tourms_refunds');
+      if (saved) return JSON.parse(saved);
+    } catch {}
+    return SAMPLE_REFUNDS;
+  });
+
+  const [workerPaymentScreen, setWorkerPaymentScreen] = useState<'screen-25' | 'screen-26' | 'screen-27' | 'screen-28'>('screen-25');
+  const [employerPaymentScreen, setEmployerPaymentScreen] = useState<'screen-29' | 'screen-30' | 'screen-31' | 'screen-32' | 'screen-33'>('screen-31');
+  const [adminPaymentScreen, setAdminPaymentScreen] = useState<'screen-34' | 'screen-35' | 'screen-36' | 'screen-37' | 'screen-38' | 'screen-39'>('screen-34');
+
+  // Sync to localStorage
+  useEffect(() => {
+    try {
+      localStorage.setItem('tourms_engagements', JSON.stringify(engagements));
+    } catch {}
+  }, [engagements]);
+
+  useEffect(() => {
+    try {
+      localStorage.setItem('tourms_payment_transactions', JSON.stringify(paymentTransactions));
+    } catch {}
+  }, [paymentTransactions]);
+
+  useEffect(() => {
+    try {
+      localStorage.setItem('tourms_disputes', JSON.stringify(disputes));
+    } catch {}
+  }, [disputes]);
+
+  useEffect(() => {
+    try {
+      localStorage.setItem('tourms_refunds', JSON.stringify(refunds));
+    } catch {}
+  }, [refunds]);
+
+  // Cloud Firestore Initial Connection & Seeding
+  useEffect(() => {
+    testConnection().then(() => {
+      seedInitialFirestoreData(SAMPLE_JOBS, SAMPLE_WORKERS, SAMPLE_EMPLOYERS);
+    });
+  }, []);
+
+  // Real-time synchronization for Jobs with Cloud Firestore
+  useEffect(() => {
+    const unsub = subscribeFirestoreJobs((remoteJobs) => {
+      if (remoteJobs && remoteJobs.length > 0) {
+        setJobs(remoteJobs);
+      }
+    });
+    return () => unsub();
+  }, []);
+
+  // Real-time synchronization for Applications with Cloud Firestore
+  useEffect(() => {
+    const unsub = subscribeFirestoreApplications((remoteApps) => {
+      if (remoteApps && remoteApps.length > 0) {
+        setApplications(remoteApps);
+      }
+    });
+    return () => unsub();
+  }, []);
+
+  // Sync state to localStorage as fast client-side offline cache
+  useEffect(() => {
+    try {
+      localStorage.setItem('tourms_jobs', JSON.stringify(jobs));
+    } catch {}
+  }, [jobs]);
+
+  useEffect(() => {
+    try {
+      localStorage.setItem('tourms_worker_profile', JSON.stringify(workerProfile));
+    } catch {}
+  }, [workerProfile]);
+
+  useEffect(() => {
+    try {
+      localStorage.setItem('tourms_employer_profile', JSON.stringify(employerProfile));
+    } catch {}
+  }, [employerProfile]);
+
+  useEffect(() => {
+    try {
+      localStorage.setItem('tourms_applications', JSON.stringify(applications));
+    } catch {}
+  }, [applications]);
+
+  useEffect(() => {
+    try {
+      localStorage.setItem('tourms_user_role', userRole);
+    } catch {}
+  }, [userRole]);
 
   // Applied Job tracking
   const [appliedJobIds, setAppliedJobIds] = useState<string[]>(['job-001']);
@@ -136,6 +324,10 @@ function AppContent() {
       setCurrentPath('/employer');
       setUserRole('employer');
       setIsMobilePreview(false);
+    } else if (screenId === 'screen-10b') {
+      setCurrentPath('/employer/onboarding');
+      setUserRole('employer');
+      setIsMobilePreview(false);
     } else if (screenId.startsWith('screen-11') || screenId.startsWith('screen-12') || screenId.startsWith('screen-13') || screenId.startsWith('screen-14') || screenId.startsWith('screen-15')) {
       setCurrentPath('/employer/post-job');
       setUserRole('employer');
@@ -180,9 +372,81 @@ function AppContent() {
       setCurrentPath('/admin/users');
       setUserRole('admin');
       setAdminTab('users');
+    } else if (['screen-25', 'screen-26', 'screen-27', 'screen-28'].includes(screenId)) {
+      setCurrentPath('/worker/payments');
+      setUserRole('worker');
+      setWorkerPaymentScreen(screenId as any);
+    } else if (['screen-29', 'screen-30', 'screen-31', 'screen-32', 'screen-33'].includes(screenId)) {
+      setCurrentPath('/employer/payments');
+      setUserRole('employer');
+      setEmployerPaymentScreen(screenId as any);
+    } else if (['screen-34', 'screen-35', 'screen-36', 'screen-37', 'screen-38', 'screen-39'].includes(screenId)) {
+      setCurrentPath('/admin/payments');
+      setUserRole('admin');
+      setAdminTab('payments');
+      setAdminPaymentScreen(screenId as any);
     }
 
     window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+  // Payment Operation Handlers
+  const handleUpdateEngagement = (updated: EngagementOffer) => {
+    setEngagements((prev) => prev.map((e) => (e.id === updated.id ? updated : e)));
+  };
+
+  const handleAddTransaction = (newTx: PaymentTransaction) => {
+    setPaymentTransactions((prev) => [newTx, ...prev]);
+  };
+
+  const handleRaiseDispute = (newDsp: EngagementDispute) => {
+    setDisputes((prev) => [newDsp, ...prev]);
+  };
+
+  const handleUpdateDispute = (updatedDsp: EngagementDispute) => {
+    setDisputes((prev) => prev.map((d) => (d.id === updatedDsp.id ? updatedDsp : d)));
+  };
+
+  const handleUpdateRefund = (updatedRfd: RefundRequest) => {
+    setRefunds((prev) => prev.map((r) => (r.id === updatedRfd.id ? updatedRfd : r)));
+  };
+
+  const handleAuthorizeSettlement = (engId: string) => {
+    setEngagements((prev) =>
+      prev.map((e) =>
+        e.id === engId
+          ? {
+              ...e,
+              engagementStatus: 'completed',
+              settlementStatus: 'settled',
+              settledAt: new Date().toISOString().split('T')[0]
+            }
+          : e
+      )
+    );
+    const targetEng = engagements.find((e) => e.id === engId);
+    if (targetEng) {
+      const payoutTx: PaymentTransaction = {
+        id: `trx-${Date.now()}`,
+        transactionReference: `TRX-${Date.now().toString().slice(-6)}`,
+        engagementId: targetEng.id,
+        engagementReference: targetEng.referenceNumber,
+        jobTitle: targetEng.jobTitle,
+        type: 'worker_payout',
+        senderParty: 'TOURMS Settlement Escrow Holding (Provider-Neutral)',
+        recipientParty: targetEng.workerName,
+        grossAmountNaira: targetEng.grossCompensationNaira,
+        feeAmountNaira: targetEng.workerFeeNaira,
+        netAmountNaira: targetEng.expectedWorkerNetNaira,
+        paymentStatus: 'confirmed',
+        settlementStatus: 'settled',
+        providerName: 'NIBSS Instant Transfer',
+        providerReference: `NIP-${Date.now().toString().slice(-8)}`,
+        narration: `TOURMS Settlement: ${targetEng.referenceNumber}`,
+        timestamp: new Date().toISOString().replace('T', ' ').substring(0, 16)
+      };
+      setPaymentTransactions((prev) => [payoutTx, ...prev]);
+    }
   };
 
   const handleNavigate = (path: string) => {
@@ -202,23 +466,31 @@ function AppContent() {
         organisation: job.organisation,
         applicantId: workerProfile.id,
         applicantName: workerProfile.fullName,
-        applicantEmail: workerProfile.email,
+        applicantEmail: workerProfile.email || undefined,
+        applicantPhone: workerProfile.phone,
         applicantHeadline: workerProfile.headline,
         applicantLocation: `${workerProfile.location.state}, ${workerProfile.location.lga}`,
         coverNote: 'Direct application submitted through Tourms verified capability profile.',
         status: 'submitted',
         appliedAt: new Date().toISOString().split('T')[0]
       };
+      // Persist to Cloud Firestore & local state
+      saveFirestoreApplication(newApp);
       setApplications((prev) => [newApp, ...prev]);
     }
   };
 
   const handlePostJobComplete = (newJob: Partial<JobListing>) => {
-    setJobs((prev) => [newJob as JobListing, ...prev]);
+    const completedJob = newJob as JobListing;
+    // Persist to Cloud Firestore & local state
+    saveFirestoreJob(completedJob);
+    setJobs((prev) => [completedJob, ...prev]);
     setCurrentPath('/employer');
   };
 
   const handleUpdateJobStatus = (jobId: string, status: any, notes: string) => {
+    // Persist status change to Cloud Firestore
+    updateFirestoreJobStatus(jobId, status, notes);
     setJobs((prev) =>
       prev.map((j) =>
         j.id === jobId
@@ -234,9 +506,51 @@ function AppContent() {
   };
 
   const handleVerifyEmployer = (empId: string, status: any) => {
-    setEmployerProfile((prev) =>
-      prev.id === empId ? { ...prev, verificationStatus: status, cacVerified: status === 'verified' } : prev
-    );
+    setEmployerProfile((prev) => {
+      const updated = prev.id === empId ? { ...prev, verificationStatus: status, cacVerified: status === 'verified' } : prev;
+      saveFirestoreEmployer(updated);
+      return updated;
+    });
+  };
+
+  const handleOpenAuth = (tab: 'worker_reg' | 'employer_reg' | 'signin' = 'worker_reg') => {
+    setAuthModalDefaultTab(tab);
+    setAuthModalOpen(true);
+  };
+
+  const handleWorkerRegister = (newWorker: WorkerProfile) => {
+    // Persist to Cloud Firestore
+    saveFirestoreWorker(newWorker);
+    setWorkerProfile(newWorker);
+    setUserRole('worker');
+    setCurrentPath('/worker/profile');
+  };
+
+  const handleEmployerRegister = (newEmployer: EmployerProfile) => {
+    // Persist to Cloud Firestore
+    saveFirestoreEmployer(newEmployer);
+    setEmployerProfile(newEmployer);
+    setUserRole('employer');
+    setCurrentPath('/employer/onboarding');
+  };
+
+  const handleSignIn = (role: UserRole, _email: string) => {
+    setUserRole(role);
+    if (role === 'admin') {
+      setCurrentPath('/admin');
+      setAdminTab('dashboard');
+    } else if (role === 'employer') {
+      setCurrentPath('/employer');
+    } else if (role === 'worker') {
+      setCurrentPath('/worker/profile');
+    } else {
+      setCurrentPath('/');
+    }
+  };
+
+  const handleSignOut = () => {
+    setUserRole('public');
+    setCurrentPath('/');
   };
 
   // Render view router based on currentPath
@@ -304,6 +618,7 @@ function AppContent() {
         <WorkerOnboarding
           initialProfile={workerProfile}
           onComplete={(updated) => {
+            saveFirestoreWorker(updated);
             setWorkerProfile(updated);
             setUserRole('worker');
             handleNavigate('/worker/profile');
@@ -319,26 +634,76 @@ function AppContent() {
         <WorkerProfileView
           profile={workerProfile}
           onEditProfile={() => handleNavigate('/worker/onboarding')}
+          onNavigatePayments={() => handleNavigate('/worker/payments')}
           isMobilePreview={isMobilePreview}
         />
       );
     }
 
-    // 8. Employer Dashboard (Screen 10)
+    // 7b. Worker Payment Hub (Screens 25 to 28)
+    if (currentPath === '/worker/payments') {
+      return (
+        <WorkerPaymentHub
+          initialScreen={workerPaymentScreen}
+          engagements={engagements}
+          transactions={paymentTransactions}
+          onUpdateEngagement={handleUpdateEngagement}
+          isMobilePreview={isMobilePreview}
+        />
+      );
+    }
+
+    // 8. Employer Onboarding Flow
+    if (currentPath === '/employer/onboarding') {
+      return (
+        <EmployerOnboarding
+          initialProfile={employerProfile}
+          onComplete={(completedProfile) => {
+            saveFirestoreEmployer(completedProfile);
+            setEmployerProfile(completedProfile);
+            setUserRole('employer');
+            setCurrentPath('/employer');
+          }}
+          onCancel={() => handleNavigate('/employer')}
+        />
+      );
+    }
+
+    // 8b. Employer Dashboard (Screen 10)
     if (currentPath === '/employer') {
       return (
         <EmployerDashboard
           employer={employerProfile}
           jobs={jobs}
           applications={applications}
+          workers={SAMPLE_WORKERS}
           onNavigatePostJob={() => handleNavigate('/employer/post-job')}
+          onNavigatePayments={() => handleNavigate('/employer/payments')}
+          onNavigateOnboarding={() => handleNavigate('/employer/onboarding')}
           onSelectApplication={() => {}}
           onSelectJob={(id) => handleNavigate(`/jobs/${id}`)}
           onUpdateAppStatus={(appId, newStatus) => {
+            updateFirestoreApplicationStatus(appId, newStatus);
             setApplications((prev) =>
               prev.map((a) => (a.id === appId ? { ...a, status: newStatus } : a))
             );
           }}
+          isMobilePreview={isMobilePreview}
+        />
+      );
+    }
+
+    // 8b. Employer Payment Hub (Screens 29 to 33)
+    if (currentPath === '/employer/payments') {
+      return (
+        <EmployerPaymentHub
+          initialScreen={employerPaymentScreen}
+          engagements={engagements}
+          transactions={paymentTransactions}
+          disputes={disputes}
+          onUpdateEngagement={handleUpdateEngagement}
+          onAddTransaction={handleAddTransaction}
+          onRaiseDispute={handleRaiseDispute}
           isMobilePreview={isMobilePreview}
         />
       );
@@ -417,7 +782,7 @@ function AppContent() {
 
           {adminTab === 'employers' && (
             <AdminEmployerVerificationView
-              employers={[employerProfile]}
+              employers={SAMPLE_EMPLOYERS}
               onVerifyEmployer={handleVerifyEmployer}
             />
           )}
@@ -439,6 +804,20 @@ function AppContent() {
                   prev.map((o) => (o.id === id ? { ...o, status } : o))
                 );
               }}
+            />
+          )}
+
+          {adminTab === 'payments' && (
+            <AdminPaymentsHub
+              initialScreen={adminPaymentScreen}
+              engagements={engagements}
+              transactions={paymentTransactions}
+              disputes={disputes}
+              refunds={refunds}
+              onUpdateDispute={handleUpdateDispute}
+              onUpdateRefund={handleUpdateRefund}
+              onAuthorizeSettlement={handleAuthorizeSettlement}
+              isMobilePreview={isMobilePreview}
             />
           )}
 
@@ -511,29 +890,172 @@ function AppContent() {
         currentScreenId={currentScreenId}
       />
 
-      {/* Main Top Header */}
-      <Header
-        currentPath={currentPath}
-        onNavigate={handleNavigate}
-        userRole={userRole}
-        onOpenGetStarted={() => setGetStartedModalOpen(true)}
-      />
+      {isMobilePreview ? (
+        /* ====================================================================== */
+        /* AUTHENTIC MOBILE DEVICE SIMULATOR (Screen 02, 04, 06, 09)             */
+        /* Enforces strict phone frame bounds and realistic viewport typography    */
+        /* ====================================================================== */
+        <div className="flex-1 bg-[#EBEBDD]/60 py-4 sm:py-6 px-2 sm:px-4 flex flex-col items-center">
+          {/* Top Device Control Bar */}
+          <div className="w-full max-w-lg mb-3 flex items-center justify-between text-xs bg-[#0F1F1C] text-white px-3.5 py-2 rounded-lg shadow-sm border border-[#243B36]">
+            <div className="flex items-center gap-1.5 font-medium truncate">
+              <Smartphone className="w-3.5 h-3.5 text-[#C98A3A] shrink-0" />
+              <span className="truncate">
+                {currentScreenId === 'screen-02' ? 'Screen 02: Home Mobile' : 'Mobile Interface Preview'}
+              </span>
+            </div>
 
-      {/* Viewport */}
-      <div className="flex-1 w-full">
-        {renderCurrentView()}
-      </div>
+            <div className="flex items-center gap-2 shrink-0">
+              {/* Device Width Selector */}
+              <div className="flex items-center bg-[#1A312D] rounded p-0.5 border border-[#3A4B47]">
+                <button
+                  onClick={() => setMobileDeviceWidth('390')}
+                  className={`px-2 py-0.5 rounded text-[11px] font-medium transition-colors cursor-pointer ${
+                    mobileDeviceWidth === '390' ? 'bg-[#0E5A46] text-white' : 'text-[#A0B0AB] hover:text-white'
+                  }`}
+                  title="390px (iPhone 14/15/16 standard)"
+                >
+                  390px
+                </button>
+                <button
+                  onClick={() => setMobileDeviceWidth('360')}
+                  className={`px-2 py-0.5 rounded text-[11px] font-medium transition-colors cursor-pointer ${
+                    mobileDeviceWidth === '360' ? 'bg-[#0E5A46] text-white' : 'text-[#A0B0AB] hover:text-white'
+                  }`}
+                  title="360px (Android compact)"
+                >
+                  360px
+                </button>
+                <button
+                  onClick={() => setMobileDeviceWidth('full')}
+                  className={`px-2 py-0.5 rounded text-[11px] font-medium transition-colors cursor-pointer ${
+                    mobileDeviceWidth === 'full' ? 'bg-[#0E5A46] text-white' : 'text-[#A0B0AB] hover:text-white'
+                  }`}
+                  title="Full fluid width"
+                >
+                  Fluid
+                </button>
+              </div>
 
-      {/* Footer */}
-      <Footer
-        onNavigate={handleNavigate}
-        onOpenSpecs={() => setSpecimensDrawerOpen(true)}
-      />
+              {/* Exit Mobile Simulation */}
+              <button
+                onClick={() => {
+                  setIsMobilePreview(false);
+                  if (currentScreenId === 'screen-02') handleJumpToScreen('screen-01');
+                }}
+                className="inline-flex items-center gap-1 px-2 py-1 rounded bg-[#243B36] hover:bg-[#344F49] text-[11px] font-semibold text-[#F7F7EE] transition-colors cursor-pointer"
+                title="Switch back to desktop view"
+              >
+                <Monitor className="w-3 h-3 text-[#C98A3A]" />
+                <span className="hidden sm:inline">Desktop</span>
+              </button>
+            </div>
+          </div>
+
+          {/* Realistic Mobile Phone Shell Container */}
+          <div
+            className={`transition-all duration-200 mx-auto bg-[#F7F7EE] shadow-2xl overflow-hidden flex flex-col relative ${
+              mobileDeviceWidth === '390'
+                ? 'w-full max-w-[390px] rounded-[44px] border-[10px] border-[#0F1F1C] ring-1 ring-black/20'
+                : mobileDeviceWidth === '360'
+                ? 'w-full max-w-[360px] rounded-[36px] border-[9px] border-[#0F1F1C] ring-1 ring-black/20'
+                : 'w-full max-w-md rounded-2xl border-2 border-[#C4C8C5]'
+            }`}
+            style={{ maxHeight: '88vh' }}
+          >
+            {/* Phone Top Notch / Dynamic Island & Status Bar (for framed widths) */}
+            {mobileDeviceWidth !== 'full' && (
+              <div className="bg-[#F7F7EE] pt-2 pb-1 px-5 border-b border-[#EBEBDD] select-none shrink-0">
+                {/* Dynamic Island Pill */}
+                <div className="w-24 h-4 bg-[#0F1F1C] rounded-full mx-auto mb-1 flex items-center justify-end pr-2.5">
+                  <div className="w-2 h-2 rounded-full bg-[#1A312D]" />
+                </div>
+
+                {/* Mobile System Status Bar */}
+                <div className="flex items-center justify-between text-[11px] font-semibold text-[#0F1F1C] tracking-tight">
+                  <span>09:41</span>
+                  <div className="flex items-center gap-1.5 text-[#0F1F1C]">
+                    <Signal className="w-3 h-3" />
+                    <Wifi className="w-3 h-3" />
+                    <Battery className="w-3.5 h-3.5 text-[#0E5A46]" />
+                  </div>
+                </div>
+              </div>
+            )}
+
+            {/* Mobile Header Inside Phone Viewport */}
+            <Header
+              currentPath={currentPath}
+              onNavigate={handleNavigate}
+              userRole={userRole}
+              onOpenGetStarted={() => setGetStartedModalOpen(true)}
+              onOpenAuth={handleOpenAuth}
+              onSignOut={handleSignOut}
+              isMobilePreview={true}
+            />
+
+            {/* Scrollable Mobile Body Viewport */}
+            <div className="flex-1 overflow-y-auto overscroll-contain bg-[#F7F7EE] select-text">
+              {renderCurrentView()}
+              {/* Mobile Footer inside phone scroll area */}
+              <Footer
+                onNavigate={handleNavigate}
+                onOpenSpecs={() => setSpecimensDrawerOpen(true)}
+                userRole={userRole}
+                isMobilePreview={true}
+              />
+            </div>
+
+            {/* Phone Bottom Home Indicator */}
+            {mobileDeviceWidth !== 'full' && (
+              <div className="bg-[#F7F7EE] py-2 shrink-0 border-t border-[#EBEBDD]/60 select-none">
+                <div className="w-32 h-1 bg-[#0F1F1C]/40 rounded-full mx-auto" />
+              </div>
+            )}
+          </div>
+        </div>
+      ) : (
+        /* ====================================================================== */
+        /* STANDARD DESKTOP VIEWPORT LAYOUT                                       */
+        /* ====================================================================== */
+        <>
+          <Header
+            currentPath={currentPath}
+            onNavigate={handleNavigate}
+            userRole={userRole}
+            onOpenGetStarted={() => setGetStartedModalOpen(true)}
+            onOpenAuth={handleOpenAuth}
+            onSignOut={handleSignOut}
+            isMobilePreview={false}
+          />
+
+          <div className="flex-1 w-full">
+            {renderCurrentView()}
+          </div>
+
+          <Footer
+            onNavigate={handleNavigate}
+            onOpenSpecs={() => setSpecimensDrawerOpen(true)}
+            userRole={userRole}
+            isMobilePreview={false}
+          />
+        </>
+      )}
 
       {/* State Specimen Drawer (Isolated interaction testing) */}
       <StateSpecimenDrawer
         isOpen={specimensDrawerOpen}
         onClose={() => setSpecimensDrawerOpen(false)}
+      />
+
+      {/* Auth & Registration Modal */}
+      <AuthModal
+        isOpen={authModalOpen}
+        onClose={() => setAuthModalOpen(false)}
+        defaultTab={authModalDefaultTab}
+        onWorkerRegister={handleWorkerRegister}
+        onEmployerRegister={handleEmployerRegister}
+        onSignIn={handleSignIn}
       />
 
       {/* Get Started Pathway Selection Modal */}
@@ -548,8 +1070,7 @@ function AppContent() {
           <div
             onClick={() => {
               setGetStartedModalOpen(false);
-              setUserRole('worker');
-              handleNavigate('/worker/onboarding');
+              handleOpenAuth('worker_reg');
             }}
             className="p-4 bg-[#F7F7EE] hover:bg-[#E7F3EF] border border-[#C4C8C5] hover:border-[#0E5A46] rounded transition-all cursor-pointer space-y-1.5 group"
           >
@@ -560,15 +1081,14 @@ function AppContent() {
               <User className="w-4 h-4 text-[#0E5A46]" />
             </div>
             <p className="text-xs text-[#5A6E68]">
-              Build your verified capability profile, document machinery competencies, and discover genuine job demand across Nigeria.
+              Register your verified capability profile, document machinery competencies, and discover genuine job demand across Nigeria.
             </p>
           </div>
 
           <div
             onClick={() => {
               setGetStartedModalOpen(false);
-              setUserRole('employer');
-              handleNavigate('/employer/post-job');
+              handleOpenAuth('employer_reg');
             }}
             className="p-4 bg-[#F7F7EE] hover:bg-[#E7F3EF] border border-[#C4C8C5] hover:border-[#0E5A46] rounded transition-all cursor-pointer space-y-1.5 group"
           >
@@ -579,8 +1099,20 @@ function AppContent() {
               <Briefcase className="w-4 h-4 text-[#0E5A46]" />
             </div>
             <p className="text-xs text-[#5A6E68]">
-              Publish employment requirements through our 7-stage posting flow, verify CAC standing, and review applicant field capabilities.
+              Register your enterprise with CAC details, publish jobs through our 7-stage posting flow, and review applicant capabilities.
             </p>
+          </div>
+
+          <div className="pt-2 border-t border-[#C4C8C5] text-center">
+            <button
+              onClick={() => {
+                setGetStartedModalOpen(false);
+                handleOpenAuth('signin');
+              }}
+              className="text-xs text-[#0E5A46] hover:underline font-semibold cursor-pointer"
+            >
+              Already registered on Tourms? Sign In here
+            </button>
           </div>
         </div>
       </Modal>

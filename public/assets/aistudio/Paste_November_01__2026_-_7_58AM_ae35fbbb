@@ -1,0 +1,1001 @@
+PROJECT: TOURMS AGRO-SOLUTIONS
+TASK: EXPAND THE EXISTING PRODUCT UI/UX WITH PAYMENT AND ENGAGEMENT MANAGEMENT SCREENS
+PLATFORM: GOOGLE AI STUDIO — EXISTING PROJECT
+
+IMPORTANT: THIS IS AN EXTENSION OF AN EXISTING PRODUCT. IT IS NOT A NEW PROJECT.
+
+You have already designed the original 24 principal screens for TOURMS Agro-Solutions. Those screens establish the approved product direction, information architecture, visual identity, navigation, component language, user experiences and overall design system.
+
+Your task now is to extend the existing product by designing the missing payment and engagement management experiences.
+
+Do not rebuild the application.
+Do not redesign the original 24 screens.
+Do not replace the existing design system.
+Do not change the product's approved identity or direction.
+
+Study the existing application, its screens, components, navigation, routes, data structures and interactions before making changes.
+
+The new screens must look and behave as though they were part of the original product architecture from the beginning.
+
+==================================================
+1. PRIMARY OBJECTIVE
+==================================================
+
+Extend TOURMS Agro-Solutions with a coherent Payment and Engagement Management module.
+
+The module should support the financial and operational interactions that arise when an employer engages a worker through TOURMS.
+
+The new experience must cover:
+
+1. Employer payment obligations.
+2. Worker compensation transparency.
+3. Engagement payment breakdowns.
+4. Employer funding of short-term engagements.
+5. Payment status monitoring.
+6. Work completion submission.
+7. Completion review and approval.
+8. Conditional settlement workflow.
+9. Worker payment history and receipts.
+10. Employer transaction history.
+11. Payment administration.
+12. Refund and cancellation workflows.
+13. Payment disputes.
+14. Administrative reconciliation and reporting.
+
+The objective is not merely to add payment forms.
+
+Design a complete, understandable and trustworthy transaction experience that connects naturally to the existing job application, employer, worker and administration workflows.
+
+==================================================
+2. EXISTING PRODUCT STRUCTURE
+==================================================
+
+Preserve the existing three public product areas:
+
+A. WORKFORCE
+B. OPPORTUNITIES
+C. INSIGHTS
+
+Workforce supports:
+- Worker profiles.
+- Employer profiles.
+- Job publishing.
+- Job applications.
+- Candidate discovery.
+- Short-term and task-based work.
+- Seasonal and temporary work.
+- Full-time employment.
+- Part-time employment.
+- Fixed-term employment.
+- Recruitment and placement workflows where offered.
+
+Opportunities and Insights remain separate product areas.
+
+IMPORTANT PRODUCT BOUNDARY:
+
+The payment module primarily applies to short-term, task-based and other explicitly agreed paid engagements.
+
+Permanent, full-time, part-time and fixed-term employment recruitment must remain separate.
+
+For ordinary salary employment:
+- The employer hires the worker directly.
+- The employer pays the worker's salary directly.
+- TOURMS may charge an employer-paid recruitment or placement fee.
+- TOURMS must not represent itself as receiving and releasing the employee's monthly salary.
+- Do not create a salary escrow or payroll administration feature.
+
+Do not introduce:
+- Contract staffing.
+- Outsourced workforce management.
+- Employee payroll administration.
+- Attendance management systems.
+- Workforce deployment management.
+- Internal wallets.
+- Lending.
+- Financial investment products.
+- An agricultural produce marketplace.
+
+These are outside the current scope.
+
+==================================================
+3. PAYMENT MODEL
+==================================================
+
+Design around two distinct employment/payment pathways.
+
+PATHWAY A: SHORT-TERM AND TASK-BASED ENGAGEMENTS
+
+This is the primary payment workflow.
+
+The proposed transaction model is conditional settlement.
+
+The employer is expected to fund the agreed engagement amount and applicable employer service fee before the engagement begins.
+
+The worker should clearly understand:
+- Gross agreed compensation.
+- Applicable worker service fee, if approved.
+- Expected net compensation.
+- Work requirements.
+- Completion conditions.
+- Expected payment process.
+
+The employer should clearly understand:
+- Agreed worker compensation.
+- Employer service fee.
+- Total funding obligation.
+- Payment status.
+- Completion status.
+- Settlement status.
+
+The transaction lifecycle should support:
+
+1. Engagement terms agreed.
+2. Payment summary generated.
+3. Employer initiates funding.
+4. Payment confirmation received.
+5. Engagement marked as funded.
+6. Work begins.
+7. Worker submits completion.
+8. Employer reviews completion.
+9. Completion is approved, queried or disputed.
+10. Settlement is authorised.
+11. Worker payout is processed.
+12. Transaction is reconciled and receipted.
+
+Important:
+
+A payment initiated is not necessarily a payment confirmed.
+
+A payment confirmed is not necessarily a completed engagement.
+
+A completed engagement is not necessarily a settled transaction.
+
+Represent these states separately throughout the interface.
+
+PATHWAY B: SALARY AND PERMANENT EMPLOYMENT
+
+This is a recruitment and placement pathway, not a conditional salary payment pathway.
+
+The employer:
+- Publishes a vacancy.
+- Receives applications.
+- Reviews candidates.
+- Conducts interviews.
+- Makes the hiring decision.
+- Issues the employment offer and contract.
+- Pays the employee directly.
+
+TOURMS may provide recruitment support and charge an employer-paid recruitment or placement fee, subject to the applicable legal and licensing requirements.
+
+Do not integrate monthly salary payments into the short-term payment workflow.
+
+==================================================
+4. PAYMENT FEE PRESENTATION
+==================================================
+
+The proposed business model previously considered service fees from both employers and workers for short-term engagements.
+
+However, the exact fee percentages, caps and regulatory permissibility have not been finally approved.
+
+Therefore:
+
+- Do not hardcode proposed fee percentages as final business rules.
+- Do not present illustrative fees as established TOURMS prices.
+- Create a flexible fee breakdown component.
+- Make fee labels and values configurable.
+- Support the possibility that a fee applies to one party, both parties or neither.
+- Clearly distinguish compensation from platform service charges.
+- Display the net amount the worker expects to receive.
+- Display the total amount the employer is expected to pay.
+
+Use realistic illustrative values only when necessary to demonstrate the interface.
+
+Clearly label such values as examples.
+
+Do not create an actual fee-setting business rule based on an unapproved assumption.
+
+==================================================
+5. NEW SCREENS TO ADD
+==================================================
+
+Add the following screens to the existing application.
+
+Do not overwrite or renumber the original 24 screens.
+
+Use the next available screen numbers and keep the new screens grouped logically.
+
+MODULE A: WORKER PAYMENT AND ENGAGEMENT EXPERIENCE
+
+SCREEN 25 — ENGAGEMENT OFFER AND PAYMENT BREAKDOWN
+
+Purpose:
+Allow the worker to review an engagement offer and understand the financial terms before accepting.
+
+Include:
+- Job title.
+- Employer identity.
+- Work location.
+- Engagement duration.
+- Work description.
+- Agreed gross compensation.
+- Worker service fee, if applicable.
+- Expected net payment.
+- Completion requirements.
+- Payment conditions.
+- Acceptance and decline actions.
+
+The worker must understand exactly what they are agreeing to.
+
+Do not hide deductions or place important payment information in fine print.
+
+SCREEN 26 — WORKER ENGAGEMENT PAYMENT STATUS
+
+Purpose:
+Show the worker the funding and payment status of an accepted engagement.
+
+Include:
+- Engagement details.
+- Agreed compensation.
+- Funding confirmation status.
+- Engagement status.
+- Work progress.
+- Completion requirements.
+- Expected settlement status.
+- Relevant timestamps.
+- Help or report-a-problem action.
+
+Possible statuses:
+- Awaiting employer funding.
+- Funding initiated.
+- Funding confirmed.
+- Ready to begin.
+- In progress.
+- Completion submitted.
+- Under review.
+- Approved.
+- Settlement processing.
+- Paid.
+- Disputed.
+- Cancelled.
+
+Do not show the worker that an engagement is funded until the backend or verified provider event confirms it.
+
+SCREEN 27 — SUBMIT WORK COMPLETION
+
+Purpose:
+Allow the worker to formally submit completed work.
+
+Include:
+- Engagement summary.
+- Completion checklist.
+- Completion notes.
+- Evidence upload area where applicable.
+- Submission confirmation.
+- Submission timestamp.
+- Clear explanation of what happens next.
+
+Allow the worker to see whether the submission is awaiting employer review or further action.
+
+SCREEN 28 — WORKER PAYMENT HISTORY AND RECEIPTS
+
+Purpose:
+Give workers a clear record of engagement earnings and payment transactions.
+
+Include:
+- Total completed engagement earnings.
+- Pending payments.
+- Settled payments.
+- Transaction list.
+- Engagement reference.
+- Gross compensation.
+- Applicable fees.
+- Net payment.
+- Settlement date.
+- Transaction status.
+- Receipt or transaction detail view.
+
+Do not describe pending payments as earned cash available for withdrawal.
+
+Do not introduce an internal wallet.
+
+MODULE B: EMPLOYER PAYMENT AND ENGAGEMENT EXPERIENCE
+
+SCREEN 29 — EMPLOYER ENGAGEMENT COST SUMMARY
+
+Purpose:
+Show employers the complete financial obligation before they confirm an engagement.
+
+Include:
+- Selected worker.
+- Job title.
+- Agreed compensation.
+- Employer service fee, if applicable.
+- Other clearly disclosed charges, if approved.
+- Total amount payable.
+- Engagement terms.
+- Payment conditions.
+- Confirmation action.
+
+Make the total funding obligation prominent.
+
+SCREEN 30 — FUND AN ENGAGEMENT
+
+Purpose:
+Allow the employer to initiate payment for an agreed short-term engagement.
+
+Include:
+- Engagement reference.
+- Payment summary.
+- Total amount due.
+- Available payment methods only where genuinely supported.
+- Payment initiation action.
+- Payment instructions.
+- Security and trust information.
+- Cancellation or return navigation.
+
+Design:
+- Initial payment state.
+- Processing state.
+- Successful confirmation state.
+- Failed payment state.
+- Abandoned payment state.
+
+Do not simulate a successful payment merely because the user clicks a button.
+
+SCREEN 31 — EMPLOYER ENGAGEMENT PAYMENT DASHBOARD
+
+Purpose:
+Give employers a consolidated view of engagement funding and settlement.
+
+Include:
+- Engagements awaiting funding.
+- Funded engagements.
+- Active engagements.
+- Completion submissions awaiting review.
+- Disputed engagements.
+- Settled engagements.
+- Cancelled engagements.
+
+Provide filters and search.
+
+The dashboard must connect to the existing employer dashboard without replacing it.
+
+SCREEN 32 — REVIEW WORK COMPLETION
+
+Purpose:
+Allow an employer to review a worker's completion submission.
+
+Include:
+- Engagement summary.
+- Worker details.
+- Completion notes.
+- Evidence attachments.
+- Original agreed terms.
+- Completion submission date.
+- Approve completion action.
+- Request clarification action.
+- Raise dispute action.
+
+Use clear confirmation dialogs for consequential actions.
+
+Approval should clearly explain that it initiates the next settlement step, where supported.
+
+SCREEN 33 — EMPLOYER PAYMENT HISTORY AND TRANSACTION DETAILS
+
+Purpose:
+Give employers access to their financial transaction records.
+
+Include:
+- Total funded engagements.
+- Total service charges.
+- Completed payments.
+- Pending transactions.
+- Refunds.
+- Disputed transactions.
+- Transaction list.
+- Detailed receipt view.
+- Download or print receipt where supported.
+
+MODULE C: ADMIN PAYMENT OPERATIONS
+
+These screens belong inside the existing administration area.
+
+They must use the same admin design language and permission structure.
+
+SCREEN 34 — ADMIN PAYMENT OVERVIEW
+
+Purpose:
+Give authorised administrators a consolidated view of payment operations.
+
+Include:
+- Total payment volume.
+- Confirmed funding.
+- Pending funding.
+- Settled transactions.
+- Pending settlement.
+- Disputes.
+- Refunds.
+- Failed transactions.
+- Recent activity.
+- Reconciliation alerts.
+
+Use clearly labelled metrics.
+
+All numbers must be sample data in the prototype and must never be presented as real TOURMS performance.
+
+SCREEN 35 — ADMIN TRANSACTION MANAGEMENT
+
+Purpose:
+Allow authorised administrators to inspect and filter payment transactions.
+
+Include:
+- Transaction reference.
+- Engagement reference.
+- Employer.
+- Worker.
+- Gross amount.
+- Service fees.
+- Net amount.
+- Provider reference, where available.
+- Payment status.
+- Settlement status.
+- Date.
+- Transaction detail view.
+
+Provide useful filters:
+- Date.
+- Status.
+- Employer.
+- Worker.
+- Transaction type.
+- Amount range.
+
+SCREEN 36 — ADMIN SETTLEMENT REVIEW QUEUE
+
+Purpose:
+Show transactions awaiting settlement action or review.
+
+Include:
+- Engagement reference.
+- Completion status.
+- Employer approval status.
+- Worker details.
+- Amount due.
+- Outstanding conditions.
+- Settlement eligibility.
+- Review action.
+
+The system must not automatically settle disputed or unverified transactions.
+
+Where the provider does not support conditional release, do not simulate this capability as though it exists.
+
+SCREEN 37 — ADMIN DISPUTE MANAGEMENT
+
+Purpose:
+Allow authorised administrators to review and resolve engagement disputes.
+
+Include:
+- Dispute reference.
+- Engagement reference.
+- Employer and worker.
+- Dispute category.
+- Description.
+- Submitted evidence.
+- Timeline of events.
+- Amount in dispute.
+- Undisputed amount, if applicable.
+- Assigned administrator.
+- Review status.
+- Resolution record.
+
+Possible outcomes:
+- Approve settlement.
+- Partial settlement, where permitted by the original agreement and payment provider.
+- Refund.
+- Request further evidence.
+- Escalate for additional review.
+
+Include a clear audit trail.
+
+SCREEN 38 — ADMIN REFUNDS AND CANCELLATIONS
+
+Purpose:
+Manage cancelled engagements and refund requests.
+
+Include:
+- Cancellation reason.
+- Engagement stage.
+- Payment amount.
+- Amount eligible for refund.
+- Applicable provider charges, if known.
+- Refund request status.
+- Supporting evidence.
+- Approval or rejection.
+- Refund transaction reference.
+
+Do not promise a full refund in every situation.
+
+Do not invent a refund policy. Use configurable policy references and clearly marked illustrative examples.
+
+SCREEN 39 — ADMIN PAYMENT REPORTS AND RECONCILIATION
+
+Purpose:
+Support financial oversight and transaction reconciliation.
+
+Include:
+- Payment volume.
+- Service fee revenue.
+- Gross compensation funded.
+- Worker payouts.
+- Refund totals.
+- Disputed amounts.
+- Failed transactions.
+- Provider settlement references.
+- Unmatched transactions.
+- Reconciliation status.
+- Date filters.
+- Export options.
+
+Distinguish:
+- Employer payment.
+- Worker compensation.
+- TOURMS service revenue.
+- Payment-provider charges.
+- Refunds.
+- Outstanding settlement liabilities.
+
+Do not treat all funds passing through the platform as TOURMS revenue.
+
+==================================================
+6. NAVIGATION AND INTEGRATION
+==================================================
+
+Do not create an unnecessarily crowded primary navigation.
+
+The public navigation remains:
+
+- Jobs.
+- Opportunities.
+- Insights.
+- About.
+- Get Started.
+
+Payment functions should be integrated into authenticated user experiences.
+
+WORKER EXPERIENCE:
+
+Add a logical Payments or Earnings entry to the authenticated worker dashboard/navigation.
+
+It should lead to:
+- Payment history.
+- Engagement payment details.
+- Completion submissions.
+- Receipts.
+
+EMPLOYER EXPERIENCE:
+
+Add a Payments or Transactions entry to the existing employer dashboard/navigation.
+
+It should lead to:
+- Engagement funding.
+- Payment dashboard.
+- Completion reviews.
+- Transaction history.
+- Receipts.
+
+ADMIN EXPERIENCE:
+
+Add a Payments section to the existing admin sidebar.
+
+It should contain:
+- Overview.
+- Transactions.
+- Settlement review.
+- Disputes.
+- Refunds.
+- Reports and reconciliation.
+
+Ensure the new sections use the existing navigation patterns.
+
+Do not create duplicate dashboards where existing ones can be extended.
+
+==================================================
+7. TRANSACTION STATUS MODEL
+==================================================
+
+Use distinct status models for the engagement, payment and settlement.
+
+Do not combine all transaction states into one generic status.
+
+ENGAGEMENT STATUS:
+
+- Draft.
+- Offered.
+- Accepted.
+- Funded.
+- In progress.
+- Completion submitted.
+- Completed.
+- Disputed.
+- Cancelled.
+
+PAYMENT STATUS:
+
+- Not initiated.
+- Initiated.
+- Processing.
+- Confirmed.
+- Failed.
+- Reversed.
+- Refunded.
+
+SETTLEMENT STATUS:
+
+- Not eligible.
+- Awaiting review.
+- Approved for settlement.
+- Processing.
+- Settled.
+- On hold.
+- Disputed.
+- Partially settled.
+
+The actual available transitions must depend on verified backend rules and provider capabilities.
+
+A user interface must not permit impossible or unauthorised transitions.
+
+==================================================
+8. IMPORTANT TRANSACTION SCENARIOS
+==================================================
+
+Design appropriate states and interaction flows for the following cases.
+
+SCENARIO 1: SUCCESSFUL ENGAGEMENT
+
+1. Employer and worker agree to the engagement.
+2. Worker accepts the terms.
+3. Employer initiates funding.
+4. Funding is confirmed.
+5. Worker begins the engagement.
+6. Worker submits completion.
+7. Employer approves completion.
+8. Settlement is initiated where supported.
+9. Worker receives payment confirmation.
+10. Transaction is recorded and receipted.
+
+SCENARIO 2: PAYMENT FAILURE
+
+1. Employer initiates funding.
+2. Payment fails or is abandoned.
+3. Engagement remains unfunded.
+4. Worker is not told that funds are secured.
+5. Employer receives a clear retry or support option.
+
+SCENARIO 3: EMPLOYER DOES NOT RESPOND
+
+1. Worker submits completion.
+2. Employer does not respond within the configured review period.
+3. The transaction enters an awaiting-review or escalation state.
+4. TOURMS administrators can review the case.
+
+IMPORTANT:
+Do not automatically approve completion merely because an employer has not responded.
+
+SCENARIO 4: EMPLOYER RAISES A DISPUTE
+
+1. Employer raises a dispute.
+2. Worker is notified.
+3. Relevant evidence is preserved.
+4. The disputed amount is placed on hold where the provider supports it.
+5. Admin reviews the evidence.
+6. Resolution is recorded.
+7. Any permitted settlement or refund is processed.
+
+SCENARIO 5: ENGAGEMENT CANCELLATION
+
+Design different cancellation states depending on whether:
+- The engagement has not been funded.
+- Funding has been confirmed but work has not begun.
+- Work has begun.
+- Part of the work has been completed.
+- A dispute already exists.
+
+Do not assume all cancellations result in the same financial outcome.
+
+==================================================
+9. PAYMENT PROVIDER AND TECHNICAL HONESTY
+==================================================
+
+Payment-provider selection and commercial arrangements have not been finalised.
+
+Do not claim that TOURMS has an active payment-provider integration.
+
+Do not invent:
+- Provider account details.
+- Payment API capabilities.
+- Settlement guarantees.
+- Escrow functionality.
+- Payment holding arrangements.
+- Automatic refunds.
+- Automatic split payments.
+- Bank verification capabilities.
+
+A split-payment feature is not automatically equivalent to conditional settlement or escrow.
+
+Design provider-neutral interfaces.
+
+Use a payment adapter concept so that a verified provider can be integrated later without redesigning the user experience.
+
+Where conditional holding and release have not been confirmed:
+- Clearly mark the feature as a proposed workflow.
+- Do not describe the provider as holding funds in escrow.
+- Do not show fictional confirmation of funds being secured.
+- Do not imply that TOURMS itself is legally authorised to hold customer funds.
+
+Use explicit demonstration or prototype labels where necessary.
+
+==================================================
+10. DATA AND BACKEND CONSIDERATIONS
+==================================================
+
+Design the interface so that it can later connect to a properly structured backend.
+
+Consider the following conceptual entities:
+
+- Engagements.
+- Engagement terms.
+- Fee rules.
+- Engagement fees.
+- Payment orders.
+- Payment transactions.
+- Completion submissions.
+- Completion reviews.
+- Disputes.
+- Settlement instructions.
+- Payouts.
+- Refunds.
+- Ledger accounts.
+- Ledger entries.
+- Provider webhook events.
+- Payment audit logs.
+
+These are conceptual data requirements, not permission to invent a completed backend.
+
+Important principles:
+
+1. Financial calculations must be performed and validated server-side.
+2. Use integer kobo values for monetary calculations.
+3. Never trust payment confirmation from the browser alone.
+4. Provider webhook events must be verified.
+5. Transaction processing must be idempotent.
+6. Every important payment action must be auditable.
+7. Users must only see transactions they are authorised to access.
+8. Admin roles must have appropriate permissions.
+9. Never expose payment secrets in client-side code.
+10. Preserve an auditable record of agreed engagement terms.
+
+Do not implement a real payment gateway without the necessary provider credentials, verified integration documentation and explicit configuration.
+
+If the existing project already has a backend, inspect and reuse its architecture rather than creating an unrelated parallel system.
+
+==================================================
+11. DESIGN AND BRAND CONSISTENCY
+==================================================
+
+The original 24 screens establish the approved design language.
+
+Preserve the existing:
+- TOURMS logo and identity.
+- Colour palette.
+- Typography.
+- Spacing system.
+- Buttons.
+- Form components.
+- Cards.
+- Tables.
+- Badges.
+- Navigation.
+- Responsive behaviour.
+- Existing interaction patterns.
+
+Brand colours:
+- Charcoal: #0F1F1C
+- Deep green: #0E5A46
+- Warm ivory: #F7F7EE
+- Amber/copper: #C98A3A
+- White: #FFFFFF
+- Black: #111111
+
+Typography:
+- Montserrat for headlines and brand expression.
+- Inter for body text and interface elements.
+
+The visual character should remain:
+- Premium.
+- Restrained.
+- Clear.
+- Trustworthy.
+- Functional.
+- Modern.
+- Professional.
+- Human-centred.
+
+Do not introduce a generic fintech theme that makes the payment section look like a different company.
+
+Do not overuse gradients, glassmorphism, neon colours, decorative charts or unnecessary illustrations.
+
+Financial information should be easy to scan.
+
+Use clear hierarchy for:
+- Amount due.
+- Amount funded.
+- Worker compensation.
+- Service charges.
+- Amount paid.
+- Pending settlement.
+- Refunds.
+- Disputed amounts.
+
+Use consistent status colours and labels throughout all user experiences.
+
+==================================================
+12. RESPONSIVE DESIGN
+==================================================
+
+Design for desktop and mobile.
+
+Mobile is particularly important because many Nigerian users will access TOURMS through smartphones.
+
+Ensure:
+- Responsive layouts.
+- Readable financial breakdowns.
+- Clear primary actions.
+- Adequate touch targets.
+- Accessible forms.
+- Proper loading states.
+- Mobile-friendly transaction tables.
+- Clear empty states.
+- Clear error recovery.
+- No horizontal overflow.
+- No hidden financial deductions.
+- No important actions buried at the bottom of unnecessarily long screens.
+
+Where a desktop table is unsuitable for mobile, use a well-structured transaction card layout.
+
+==================================================
+13. UX WRITING AND TRUST
+==================================================
+
+Use plain, direct and understandable language.
+
+Avoid confusing financial terminology unless it is explained.
+
+Examples:
+
+Instead of:
+"Transaction successfully initiated."
+
+Use:
+"Your payment is being processed."
+
+Instead of:
+"Escrow secured."
+
+Use only the verified status:
+"Payment confirmed" or another accurate provider-backed status.
+
+Instead of:
+"Withdrawal available."
+
+Use:
+"Payment settlement is being processed" where appropriate.
+
+Make it clear:
+- Who pays.
+- Who receives.
+- What the fee covers.
+- What amount the worker expects.
+- What the employer must fund.
+- What happens after completion.
+- What happens if there is a dispute.
+- Who to contact when something goes wrong.
+
+Never use language that gives users a false sense of financial protection.
+
+==================================================
+14. IMPLEMENTATION METHOD
+==================================================
+
+Before making changes:
+
+1. Inspect the existing application.
+2. Identify the current 24 principal screens and their routes.
+3. Inspect existing components and shared styles.
+4. Identify existing worker, employer and admin dashboards.
+5. Identify current authentication and role handling.
+6. Identify any existing payment-related functionality.
+7. Identify the best places to integrate the new screens.
+
+Then:
+
+1. Extend the current application.
+2. Reuse existing components.
+3. Create new components only where genuinely needed.
+4. Add the new routes and navigation entries.
+5. Connect the new screens to the existing job and engagement journeys.
+6. Add realistic demonstration data where required.
+7. Implement coherent prototype interactions.
+8. Test navigation and responsive layouts.
+9. Check that original screens still work and have not been unintentionally changed.
+
+Do not replace existing screens to make room for new ones.
+
+Do not delete existing functionality.
+
+Do not rename existing routes unnecessarily.
+
+Do not make unrelated changes to the original 24 screens.
+
+If a modification to an existing screen is necessary, make the smallest possible change and explain why.
+
+==================================================
+15. QUALITY ASSURANCE
+==================================================
+
+After implementing the expansion, verify:
+
+- The original 24 screens remain intact.
+- All new screens are accessible from appropriate dashboards.
+- Worker and employer payment journeys connect logically.
+- Salary employment remains separate from short-term payment settlement.
+- All payment states are clearly differentiated.
+- Failed payments have recovery paths.
+- Disputes have review paths.
+- Refunds have appropriate status handling.
+- Mobile layouts are usable.
+- No unapproved fee values are presented as final.
+- No unsupported provider capabilities are claimed.
+- No fictional live transactions are presented as real.
+- No sensitive financial information is exposed.
+- All major buttons and links have meaningful behaviour.
+
+==================================================
+16. FINAL DELIVERABLE
+==================================================
+
+Deliver an integrated TOURMS Agro-Solutions application with:
+
+- The original 24 principal screens preserved.
+- The new payment and engagement management screens added.
+- Worker payment and completion experiences.
+- Employer funding and completion-review experiences.
+- Admin payment operations.
+- Responsive desktop and mobile layouts.
+- Consistent navigation.
+- Reusable components.
+- Realistic prototype interactions.
+- Clear transaction states.
+- Provider-neutral payment architecture.
+
+At the end, provide a concise implementation report containing:
+
+1. The new screens added.
+2. Existing screens modified, if any.
+3. New routes and navigation entries.
+4. Components created or reused.
+5. Interactions implemented.
+6. Payment states supported.
+7. Any backend functionality still missing.
+8. Any payment-provider capability that still requires verification.
+9. Any legal or operational assumption that needs confirmation.
+10. Confirmation that the original 24 screens were preserved.
+
+FINAL INSTRUCTION:
+
+Think of this as completing a missing part of an already-designed product, not inventing a new product.
+
+Preserve what has already been built.
+
+Extend it with precision.
+
+Do not redesign what does not need redesigning.

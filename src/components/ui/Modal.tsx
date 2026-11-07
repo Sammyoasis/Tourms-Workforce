@@ -56,17 +56,17 @@ export const Modal: React.FC<ModalProps> = ({
 
       {/* Modal Card */}
       <div
-        className={`relative w-full ${maxWidthClasses[maxWidth]} bg-white border border-[#C4C8C5] shadow-xl rounded-lg p-6 max-h-[90vh] overflow-y-auto text-left z-10`}
+        className={`relative w-full ${maxWidthClasses[maxWidth]} bg-white border border-[#C4C8C5] shadow-xl rounded-lg p-4 sm:p-6 max-h-[90vh] overflow-y-auto overflow-x-hidden break-words text-left z-10`}
       >
-        <div className="flex items-start justify-between gap-4 pb-4 border-b border-[#EBEBDD]">
-          <div>
+        <div className="flex items-start justify-between gap-3 sm:gap-4 pb-3.5 sm:pb-4 border-b border-[#EBEBDD]">
+          <div className="min-w-0 flex-1">
             {title && (
-              <h2 id="modal-title" className="text-lg font-bold text-[#0F1F1C]">
+              <h2 id="modal-title" className="text-base sm:text-lg font-bold text-[#0F1F1C] break-words">
                 {title}
               </h2>
             )}
             {description && (
-              <p className="text-xs text-[#5A6E68] mt-1">{description}</p>
+              <p className="text-xs text-[#5A6E68] mt-1 break-words">{description}</p>
             )}
           </div>
           <button
@@ -116,14 +116,14 @@ export const BottomSheet: React.FC<BottomSheetProps> = ({
       aria-modal="true"
     >
       <div className="fixed inset-0" onClick={onClose} aria-hidden="true" />
-      <div className="relative w-full bg-white rounded-t-xl border-t border-[#C4C8C5] shadow-2xl max-h-[85vh] overflow-y-auto pb-safe z-10 flex flex-col">
+      <div className="relative w-full bg-white rounded-t-xl border-t border-[#C4C8C5] shadow-2xl max-h-[85vh] overflow-y-auto overflow-x-hidden break-words pb-safe z-10 flex flex-col">
         {/* Drag handle */}
         <div className="w-full flex items-center justify-center pt-3 pb-1">
           <div className="w-12 h-1.5 rounded-full bg-[#C4C8C5]" />
         </div>
 
-        <div className="flex items-center justify-between px-5 py-3 border-b border-[#EBEBDD]">
-          <h3 className="text-base font-bold text-[#0F1F1C]">{title}</h3>
+        <div className="flex items-center justify-between px-4 sm:px-5 py-3 border-b border-[#EBEBDD]">
+          <h3 className="text-sm sm:text-base font-bold text-[#0F1F1C] break-words">{title}</h3>
           <button
             type="button"
             onClick={onClose}

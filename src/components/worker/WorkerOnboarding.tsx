@@ -131,14 +131,14 @@ export const WorkerOnboarding: React.FC<WorkerOnboardingProps> = ({
   };
 
   return (
-    <div className="w-full text-left py-8 md:py-12 px-4 sm:px-6 lg:px-8 max-w-3xl mx-auto">
+    <div className="w-full text-left py-6 sm:py-8 md:py-12 px-3.5 sm:px-6 lg:px-8 max-w-3xl mx-auto overflow-x-hidden">
       {/* Step Progress Tracker */}
-      <div className="mb-8 space-y-3">
-        <div className="flex items-center justify-between text-xs font-bold text-[#5A6E68]">
-          <span className="text-[#0E5A46] uppercase tracking-wider">
+      <div className="mb-6 sm:mb-8 space-y-2.5 sm:space-y-3">
+        <div className="flex flex-wrap items-center justify-between gap-1 text-xs font-bold text-[#5A6E68]">
+          <span className="text-[#0E5A46] uppercase tracking-wider text-[11px] sm:text-xs">
             Step {currentStep} of 8: {STEPS[currentStep - 1]}
           </span>
-          <span className="tabular-nums">
+          <span className="tabular-nums text-[11px] sm:text-xs">
             {Math.round((currentStep / 8) * 100)}% Complete
           </span>
         </div>
@@ -151,13 +151,13 @@ export const WorkerOnboarding: React.FC<WorkerOnboardingProps> = ({
           />
         </div>
 
-        <p className="text-xs text-[#5A6E68]">
+        <p className="text-[11px] sm:text-xs text-[#5A6E68]">
           Capability-first worker registry. Self-reported details are clearly separated from verified institutional documents.
         </p>
       </div>
 
       {/* Step Form Card */}
-      <div className="bg-white border border-[#C4C8C5] rounded p-6 md:p-8 shadow-xs space-y-6">
+      <div className="bg-white border border-[#C4C8C5] rounded p-4 sm:p-6 md:p-8 shadow-xs space-y-5 sm:space-y-6 overflow-hidden break-words">
         {/* Step 1: Basic Identity */}
         {currentStep === 1 && (
           <div className="space-y-5 animate-in fade-in">
@@ -187,11 +187,12 @@ export const WorkerOnboarding: React.FC<WorkerOnboardingProps> = ({
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <Input
-                label="Email Address"
+                label="Email Address (Optional)"
                 type="email"
-                required
-                value={formData.email}
+                value={formData.email || ''}
                 onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                placeholder="e.g. name@example.com (optional)"
+                helperText="Informal field workers can leave this blank. Phone number is your primary login."
               />
               <Input
                 label="Phone Number"

@@ -1,0 +1,794 @@
+TOURMS Design Philosophy
+Comprehensive Brand, Product and Digital Experience Doctrine
+Master brand: TOURMS
+Master tagline: SAME SOUND, DIFFERENT FREQUENCY.
+Product: TOURMS AGRO-SOLUTIONS
+Product positioning: AGRICULTURE, CONNECTED BETTER.
+Supporting corporate expression: ONE COMPANY. MANY POSSIBILITIES.
+Internal creative principle: THE BUILDER + THE SYSTEM.
+
+This is the design philosophy that should guide the creation of TOURMS Agro-Solutions in Google AI Studio. It is not simply a visual style guide. It defines how TOURMS thinks, what it values, how its products should behave, how people should experience them, and how design decisions should be made.
+
+The central idea is:
+We build with purpose, create clarity from complexity, and connect what should work together. Every part of the experience should feel intentional, coherent and useful.
+
+The philosophy must influence the brand identity, user experience, interface design, product architecture, content, interactions, technical implementation and future expansion.
+
+PART ONE: THE TOURMS BRAND PHILOSOPHY
+1. SAME SOUND, DIFFERENT FREQUENCY.
+This is the central expression of the TOURMS identity.
+
+It represents two complementary ideas.
+
+SAME SOUND — consistency of identity.
+
+Regardless of the industry, market, product or service TOURMS enters, there should be a recognisable foundation:
+- A consistent standard of quality.
+- A consistent approach to solving problems.
+- A consistent commitment to usefulness.
+- A consistent visual and verbal identity.
+- A consistent respect for people, resources and trust.
+- A consistent philosophy of building systems that work.
+DIFFERENT FREQUENCY — freedom of expression and innovation.
+
+TOURMS is not intended to be restricted to one industry, product category or business model.
+
+Different businesses may serve different markets, solve different problems and require different experiences. They should be able to express their individual identities without losing their connection to the TOURMS master brand.
+
+This means:
+- Consistency does not require uniformity.
+- Different products can have distinct personalities.
+- Innovation should not destroy brand coherence.
+- The master brand provides the foundation; individual products express their purpose.
+The relationship is:
+
+One identity. Multiple expressions. One underlying standard.
+
+For TOURMS Agro-Solutions, the agricultural context should influence the product experience, language, imagery and information architecture. It should not force the entire TOURMS corporate identity to become an agricultural brand.
+
+The same principle should apply to future TOURMS businesses.
+2. THE BUILDER + THE SYSTEM
+This is an internal creative and strategic principle.
+
+TOURMS is interested in more than producing attractive things. It is interested in building useful systems that can operate, connect, improve and scale.
+
+The Builder represents:
+- Vision.
+- Initiative.
+- Creativity.
+- Problem-solving.
+- Practical execution.
+- The ability to recognise opportunities and turn them into something useful.
+The System represents:
+- Structure.
+- Processes.
+- Reliability.
+- Repeatability.
+- Coordination.
+- Standards.
+- The ability to make good ideas work consistently.
+Neither should exist without the other.
+
+A product with vision but no structure becomes difficult to maintain. A system with structure but no vision becomes rigid and uninspiring.
+
+TOURMS should bring both together.
+
+In practical design terms, this means we should build experiences that are imaginative but functional, distinctive but understandable, ambitious but realistic, and flexible without becoming disorganised.
+3. STRENGTH IN STRUCTURE. FREEDOM TO GROW.
+Structure should enable growth, not restrict it.
+
+TOURMS products should have clear foundations, reusable systems and consistent standards. However, those foundations should not make future development unnecessarily difficult.
+
+We should avoid two extremes:
+1. Building everything as a one-off solution that cannot be maintained or expanded.
+2. Overengineering the product in anticipation of problems that do not yet exist.
+The objective is to build the right structure for the current stage while making sensible provision for future development.
+
+PART TWO: OUR CORE DESIGN BELIEFS
+4. Design is a tool for making things work better.
+Design is not decoration.
+
+A beautiful interface that confuses people is not good design. A sophisticated animation that slows down a task is not good design. A visually impressive dashboard that provides no meaningful operational value is not good design.
+
+Design must improve the relationship between people, information, processes and outcomes.
+
+Every design decision should answer at least one of these questions:
+- Does this make something easier to understand?
+- Does this help someone complete a task?
+- Does this reduce unnecessary effort?
+- Does this improve confidence or trust?
+- Does this make the product more coherent?
+- Does this make the system more reliable?
+- Does this improve the quality of the overall experience?
+If an element does none of these things, its presence should be questioned.
+5. Clarity over complexity.
+Complex problems do not always require complicated interfaces.
+
+TOURMS should take complex processes and make them understandable without removing important information.
+
+This means:
+- Use plain, precise language.
+- Establish a clear visual hierarchy.
+- Separate information into meaningful sections.
+- Show the most important information first.
+- Use progressive disclosure when additional details are necessary.
+- Avoid presenting too many competing actions at once.
+- Make the next step obvious.
+- Explain unfamiliar processes rather than assuming users understand them.
+The product should feel intelligent because it organises complexity well, not because it displays complexity everywhere.
+
+The user should not have to work hard to understand how to use the product.
+6. Purposeful simplicity.
+Simplicity does not mean making everything basic, empty or featureless.
+
+It means being deliberate about what is included and how it is presented.
+
+Every component should have a purpose. Every section should contribute to the user's understanding or progress. Every interaction should have a reason.
+
+We should remove unnecessary elements, but never remove essential functionality simply to make a screen look minimal.
+
+Our test is:
+Can we make this simpler without making it less useful?
+
+If yes, simplify it.
+
+If simplification makes the experience less informative, less accessible or less functional, it is not an improvement.
+7. Function before decoration.
+Form should support function.
+
+Visual choices must emerge from the purpose of the page, the needs of the user and the nature of the task.
+
+For example:
+- A job listing should make the job's essential details easy to scan.
+- A job application should make progress and requirements clear.
+- An employer dashboard should prioritise outstanding actions.
+- An administrator's review queue should make decisions and pending work easy to identify.
+- An opportunity page should make eligibility, deadlines and application instructions easy to understand.
+We should never sacrifice usability to achieve a visual effect.
+8. Respect people's time, money, data and trust.
+TOURMS should behave as though users have entrusted us with something valuable.
+
+That includes:
+
+Time: Do not make people navigate unnecessary steps, repeat information or search endlessly for basic details.
+
+Money: Do not create misleading opportunities, unclear terms or unnecessary costs.
+
+Data: Collect only what is necessary, explain why information is needed and handle personal information responsibly.
+
+Trust: Do not fabricate information, exaggerate claims, misrepresent verification or make promises the product cannot fulfil.
+
+Trust is not something we communicate only through a logo or security badge. It must be demonstrated through the actual behaviour of the product.
+9. Consistency without rigidity.
+A coherent product should feel like one product, even when it contains different sections and experiences.
+
+Buttons, navigation, typography, forms, cards, labels, spacing and interaction patterns should follow consistent rules.
+
+However, consistency should not prevent individual sections from being designed according to their purpose.
+
+A content page does not need to look exactly like an employer dashboard. An administrative review queue does not need the same information density as a public homepage.
+
+The shared design system should establish continuity while allowing contextual flexibility.
+10. Human-centred, not technology-centred.
+Technology should serve people.
+
+TOURMS should not introduce AI, automation, dashboards, charts or complicated features simply because they are technologically possible.
+
+The question is not:
+
+"What technology can we add?"
+
+The question is:
+
+"What problem does the user have, and what is the most appropriate way to solve it?"
+
+Where automation is useful, it should reduce repetitive work and improve accuracy. Where human judgement is necessary, the product should preserve it.
+
+Users should remain informed and in control of consequential decisions.
+
+PART THREE: THE VISUAL DESIGN PHILOSOPHY
+11. Our visual character
+TOURMS should feel:
+- Confident.
+- Intelligent.
+- Contemporary.
+- Structured.
+- Refined.
+- Dependable.
+- Distinctive.
+- Human.
+- Purposeful.
+It should not feel:
+- Childish.
+- Overly playful.
+- Generic.
+- Cheap.
+- Noisy.
+- Excessively corporate.
+- Needlessly futuristic.
+- Overdecorated.
+- Like a generic agricultural template.
+The desired experience is premium without being inaccessible, modern without being trendy for its own sake, and professional without feeling cold.
+12. The Apple-inspired standard
+When we refer to an Apple-inspired experience, we are referring to a standard of product discipline, not an instruction to copy Apple's interface.
+
+The qualities we want to learn from include:
+
+Attention to detail: Small elements should receive the same care as major sections.
+
+Clarity: Users should understand what they are looking at and what they can do.
+
+Restraint: Visual elements should not compete unnecessarily for attention.
+
+Consistency: The experience should feel connected across different screens and devices.
+
+Craftsmanship: Typography, spacing, alignment, transitions and interactions should feel deliberate.
+
+Ease of use: Complex functionality should be made approachable.
+
+Integration: Different parts of the product should work together rather than feeling like disconnected features.
+
+Reliability: The experience should behave predictably and communicate clearly when something goes wrong.
+
+Apple is a quality reference, not a visual template.
+
+Do not copy Apple's layouts, icons, product screens or distinctive interface patterns indiscriminately. TOURMS must develop its own recognisable visual identity.
+13. Visual restraint and intentionality
+We prefer fewer, better-executed elements over many competing elements.
+
+This means:
+- Do not use gradients without a clear purpose.
+- Avoid excessive glassmorphism.
+- Avoid unnecessary shadows and decorative borders.
+- Do not put every section inside a card.
+- Avoid excessive rounded corners.
+- Do not use icons where clear text would work better.
+- Avoid excessive colour variation.
+- Avoid decorative charts that do not communicate useful information.
+- Avoid large illustrations that push important content down the page.
+- Do not add animation merely to make the interface appear sophisticated.
+Whitespace is not wasted space. It helps establish hierarchy, improve readability and give important content room to breathe.
+
+However, whitespace should be intentional. It should not make a functional interface unnecessarily long or difficult to navigate.
+14. Layout and visual hierarchy
+The layout should guide the eye naturally.
+
+Every screen should establish:
+1. Where the user is.
+2. What the screen is about.
+3. What information matters most.
+4. What actions are available.
+5. What the user should do next.
+Use clear distinctions between:
+- Page titles and supporting descriptions.
+- Primary and secondary actions.
+- Main content and supplementary information.
+- Important and less important metadata.
+- Interactive and non-interactive elements.
+- Warnings, success messages and neutral information.
+Do not make every element visually prominent. If everything is emphasised, nothing is emphasised.
+15. Typography
+Typography should communicate clarity, confidence and structure.
+
+Our established type direction is:
+- Montserrat: Brand headlines, prominent headings and display text.
+- Inter: Body text, product interfaces, forms, labels, supporting information and operational content.
+Typography rules:
+- Establish a consistent type scale.
+- Use weight and size to communicate hierarchy.
+- Maintain comfortable line lengths.
+- Avoid unnecessarily small text.
+- Ensure adequate contrast.
+- Do not use too many font sizes or weights.
+- Do not use uppercase for long paragraphs.
+- Use consistent heading patterns throughout the product.
+Typography should be expressive enough to establish identity but restrained enough to support usability.
+16. Colour philosophy
+Our colours should communicate stability, growth, confidence, maturity and warmth.
+Colour	HEX	Role
+Tourms Charcoal	#0F1F1C	Primary dark surfaces and text
+Deep Tourms Green	#0E5A46	Primary brand colour and key actions
+Warm Ivory	#F7F7EE	Primary light background
+Amber Copper	#C98A3A	Restrained accent
+White	#FFFFFF	Contrast and reversed applications
+Black	#111111	Monochrome fallback
+
+Colour usage principles:
+- Deep Tourms Green should be a recognisable primary brand colour.
+- Warm Ivory should provide a softer alternative to a completely white interface.
+- Charcoal should provide depth and strong text contrast.
+- Amber Copper should be used sparingly to create emphasis.
+- White should support clarity and contrast.
+- Colour must never be the only way to communicate status or meaning.
+Do not use every brand colour equally. Establish a dominant palette and use accent colours intentionally.
+
+Status colours such as success, warning, error and information should be distinguishable from brand colours and should follow accessibility requirements.
+17. The geometric T and frequency language
+The geometric T is the central visual symbol of TOURMS.
+
+It should be treated as a distinctive brand mark, not a decorative icon to be redesigned on every screen.
+
+The wider visual language may draw from ideas of:
+- Structure.
+- Connection.
+- Modularity.
+- Rhythm.
+- Repetition.
+- Alignment.
+- Movement.
+- Different expressions within one system.
+The frequency concept may inform subtle graphic patterns, transitions, layouts or campaign materials.
+
+However, avoid literal soundwave graphics, audio equaliser clichés or repetitive wave decorations.
+
+The idea is conceptual: one consistent identity expressed through different forms.
+
+PART FOUR: THE DIGITAL PRODUCT PHILOSOPHY
+18. Design around user goals, not internal organisational structure.
+Users do not come to a platform because they want to understand how a company has organised its departments.
+
+They come because they want to do something.
+
+The product should therefore be organised around their goals.
+
+For TOURMS Agro-Solutions, the primary public experience should make it easy to:
+- Find relevant agricultural jobs.
+- Discover useful opportunities.
+- Access credible agricultural knowledge and insights.
+- Understand what TOURMS does.
+- Join or participate in the platform.
+The navigation should reflect these user needs rather than internal business units.
+19. Make the next action obvious.
+Every important screen should have a clear primary action.
+
+The user should not need to guess what to do next.
+
+Examples:
+- A job listing should lead naturally to the job details.
+- A job detail page should make the application action discoverable.
+- An employer dashboard should make outstanding tasks visible.
+- A job creation process should communicate progress and what is required.
+- An administrator's queue should make pending decisions easy to identify.
+Primary actions should be visually distinct, but secondary actions should remain accessible.
+
+Do not create multiple competing primary actions without a clear reason.
+20. Progressive disclosure.
+Do not expose every feature, option or piece of information at once.
+
+Show users what they need at the current stage and make additional information available when necessary.
+
+For example:
+- A job card should show the most important job information.
+- The job detail page should contain the full description and requirements.
+- An application form should request relevant information in manageable steps.
+- An employer dashboard should show immediate priorities while allowing access to deeper records.
+- An admin queue should provide a useful overview and allow administrators to inspect full records when needed.
+This is how we reduce cognitive load without sacrificing functionality.
+21. Design for real-world conditions.
+TOURMS Agro-Solutions is Nigeria-first.
+
+The experience must be designed for people who may be using:
+- Lower-end Android devices.
+- Small mobile screens.
+- Unstable internet connections.
+- Limited data plans.
+- Older browsers.
+- Shared or public devices.
+- Different levels of digital literacy.
+This should influence product design and engineering decisions from the beginning.
+
+Requirements:
+- Mobile-first responsive design.
+- Lightweight pages and assets.
+- Efficient data loading.
+- Readable text at common mobile sizes.
+- Touch-friendly controls.
+- Clear loading and error states.
+- Forms that do not unnecessarily discard user input.
+- Sensible image optimisation.
+- No unnecessary animation that harms performance.
+- Graceful handling of network interruptions.
+A responsive design is not simply a desktop interface squeezed into a smaller screen. The content hierarchy and interaction patterns should be reconsidered for each device size.
+22. Accessibility is a quality standard.
+Accessibility should be built into the design, not added at the end.
+
+The product should account for users with different visual, physical, cognitive and technological capabilities.
+
+This includes:
+- Sufficient colour contrast.
+- Readable font sizes.
+- Clear focus indicators.
+- Keyboard navigation.
+- Semantic structure.
+- Descriptive labels.
+- Accessible forms.
+- Helpful error messages.
+- Adequate touch targets.
+- Avoiding colour-only status indicators.
+- Appropriate support for assistive technologies.
+Aim for WCAG 2.2 AA as the accessibility baseline, where applicable.
+
+Accessibility improves the experience for everyone, not only people with disabilities.
+
+PART FIVE: THE TOURMS AGRO-SOLUTIONS EXPERIENCE
+23. Product identity
+TOURMS AGRO-SOLUTIONS
+
+AGRICULTURE, CONNECTED BETTER.
+
+Supporting copy:
+
+"Work, opportunity and knowledge for the people and businesses shaping agriculture."
+
+The product should feel like a serious agricultural platform built around people, capabilities, opportunities and useful information.
+
+It should not look like a generic farming blog, a traditional job board with agricultural labels or an agricultural e-commerce marketplace.
+
+Its identity should communicate connection across the agricultural ecosystem.
+24. The three primary public sections
+A. Jobs
+Jobs is the public-facing employment experience powered by Tourms Workforce.
+
+It connects people with relevant agricultural employment opportunities.
+
+The experience should prioritise:
+- Job discovery.
+- Search and filtering.
+- Clear job information.
+- Employer identity.
+- Location and employment type.
+- Compensation where supplied.
+- Eligibility and requirements.
+- Application instructions.
+- Application status where supported.
+The design should make it easy to understand whether a job is relevant before a user invests time applying.
+
+Do not present unverified claims as verified facts.
+B. Opportunities
+Opportunities is broader than employment.
+
+It includes relevant opportunities such as:
+- Scholarships.
+- Grants.
+- Loans.
+- Training programmes.
+- Fellowships.
+- Competitions.
+- Internships.
+- Research calls.
+- Events.
+- Professional development programmes.
+The experience should help users discover opportunities, understand eligibility, identify deadlines and follow application instructions.
+
+Do not confuse an opportunity with a job.
+C. Insights
+Insights is the knowledge and editorial section.
+
+It should provide useful agricultural content, including:
+- Articles.
+- Research briefs.
+- Explainers.
+- Field notes.
+- Analysis.
+- Interviews.
+- Guides.
+- Ideas and commentary.
+The experience should feel editorial, credible and informative.
+
+Do not fill the platform with generic articles simply to make it appear active. Content should have a clear purpose, relevant sourcing and an identifiable editorial standard.
+25. Workforce: capability before labels.
+Tourms Workforce is not intended to be a generic labour directory.
+
+Its central question is:
+WHAT CAN THIS PERSON ACTUALLY DO?
+
+The worker experience should communicate capability, not just identity.
+
+A profile may include:
+- Skills.
+- Experience.
+- Location.
+- Availability.
+- Certifications.
+- Evidence of capability.
+- Work preferences.
+- Relevant professional background.
+The platform must distinguish between information that is self-reported and information that has been verified.
+
+Do not imply that every worker, skill or certificate has been independently verified unless the platform has actually completed that process.
+26. Employer experience: task before dashboard.
+The employer experience should answer:
+WHAT NEEDS MY ATTENTION?
+
+It should help employers:
+- Post jobs.
+- Review applications.
+- Find relevant people.
+- Manage job listings.
+- Review worker profiles.
+- Track important activities.
+Do not create a dashboard filled with charts and statistics that do not help employers make decisions.
+
+Operational usefulness takes priority over visual complexity.
+27. Administrator experience: operational clarity.
+The administrator experience should answer:
+WHAT NEEDS TOURMS' ATTENTION RIGHT NOW?
+
+The admin interface should make operational work visible and manageable.
+
+Important queues include:
+- Jobs awaiting review.
+- Employers awaiting verification.
+- Worker issues.
+- Opportunity submissions.
+- Content awaiting publication.
+- Reports and moderation.
+- Recent platform activity.
+The interface should support clear decisions, accurate records, traceability and appropriate permissions.
+
+Administrative tools should not be unnecessarily decorative. They should be efficient, predictable and reliable.
+
+PART SIX: INTERACTION AND CONTENT PHILOSOPHY
+28. Every interaction should provide feedback.
+Users should never be left wondering whether an action worked.
+
+The product should provide appropriate feedback for:
+- Loading.
+- Saving.
+- Submission.
+- Success.
+- Validation errors.
+- Failed requests.
+- Empty results.
+- Expired sessions.
+- Unavailable content.
+- Permission restrictions.
+For example, submitting a job should not simply make a button spin indefinitely. The user should understand what is happening, whether the submission succeeded and what happens next.
+29. Design all important states.
+A screen is not complete simply because its default state looks good.
+
+Every important workflow should consider:
+- Default state.
+- Hover state where applicable.
+- Focus state.
+- Active state.
+- Disabled state.
+- Loading state.
+- Empty state.
+- Error state.
+- Success state.
+- Validation state.
+- Unavailable or expired state.
+These states should be designed consistently and implemented deliberately.
+
+Do not invent functionality simply to populate a state.
+30. Honest UX writing.
+The language of TOURMS should be:
+- Clear.
+- Direct.
+- Professional.
+- Human.
+- Respectful.
+- Specific.
+- Reassuring when appropriate.
+Avoid:
+- Empty marketing language.
+- Unnecessary technical jargon.
+- Inflated claims.
+- Vague instructions.
+- Excessive exclamation marks.
+- Artificially enthusiastic copy.
+- Misleading verification statements.
+- Promises that the product cannot guarantee.
+Use language that tells users what is happening and what they can do about it.
+
+For example, "Your application has been submitted" is more useful than "Great! You're all set!" when the actual status matters.
+
+PART SEVEN: THE DESIGN SYSTEM AND TECHNICAL PHILOSOPHY
+31. Build a system, not disconnected screens.
+The design system should provide a shared foundation for the entire product.
+
+It should include:
+- Colour tokens.
+- Typography tokens.
+- Spacing scale.
+- Layout rules.
+- Responsive breakpoints.
+- Buttons.
+- Inputs.
+- Selects.
+- Form controls.
+- Navigation.
+- Cards where appropriate.
+- Modals and dialogs.
+- Alerts and notifications.
+- Badges and status indicators.
+- Tables.
+- Tabs.
+- Pagination.
+- Loading indicators.
+- Empty states.
+- Error states.
+- Icons.
+- Interaction patterns.
+Components should be reusable where the same pattern genuinely serves the same purpose.
+
+However, do not force unrelated experiences into one component simply to maximise reuse.
+
+A good design system provides consistency without creating unnecessary rigidity.
+32. Design for maintainability.
+The product should be built in a way that can be understood, maintained and improved.
+
+This means:
+- Clear component organisation.
+- Reusable design tokens.
+- Consistent naming conventions.
+- Separation of concerns.
+- Maintainable page structures.
+- Predictable state management.
+- Appropriate validation.
+- Secure handling of user data.
+- Clear permission boundaries.
+- Documented assumptions.
+- Avoidance of unnecessary dependencies.
+Do not build a visually convincing prototype that collapses when real data and real user interactions are introduced.
+33. Do not confuse a prototype with a functioning product.
+A visual interface is not proof that a product works.
+
+Every feature should be evaluated across three dimensions:
+
+Visual: Does it look and behave consistently with the design philosophy?
+
+Functional: Does it actually perform the intended task?
+
+Operational: Can it work reliably with real users, real data, permissions, errors and normal usage conditions?
+
+A button that does nothing is not a completed feature. A form that displays a success message without saving data is not a completed form. A dashboard filled with fabricated numbers is not a functioning dashboard.
+
+Where backend services, integrations or data are unavailable, use clearly identified mock data and state the limitation. Never present mock data as real platform activity.
+34. Build for the current stage, without compromising the future.
+TOURMS should not attempt to build every possible feature at once.
+
+The initial product should concentrate on the functions that make its core experience useful.
+
+Build the foundation properly, establish good patterns and expand as real user needs become clearer.
+
+Avoid premature complexity, speculative features and unnecessary architecture.
+
+Future expansion should be possible without making the present product unnecessarily complicated.
+
+PART EIGHT: WHAT TOURMS SHOULD NEVER BECOME
+The following are design and product anti-patterns.
+1. A generic agricultural website with a green colour scheme.
+2. A visually attractive interface with weak functionality.
+3. A dashboard full of meaningless statistics.
+4. A platform that overwhelms users with features.
+5. A product that treats every user as though they have the same needs.
+6. A system that makes unsupported claims about verification or trust.
+7. A design that prioritises desktop while treating mobile as an afterthought.
+8. A product that uses AI or automation without a meaningful user benefit.
+9. A collection of disconnected pages with no coherent experience.
+10. A product that sacrifices accessibility for aesthetics.
+11. A system that fabricates jobs, opportunities, users, activity or editorial content.
+12. A product that becomes difficult to maintain because of unnecessary technical complexity.
+13. A visual identity that relies on agricultural clichés.
+14. A product that imitates another company's identity instead of developing its own.
+
+PART NINE: THE TOURMS DESIGN DECISION FRAMEWORK
+35. How every design decision should be evaluated
+When deciding whether to add, remove, change or retain an element, evaluate it against the following questions.
+Evaluation	Question
+Purpose	What problem does this solve?
+User value	Who benefits from this?
+Clarity	Does it make the experience easier to understand?
+Simplicity	Can it be achieved with less complexity?
+Functionality	Does it work as intended?
+Consistency	Does it fit the wider TOURMS system?
+Accessibility	Can different people use it effectively?
+Performance	Does it introduce unnecessary weight or delay?
+Trust	Is the information and behaviour honest?
+Maintainability	Can the product team support it properly?
+Scalability	Does it support sensible future growth?
+
+An element should not be included merely because it looks impressive.
+
+A feature should not be built merely because competitors have it.
+
+A design should not be approved merely because it looks attractive in a screenshot.
+
+The final decision should be based on the total experience.
+36. The hierarchy of priorities
+When principles compete, use this order as the default decision framework:
+1. User safety, privacy and trust.
+2. Functional correctness.
+3. Clarity and usability.
+4. Accessibility.
+5. Performance and reliability.
+6. Consistency and maintainability.
+7. Visual refinement.
+8. Decorative expression.
+This is not an excuse to neglect visual quality. It is a reminder that visual quality must support a product that actually works.
+
+PART TEN: HOW GOOGLE AI STUDIO SHOULD APPLY THIS PHILOSOPHY
+The following instructions are mandatory when generating or modifying TOURMS Agro-Solutions.
+37. Your role
+You are not simply generating a website or arranging UI components.
+
+You are helping build a coherent digital product under the TOURMS brand.
+
+Act as a multidisciplinary product team combining:
+- Product strategy.
+- UX research and architecture.
+- UI design.
+- Brand design.
+- Interaction design.
+- Frontend engineering.
+- Backend engineering where required.
+- Accessibility.
+- Quality assurance.
+Make decisions using the TOURMS philosophy rather than relying on generic templates.
+38. Before designing or implementing
+First, understand the product.
+
+Inspect all supplied materials, including:
+- TOURMS brand assets.
+- Product requirements.
+- UI/UX blueprint.
+- Existing Figma screens.
+- Product architecture.
+- Existing source code, if supplied.
+- Data models and API documentation, if supplied.
+Identify what is approved, what is provisional, what is missing and what conflicts.
+
+Do not silently invent missing product requirements.
+
+Do not discard existing approved work simply because you can generate a different design.
+
+If an existing design has a genuine usability, accessibility, consistency or technical problem, explain the issue and propose a targeted correction.
+39. Design and implementation requirements
+- Preserve the established TOURMS identity.
+- Use the approved brand palette and typography.
+- Develop a recognisable and consistent visual language.
+- Make mobile the primary design consideration.
+- Build responsive layouts rather than simply shrinking desktop screens.
+- Use reusable components and design tokens.
+- Ensure all interactive elements have meaningful behaviour.
+- Design the full interaction states.
+- Use realistic content structures.
+- Clearly identify mock data.
+- Do not fabricate user activity, job listings, opportunities, testimonials, statistics or verification.
+- Avoid generic templates and unnecessary visual effects.
+- Do not introduce new features outside the approved scope without explaining their value and obtaining approval.
+- Maintain the distinction between Jobs, Opportunities and Insights.
+- Keep the master TOURMS brand distinct from the TOURMS Agro-Solutions product identity.
+40. How to evaluate your own output
+Before presenting any design or implementation, ask:
+- Does this feel like TOURMS?
+- Is the purpose immediately clear?
+- Does the design make the task easier?
+- Is the visual hierarchy obvious?
+- Is the experience coherent across screens?
+- Does it work on mobile?
+- Is the interface accessible?
+- Are all controls functional?
+- Are the important states accounted for?
+- Is the content truthful?
+- Is the implementation maintainable?
+- Have unnecessary elements been removed?
+- Does the product feel refined without becoming overdesigned?
+If the answer to an important question is no, improve the work before presenting it.
+
+FINAL STATEMENT
+TOURMS is built on the belief that good ideas deserve good systems.
+
+We believe in purposeful simplicity, meaningful innovation, thoughtful structure and experiences that respect the people who use them.
+
+We want our products to be distinctive without being complicated, intelligent without being intimidating, ambitious without being wasteful, and beautiful without sacrificing usefulness.
+
+We do not design to impress people for a moment. We design to make things work better over time.
+
+We build with purpose. We create clarity from complexity. We connect what should work together.
+
+SAME SOUND, DIFFERENT FREQUENCY.
+
+TOURMS.

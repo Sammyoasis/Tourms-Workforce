@@ -1,0 +1,130 @@
+{
+  "entities": {
+    "Job": {
+      "title": "JobListing",
+      "description": "Commercial agricultural job demand and operational placement in Nigeria.",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "pattern": "^[a-zA-Z0-9_-]+$" },
+        "title": { "type": "string", "maxLength": 200 },
+        "organisation": { "type": "string", "maxLength": 200 },
+        "employerId": { "type": "string", "pattern": "^[a-zA-Z0-9_-]+$" },
+        "employerVerified": { "type": "boolean" },
+        "location": { "type": "object" },
+        "employmentType": { "type": "string" },
+        "duration": { "type": "string" },
+        "category": { "type": "string" },
+        "compensation": { "type": "object" },
+        "summary": { "type": "string", "maxLength": 2000 },
+        "responsibilities": { "type": "array" },
+        "essentialRequirements": { "type": "array" },
+        "desirableQualifications": { "type": "array" },
+        "skills": { "type": "array" },
+        "applicationInstructions": { "type": "string" },
+        "deadline": { "type": "string" },
+        "postedDate": { "type": "string" },
+        "status": { "type": "string" },
+        "priority": { "type": "string" },
+        "totalApplicationsCount": { "type": "number" }
+      },
+      "required": ["id", "title", "organisation", "employerId", "status"]
+    },
+    "WorkerProfile": {
+      "title": "WorkerProfile",
+      "description": "Agricultural worker or technician capability-first profile.",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "pattern": "^[a-zA-Z0-9_-]+$" },
+        "fullName": { "type": "string", "maxLength": 150 },
+        "headline": { "type": "string", "maxLength": 250 },
+        "email": { "type": "string" },
+        "phone": { "type": "string", "maxLength": 25 },
+        "isVerified": { "type": "boolean" },
+        "phoneVerified": { "type": "boolean" },
+        "emailVerified": { "type": "boolean" },
+        "verificationMethod": { "type": "string" },
+        "location": { "type": "object" },
+        "summary": { "type": "string", "maxLength": 3000 },
+        "capabilities": { "type": "array" },
+        "skills": { "type": "array" },
+        "workExperience": { "type": "array" },
+        "education": { "type": "array" },
+        "certifications": { "type": "array" },
+        "availability": { "type": "string" },
+        "preferences": { "type": "object" },
+        "completionPercentage": { "type": "number" },
+        "verifiedStatus": { "type": "string" }
+      },
+      "required": ["id", "fullName", "phone"]
+    },
+    "EmployerProfile": {
+      "title": "EmployerProfile",
+      "description": "Verified commercial agribusiness, farm enterprise, or agricultural cooperative.",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "pattern": "^[a-zA-Z0-9_-]+$" },
+        "companyName": { "type": "string", "maxLength": 200 },
+        "businessType": { "type": "string" },
+        "registrationNumber": { "type": "string", "maxLength": 50 },
+        "cacVerified": { "type": "boolean" },
+        "isVerified": { "type": "boolean" },
+        "location": { "type": "object" },
+        "contactPerson": { "type": "string", "maxLength": 150 },
+        "email": { "type": "string" },
+        "phone": { "type": "string", "maxLength": 25 },
+        "phoneVerified": { "type": "boolean" },
+        "emailVerified": { "type": "boolean" },
+        "verificationStatus": { "type": "string" },
+        "verificationDocuments": { "type": "array" },
+        "primaryFocus": { "type": "string" },
+        "crops": { "type": "array" },
+        "livestock": { "type": "array" },
+        "farmScale": { "type": "string" },
+        "workforceSize": { "type": "string" },
+        "mechanizationLevel": { "type": "string" },
+        "establishedYear": { "type": "string" },
+        "landTenure": { "type": "string" }
+      },
+      "required": ["id", "companyName", "registrationNumber"]
+    },
+    "JobApplication": {
+      "title": "JobApplication",
+      "description": "Worker job application submitted to an employer job demand.",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "pattern": "^[a-zA-Z0-9_-]+$" },
+        "jobId": { "type": "string", "pattern": "^[a-zA-Z0-9_-]+$" },
+        "jobTitle": { "type": "string", "maxLength": 200 },
+        "organisation": { "type": "string", "maxLength": 200 },
+        "applicantId": { "type": "string", "pattern": "^[a-zA-Z0-9_-]+$" },
+        "applicantName": { "type": "string", "maxLength": 150 },
+        "applicantEmail": { "type": "string" },
+        "applicantPhone": { "type": "string", "maxLength": 25 },
+        "applicantHeadline": { "type": "string" },
+        "applicantLocation": { "type": "string" },
+        "coverNote": { "type": "string", "maxLength": 2000 },
+        "status": { "type": "string" },
+        "appliedAt": { "type": "string" }
+      },
+      "required": ["id", "jobId", "applicantId", "applicantName", "status"]
+    }
+  },
+  "firestore": {
+    "/jobs/{jobId}": {
+      "schema": "Job",
+      "description": "Collection of commercial agricultural job listings."
+    },
+    "/workers/{workerId}": {
+      "schema": "WorkerProfile",
+      "description": "Collection of agricultural worker profiles and capabilities."
+    },
+    "/employers/{employerId}": {
+      "schema": "EmployerProfile",
+      "description": "Collection of commercial farm and agribusiness enterprise profiles."
+    },
+    "/applications/{applicationId}": {
+      "schema": "JobApplication",
+      "description": "Collection of worker applications submitted for jobs."
+    }
+  }
+}

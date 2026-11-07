@@ -1,13 +1,24 @@
 import React, { useState, useMemo } from 'react';
 import { JobListing, JobCategory, EmploymentType } from '../../types';
 import { ALL_STATE_NAMES, getLgasForState } from '../../data/nigeriaLocations';
-import { SearchField } from '../ui/Input';
 import { Select } from '../ui/Select';
 import { StatusIndicator } from '../ui/Badge';
 import { Button } from '../ui/Button';
 import { EmptyState } from '../ui/EmptyState';
 import { BottomSheet } from '../ui/Modal';
-import { Filter, MapPin, Briefcase, SlidersHorizontal, ArrowRight, ShieldCheck } from 'lucide-react';
+import { TourmsSymbol } from '../ui/TourmsLogo';
+import {
+  Filter,
+  MapPin,
+  SlidersHorizontal,
+  ArrowRight,
+  ShieldCheck,
+  Search,
+  Briefcase,
+  X,
+  RotateCcw,
+  ChevronDown
+} from 'lucide-react';
 
 export interface JobsViewProps {
   jobs: JobListing[];
@@ -26,6 +37,17 @@ const CATEGORIES: JobCategory[] = [
   'Technology & Data',
   'Research & Development',
   'Administration & Support'
+];
+
+const QUICK_CATEGORIES = [
+  'All',
+  'Farm Operations',
+  'Crop Production',
+  'Livestock',
+  'Agribusiness',
+  'Processing',
+  'Logistics',
+  'Technology & Data'
 ];
 
 const EMPLOYMENT_TYPES: EmploymentType[] = [
@@ -59,10 +81,8 @@ export const JobsView: React.FC<JobsViewProps> = ({
   // Filtered jobs
   const filteredJobs = useMemo(() => {
     return jobs.filter((job) => {
-      // Status filter: show approved or public active
       if (job.status !== 'approved') return false;
 
-      // Query filter
       if (searchQuery.trim()) {
         const q = searchQuery.toLowerCase();
         const matchesTitle = job.title.toLowerCase().includes(q);
@@ -74,27 +94,22 @@ export const JobsView: React.FC<JobsViewProps> = ({
         }
       }
 
-      // Category filter
       if (selectedCategory !== 'all' && job.category !== selectedCategory) {
         return false;
       }
 
-      // State filter
       if (selectedState !== 'all' && job.location.state !== selectedState) {
         return false;
       }
 
-      // LGA filter
       if (selectedLga !== 'all' && job.location.lga !== selectedLga) {
         return false;
       }
 
-      // Employment type
       if (selectedType !== 'all' && job.employmentType !== selectedType) {
         return false;
       }
 
-      // Verified only
       if (verifiedOnly && !job.employerVerified) {
         return false;
       }
@@ -113,6 +128,7 @@ export const JobsView: React.FC<JobsViewProps> = ({
   };
 
   const activeFilterCount =
+    (searchQuery.trim() ? 1 : 0) +
     (selectedCategory !== 'all' ? 1 : 0) +
     (selectedState !== 'all' ? 1 : 0) +
     (selectedLga !== 'all' ? 1 : 0) +
@@ -120,54 +136,252 @@ export const JobsView: React.FC<JobsViewProps> = ({
     (verifiedOnly ? 1 : 0);
 
   return (
-    <div className={`w-full text-left ${isMobilePreview ? 'max-w-md mx-auto border-x border-[#C4C8C5] shadow-lg bg-[#F7F7EE]' : ''}`}>
+    <div
+      className={`w-full text-left overflow-x-hidden ${
+        isMobilePreview
+          ? 'max-w-md mx-auto border-x border-[#C4C8C5] shadow-lg bg-[#F7F7EE]'
+          : ''
+      }`}
+    >
       {/* Header Banner */}
-      <section className="bg-white border-b border-[#C4C8C5] py-8 md:py-12 px-4 sm:px-6 lg:px-8">
+      <section className={`bg-white border-b border-[#C4C8C5] ${isMobilePreview ? 'py-5 px-4' : 'py-6 sm:py-9 px-3.5 sm:px-6 lg:px-8'}`}>
         <div className="max-w-7xl mx-auto space-y-4">
-          <div className="inline-flex items-center gap-2 text-xs font-semibold text-[#0E5A46] tracking-wider uppercase">
-            <span>TOURMS WORKFORCE</span>
-            <span aria-hidden="true">·</span>
-            <span>EMPLOYMENT DISCOVERY</span>
+          <div className="space-y-1.5 sm:space-y-2">
+            <div className="inline-flex items-center gap-1.5 text-[10px] sm:text-xs font-semibold text-[#0E5A46] tracking-wider uppercase">
+              <TourmsSymbol size={16} />
+              <span>TOURMS WORKFORCE</span>
+              <span aria-hidden="true">·</span>
+              <span>AGRICULTURAL EMPLOYMENT DISCOVERY</span>
+            </div>
+
+            <h1 className={`${isMobilePreview ? 'text-xl' : 'text-xl sm:text-3xl md:text-4xl'} font-extrabold text-[#0F1F1C] tracking-tight font-display break-words`}>
+              FIND WORK IN AGRICULTURE.
+            </h1>
+
+            <p className={`${isMobilePreview ? 'text-xs' : 'text-xs sm:text-sm md:text-base'} text-[#3A4B47] max-w-2xl leading-relaxed`}>
+              Direct connections between skilled agricultural professionals and vetted commercial agribusinesses across Nigeria.
+            </p>
           </div>
 
-          <h1 className="text-2xl sm:text-4xl font-extrabold text-[#0F1F1C] tracking-tight font-display">
-            FIND WORK IN AGRICULTURE.
-          </h1>
+          {/* Unified Search and Filter Bar */}
+          <div className="bg-[#FAF9F5] sm:bg-white rounded-lg border border-[#C4C8C5] p-3 sm:p-4 shadow-sm space-y-3">
+            {/* Main Bar: Keyword + Location + Category + More Filters */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-12 gap-2 sm:gap-2.5 items-center">
+              {/* Keyword Search */}
+              <div className="lg:col-span-5 min-w-0">
+                <div className="relative flex items-center w-full">
+                  <Search className="absolute left-3.5 h-4 w-4 text-[#3A4B47] pointer-events-none" />
+                  <input
+                    type="search"
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)}
+                    placeholder="Search by role, skill (e.g. Boom Sprayer), or keyword..."
+                    className="w-full pl-10 pr-9 py-2.5 min-h-[44px] bg-white border border-[#C4C8C5] rounded text-sm text-[#0F1F1C] placeholder:text-[#5A6E68] focus:outline-none focus:ring-2 focus:ring-[#0E5A46] focus:border-[#0E5A46] transition-colors"
+                  />
+                  {searchQuery && (
+                    <button
+                      type="button"
+                      onClick={() => setSearchQuery('')}
+                      aria-label="Clear search"
+                      className="absolute right-3 text-xs text-[#5A6E68] hover:text-[#0F1F1C] p-1 cursor-pointer"
+                    >
+                      <X className="w-4 h-4" />
+                    </button>
+                  )}
+                </div>
+              </div>
 
-          <p className="text-sm md:text-base text-[#3A4B47] max-w-2xl leading-relaxed">
-            Direct connections between skilled agricultural professionals and vetted agribusinesses across Nigeria.
-          </p>
+              {/* Location Filter (State) */}
+              <div className="lg:col-span-3 min-w-0">
+                <div className="relative">
+                  <MapPin className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-[#0E5A46] pointer-events-none z-10" />
+                  <select
+                    value={selectedState}
+                    onChange={(e) => {
+                      setSelectedState(e.target.value);
+                      setSelectedLga('all');
+                    }}
+                    aria-label="Filter by Nigerian State"
+                    className="w-full appearance-none rounded bg-white text-[#0F1F1C] border border-[#C4C8C5] text-xs sm:text-sm min-h-[44px] pl-10 pr-8 py-2 focus:outline-none focus:ring-2 focus:ring-[#0E5A46] focus:border-[#0E5A46] cursor-pointer font-medium truncate"
+                  >
+                    <option value="all">All States (36 + FCT)</option>
+                    {ALL_STATE_NAMES.map((st) => (
+                      <option key={st} value={st}>
+                        {st} State
+                      </option>
+                    ))}
+                  </select>
+                  <ChevronDown className="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[#3A4B47] pointer-events-none" />
+                </div>
+              </div>
 
-          {/* Search Input Bar */}
-          <div className="pt-2 max-w-3xl flex flex-col sm:flex-row gap-3">
-            <div className="flex-1">
-              <SearchField
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                onClear={() => setSearchQuery('')}
-                placeholder="Search by role, skill (e.g. Boom Sprayer), or keyword..."
-              />
+              {/* Role Category Filter */}
+              <div className="lg:col-span-3 min-w-0">
+                <div className="relative">
+                  <Briefcase className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-[#0E5A46] pointer-events-none z-10" />
+                  <select
+                    value={selectedCategory}
+                    onChange={(e) => setSelectedCategory(e.target.value)}
+                    aria-label="Filter by Role Category"
+                    className="w-full appearance-none rounded bg-white text-[#0F1F1C] border border-[#C4C8C5] text-xs sm:text-sm min-h-[44px] pl-10 pr-8 py-2 focus:outline-none focus:ring-2 focus:ring-[#0E5A46] focus:border-[#0E5A46] cursor-pointer font-medium truncate"
+                  >
+                    <option value="all">All Role Categories</option>
+                    {CATEGORIES.map((cat) => (
+                      <option key={cat} value={cat}>
+                        {cat}
+                      </option>
+                    ))}
+                  </select>
+                  <ChevronDown className="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[#3A4B47] pointer-events-none" />
+                </div>
+              </div>
+
+              {/* More Filters Trigger */}
+              <div className="lg:col-span-1 min-w-0">
+                <button
+                  type="button"
+                  onClick={() => setMobileFilterOpen(true)}
+                  className="w-full min-h-[44px] px-3 border border-[#C4C8C5] rounded bg-white hover:bg-[#F7F7EE] text-[#0F1F1C] text-xs font-semibold flex items-center justify-center gap-1.5 transition-colors cursor-pointer shadow-2xs"
+                  title="More filters (LGA, Employment Type, Verified Only)"
+                >
+                  <SlidersHorizontal className="w-4 h-4 text-[#0E5A46]" />
+                  <span className="lg:hidden">More</span>
+                  {activeFilterCount > 0 && (
+                    <span className="bg-[#0E5A46] text-white text-[10px] font-bold rounded-full w-5 h-5 flex items-center justify-center shrink-0">
+                      {activeFilterCount}
+                    </span>
+                  )}
+                </button>
+              </div>
             </div>
-            {/* Mobile Filter Button */}
-            <div className="sm:hidden flex items-center gap-2">
-              <Button
-                variant="outline"
-                className="w-full flex justify-between items-center"
-                leftIcon={<SlidersHorizontal className="w-4 h-4" />}
-                onClick={() => setMobileFilterOpen(true)}
-              >
-                <span>Filters {activeFilterCount > 0 ? `(${activeFilterCount})` : ''}</span>
-              </Button>
+
+            {/* Quick Sector Chips + Verified Toggle + Quick Reset */}
+            <div className="pt-2 border-t border-[#EBEBDD] flex flex-col sm:flex-row sm:items-center justify-between gap-2.5">
+              <div className="flex items-center gap-1.5 overflow-x-auto no-scrollbar py-0.5">
+                <span className="text-[11px] font-semibold text-[#5A6E68] uppercase tracking-wider shrink-0 pr-1 hidden sm:inline">
+                  Quick Roles:
+                </span>
+                {QUICK_CATEGORIES.map((cat) => {
+                  const isSelected = (cat === 'All' && selectedCategory === 'all') || selectedCategory === cat;
+                  return (
+                    <button
+                      key={cat}
+                      type="button"
+                      onClick={() => setSelectedCategory(cat === 'All' ? 'all' : cat)}
+                      className={`text-[11px] sm:text-xs px-2.5 py-1 rounded transition-colors whitespace-nowrap shrink-0 font-medium cursor-pointer ${
+                        isSelected
+                          ? 'bg-[#0E5A46] text-white font-semibold shadow-2xs'
+                          : 'bg-white sm:bg-[#F7F7EE] text-[#3A4B47] hover:bg-[#EBEBDD] hover:text-[#0F1F1C] border border-[#C4C8C5]'
+                      }`}
+                    >
+                      {cat}
+                    </button>
+                  );
+                })}
+              </div>
+
+              <div className="flex items-center justify-between sm:justify-end gap-3 shrink-0 pt-1 sm:pt-0">
+                <label className="flex items-center gap-1.5 text-xs text-[#0F1F1C] font-semibold cursor-pointer select-none">
+                  <input
+                    type="checkbox"
+                    checked={verifiedOnly}
+                    onChange={(e) => setVerifiedOnly(e.target.checked)}
+                    className="rounded border-[#C4C8C5] text-[#0E5A46] focus:ring-[#0E5A46] w-3.5 h-3.5 cursor-pointer"
+                  />
+                  <span>Verified Employers</span>
+                  <ShieldCheck className="w-3.5 h-3.5 text-[#0E5A46]" />
+                </label>
+
+                {activeFilterCount > 0 && (
+                  <button
+                    type="button"
+                    onClick={resetFilters}
+                    className="text-xs text-[#C53030] hover:underline font-semibold flex items-center gap-1 cursor-pointer"
+                  >
+                    <RotateCcw className="w-3 h-3" />
+                    <span>Reset</span>
+                  </button>
+                )}
+              </div>
             </div>
+
+            {/* Active Filters Pill Strip */}
+            {activeFilterCount > 0 && (
+              <div className="pt-2 border-t border-[#EBEBDD] flex flex-wrap items-center gap-1.5 text-xs text-[#5A6E68]">
+                <span className="font-semibold text-[#0F1F1C] text-[11px] uppercase tracking-wider">Active:</span>
+                {searchQuery.trim() && (
+                  <span className="inline-flex items-center gap-1 px-2 py-0.5 bg-[#EBEBDD] rounded text-[#0F1F1C]">
+                    Keyword: <span className="font-semibold">"{searchQuery}"</span>
+                    <button onClick={() => setSearchQuery('')} className="hover:text-[#C53030] p-0.5" aria-label="Clear keyword filter">
+                      <X className="w-3 h-3" />
+                    </button>
+                  </span>
+                )}
+                {selectedCategory !== 'all' && (
+                  <span className="inline-flex items-center gap-1 px-2 py-0.5 bg-[#EBEBDD] rounded text-[#0F1F1C]">
+                    Role: <span className="font-semibold">{selectedCategory}</span>
+                    <button onClick={() => setSelectedCategory('all')} className="hover:text-[#C53030] p-0.5" aria-label="Clear role filter">
+                      <X className="w-3 h-3" />
+                    </button>
+                  </span>
+                )}
+                {selectedState !== 'all' && (
+                  <span className="inline-flex items-center gap-1 px-2 py-0.5 bg-[#EBEBDD] rounded text-[#0F1F1C]">
+                    State: <span className="font-semibold">{selectedState}</span>
+                    <button
+                      onClick={() => {
+                        setSelectedState('all');
+                        setSelectedLga('all');
+                      }}
+                      className="hover:text-[#C53030] p-0.5"
+                      aria-label="Clear state filter"
+                    >
+                      <X className="w-3 h-3" />
+                    </button>
+                  </span>
+                )}
+                {selectedLga !== 'all' && (
+                  <span className="inline-flex items-center gap-1 px-2 py-0.5 bg-[#EBEBDD] rounded text-[#0F1F1C]">
+                    LGA: <span className="font-semibold">{selectedLga}</span>
+                    <button onClick={() => setSelectedLga('all')} className="hover:text-[#C53030] p-0.5" aria-label="Clear LGA filter">
+                      <X className="w-3 h-3" />
+                    </button>
+                  </span>
+                )}
+                {selectedType !== 'all' && (
+                  <span className="inline-flex items-center gap-1 px-2 py-0.5 bg-[#EBEBDD] rounded text-[#0F1F1C]">
+                    Type: <span className="font-semibold">{selectedType}</span>
+                    <button onClick={() => setSelectedType('all')} className="hover:text-[#C53030] p-0.5" aria-label="Clear type filter">
+                      <X className="w-3 h-3" />
+                    </button>
+                  </span>
+                )}
+                {verifiedOnly && (
+                  <span className="inline-flex items-center gap-1 px-2 py-0.5 bg-[#EBEBDD] rounded text-[#0F1F1C]">
+                    <span>Verified Employers</span>
+                    <button onClick={() => setVerifiedOnly(false)} className="hover:text-[#C53030] p-0.5" aria-label="Clear verified filter">
+                      <X className="w-3 h-3" />
+                    </button>
+                  </span>
+                )}
+                <button
+                  onClick={resetFilters}
+                  className="text-[11px] text-[#C53030] hover:underline ml-1 font-semibold cursor-pointer"
+                >
+                  Clear all
+                </button>
+              </div>
+            )}
           </div>
         </div>
       </section>
 
       {/* Main Content Area */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-12">
-        <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
-          {/* Desktop Filter Sidebar */}
-          <aside className="hidden lg:block space-y-6 bg-white p-6 rounded border border-[#C4C8C5] h-fit">
+      <div className={`max-w-7xl mx-auto ${isMobilePreview ? 'px-4 py-6' : 'px-3.5 sm:px-6 lg:px-8 py-6 sm:py-10 md:py-12'}`}>
+        <div className={isMobilePreview ? 'space-y-4' : 'grid grid-cols-1 lg:grid-cols-4 gap-6 sm:gap-8'}>
+          {/* Desktop Filter Sidebar - only rendered when not in mobile preview */}
+          {!isMobilePreview && (
+            <aside className="hidden lg:block space-y-6 bg-white p-6 rounded border border-[#C4C8C5] h-fit">
             <div className="flex items-center justify-between pb-3 border-b border-[#EBEBDD]">
               <div className="flex items-center gap-2 text-[#0F1F1C] font-bold text-sm">
                 <Filter className="w-4 h-4 text-[#0E5A46]" />
@@ -256,16 +470,17 @@ export const JobsView: React.FC<JobsViewProps> = ({
               </label>
             </div>
           </aside>
+          )}
 
           {/* Job Listings List (Desktop & Mobile) */}
-          <main className="lg:col-span-3 space-y-4">
+          <main className={`${isMobilePreview ? 'w-full' : 'lg:col-span-3'} space-y-4`}>
             <div className="flex items-center justify-between text-xs text-[#5A6E68] pb-2 border-b border-[#C4C8C5]">
               <span>
                 Showing <strong className="text-[#0F1F1C] tabular-nums">{filteredJobs.length}</strong> active job demand{filteredJobs.length === 1 ? '' : 's'}
               </span>
               {activeFilterCount > 0 && (
                 <span className="text-[#0E5A46] font-medium hidden sm:inline">
-                  Filters applied
+                  {activeFilterCount} filter{activeFilterCount === 1 ? '' : 's'} applied
                 </span>
               )}
             </div>
@@ -278,16 +493,16 @@ export const JobsView: React.FC<JobsViewProps> = ({
                 onAction={resetFilters}
               />
             ) : (
-              <div className="space-y-4">
+              <div className="space-y-3.5 sm:space-y-4">
                 {filteredJobs.map((job) => (
                   <div
                     key={job.id}
                     onClick={() => onSelectJob(job.id)}
-                    className="bg-white border border-[#C4C8C5] rounded p-5 hover:border-[#0E5A46] transition-all cursor-pointer shadow-2xs group flex flex-col justify-between"
+                    className="bg-white border border-[#C4C8C5] rounded p-4 sm:p-5 hover:border-[#0E5A46] transition-all cursor-pointer shadow-2xs group flex flex-col justify-between"
                   >
-                    <div className="space-y-3">
+                    <div className="space-y-2.5 sm:space-y-3">
                       <div className="flex flex-wrap items-center justify-between gap-2">
-                        <span className="text-xs font-medium text-[#5A6E68]">
+                        <span className="text-[11px] sm:text-xs font-medium text-[#5A6E68]">
                           {job.category}
                         </span>
                         <StatusIndicator
@@ -297,7 +512,7 @@ export const JobsView: React.FC<JobsViewProps> = ({
                       </div>
 
                       <div>
-                        <h2 className="text-lg font-bold text-[#0F1F1C] group-hover:text-[#0E5A46] transition-colors leading-snug">
+                        <h2 className="text-base sm:text-lg font-bold text-[#0F1F1C] group-hover:text-[#0E5A46] transition-colors leading-snug">
                           {job.title}
                         </h2>
                         <p className="text-xs font-semibold text-[#08382B] mt-0.5">
@@ -316,7 +531,7 @@ export const JobsView: React.FC<JobsViewProps> = ({
                         {job.duration && (
                           <>
                             <span aria-hidden="true">·</span>
-                            <span>{job.duration}</span>
+                            <span className="truncate max-w-[140px] sm:max-w-none">{job.duration}</span>
                           </>
                         )}
                         <span aria-hidden="true">·</span>
@@ -325,14 +540,14 @@ export const JobsView: React.FC<JobsViewProps> = ({
                         </span>
                       </div>
 
-                      <p className="text-xs text-[#3A4B47] leading-relaxed line-clamp-2 pt-1">
+                      <p className="text-xs text-[#3A4B47] leading-relaxed line-clamp-2 pt-0.5">
                         {job.summary}
                       </p>
 
                       {/* Skills List */}
                       {job.skills.length > 0 && (
                         <div className="flex flex-wrap items-center gap-x-2 gap-y-1 pt-1 text-[11px] text-[#5A6E68]">
-                          <span className="font-semibold text-[#0F1F1C]">Required:</span>
+                          <span className="font-semibold text-[#0F1F1C]">Skills:</span>
                           {job.skills.map((skill, idx) => (
                             <React.Fragment key={skill}>
                               <span>{skill}</span>
@@ -343,10 +558,10 @@ export const JobsView: React.FC<JobsViewProps> = ({
                       )}
                     </div>
 
-                    <div className="pt-4 border-t border-[#EBEBDD] mt-4 flex items-center justify-between text-xs">
-                      <span className="text-[#5A6E68]">Posted {job.postedDate}</span>
+                    <div className="pt-3.5 border-t border-[#EBEBDD] mt-3.5 flex items-center justify-between text-xs">
+                      <span className="text-[#5A6E68] text-[11px]">Posted {job.postedDate}</span>
                       <span className="font-semibold text-[#0E5A46] group-hover:underline inline-flex items-center gap-1">
-                        <span>View Role Details & Apply</span>
+                        <span>View Details</span>
                         <ArrowRight className="w-3.5 h-3.5" />
                       </span>
                     </div>
@@ -364,7 +579,7 @@ export const JobsView: React.FC<JobsViewProps> = ({
         onClose={() => setMobileFilterOpen(false)}
         title="Filter Job Opportunities"
       >
-        <div className="space-y-5 text-left pb-4">
+        <div className="space-y-4 text-left pb-4">
           <Select
             label="Sector / Category"
             value={selectedCategory}
@@ -410,23 +625,23 @@ export const JobsView: React.FC<JobsViewProps> = ({
             ]}
           />
 
-          <label className="flex items-center gap-2.5 text-sm font-semibold text-[#0F1F1C] cursor-pointer pt-2">
+          <label className="flex items-center gap-2.5 text-xs font-semibold text-[#0F1F1C] cursor-pointer pt-2">
             <input
               type="checkbox"
               checked={verifiedOnly}
               onChange={(e) => setVerifiedOnly(e.target.checked)}
-              className="rounded border-[#C4C8C5] text-[#0E5A46] focus:ring-[#0E5A46] w-5 h-5 cursor-pointer"
+              className="rounded border-[#C4C8C5] text-[#0E5A46] focus:ring-[#0E5A46] w-4 h-4 cursor-pointer"
             />
             <span className="flex items-center gap-1.5">
-              <ShieldCheck className="w-4 h-4 text-[#0E5A46]" />
+              <ShieldCheck className="w-3.5 h-3.5 text-[#0E5A46]" />
               <span>Verified Employers Only</span>
             </span>
           </label>
 
-          <div className="pt-4 flex items-center gap-3">
+          <div className="pt-3 flex items-center gap-2.5">
             <Button
               variant="primary"
-              className="w-full"
+              className="flex-1"
               onClick={() => setMobileFilterOpen(false)}
             >
               Show {filteredJobs.length} Results

@@ -164,8 +164,12 @@ export interface WorkerProfile {
   id: string;
   fullName: string;
   headline: string;
-  email: string;
+  email?: string;
   phone: string;
+  isVerified?: boolean;
+  phoneVerified?: boolean;
+  emailVerified?: boolean;
+  verificationMethod?: 'sms_otp' | 'whatsapp_otp' | 'email_link' | 'agent_verified';
   location: {
     state: string;
     lga: string;
@@ -213,6 +217,7 @@ export interface EmployerProfile {
   businessType: string;
   registrationNumber: string; // CAC
   cacVerified: boolean;
+  isVerified?: boolean;
   location: {
     state: string;
     lga: string;
@@ -221,6 +226,8 @@ export interface EmployerProfile {
   contactPerson: string;
   email: string;
   phone: string;
+  emailVerified?: boolean;
+  phoneVerified?: boolean;
   verificationStatus: VerificationStatus;
   verificationDocuments: {
     id: string;
@@ -230,6 +237,14 @@ export interface EmployerProfile {
     status: VerificationStatus;
     notes?: string;
   }[];
+  primaryFocus?: string;
+  crops?: string[];
+  livestock?: string[];
+  farmScale?: string;
+  workforceSize?: string;
+  mechanizationLevel?: string;
+  establishedYear?: string;
+  landTenure?: string;
 }
 
 export interface JobApplication {
@@ -239,7 +254,8 @@ export interface JobApplication {
   organisation: string;
   applicantId: string;
   applicantName: string;
-  applicantEmail: string;
+  applicantEmail?: string;
+  applicantPhone?: string;
   applicantHeadline: string;
   applicantLocation: string;
   coverNote: string;

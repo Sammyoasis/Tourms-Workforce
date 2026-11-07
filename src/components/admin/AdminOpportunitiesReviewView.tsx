@@ -27,12 +27,12 @@ export const AdminOpportunitiesReviewView: React.FC<AdminOpportunitiesReviewView
   };
 
   return (
-    <div className="space-y-6 max-w-6xl text-left">
+    <div className="space-y-6 max-w-6xl text-left overflow-x-hidden min-w-0 break-words">
       <div className="pb-4 border-b border-[#C4C8C5]">
-        <h1 className="text-xl font-bold text-[#0F1F1C]">
+        <h1 className="text-lg sm:text-xl font-bold text-[#0F1F1C] break-words">
           Admin Opportunities Review (Screen 21)
         </h1>
-        <p className="text-xs text-[#5A6E68] mt-0.5">
+        <p className="text-xs text-[#5A6E68] mt-0.5 break-words">
           Lifecycle Pipeline: SUBMITTED → VERIFIED → PUBLISHED → EXPIRED. Never mark as verified without official source vetting.
         </p>
       </div>

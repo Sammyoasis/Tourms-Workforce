@@ -683,6 +683,8 @@ export const SAMPLE_WORKER: WorkerProfile = {
   headline: 'Commercial Agronomist & Mechanized Crop Operations Specialist',
   email: 'ibrahim.alabi@example.ng',
   phone: '+234 803 456 7890',
+  isVerified: true,
+  phoneVerified: true,
   location: {
     state: 'Oyo',
     lga: 'Ibadan North'
@@ -787,6 +789,418 @@ export const SAMPLE_WORKER: WorkerProfile = {
   verifiedStatus: 'verified'
 };
 
+export const SAMPLE_WORKERS: WorkerProfile[] = [
+  SAMPLE_WORKER,
+  {
+    id: 'worker-202',
+    fullName: 'Haruna Danladi Yakubu',
+    headline: 'Commercial Combine Harvester & Tractor Operations Lead',
+    email: 'haruna.yakubu@example.ng',
+    phone: '+234 805 112 3344',
+    location: {
+      state: 'Niger',
+      lga: 'Mokwa'
+    },
+    summary:
+      'Master agricultural equipment operator with 7 years of specialized combine harvesting, pneumatic seed drilling, and tractor-drawn disk ridging across the Niger River agricultural basin. Verifiable track record with John Deere and New Holland harvesting equipment.',
+    capabilities: [
+      {
+        id: 'cap-h1',
+        title: 'Combine Harvester Swath & Concave Calibration',
+        description:
+          'Operated John Deere W-Series and New Holland TC5.30 across 850 hectares of paddy rice and hybrid maize, keeping field grain loss under 1.8%.',
+        evidenceLevel: 'institutional_credential',
+        evidenceDocumentName: 'JohnDeere_WestAfrica_MasterOperator.pdf'
+      },
+      {
+        id: 'cap-h2',
+        title: 'Hydraulic System Bleed-Off & Lockout-Tagout Safety',
+        description:
+          'Trained and enforced farm machinery safety protocols, hydraulic emergency lock-out procedures, and header jam clearing without downtime.',
+        evidenceLevel: 'verified_document',
+        evidenceDocumentName: 'TradeTest_Machinery_Grade1.pdf'
+      }
+    ],
+    skills: [
+      'Combine Harvester Operation',
+      'Hydraulic Header Calibration',
+      'Grain Loss Sampling',
+      'Preventive Implement Maintenance',
+      'GPS Swath Guidance',
+      'Tractor Implement Setup'
+    ],
+    workExperience: [
+      {
+        id: 'wexp-h1',
+        role: 'Chief Combine Harvester Operator',
+        organisation: 'Mokwa Commercial Rice & Grain Hub',
+        location: 'Mokwa LGA, Niger State',
+        startDate: '2021-04',
+        endDate: '2026-10',
+        current: false,
+        responsibilities: [
+          'Led mechanized harvesting operations for 6 combine operators during peak 6-week seasonal harvest windows.',
+          'Conducted daily 20-point pre-flight checks on hydraulics, grain elevators, and cutting bar floatation.'
+        ]
+      }
+    ],
+    education: [
+      {
+        id: 'edu-h1',
+        institution: 'Federal College of Agriculture, Moor Plantation',
+        qualification: 'HND Agricultural Engineering (Farm Power & Machinery)',
+        field: 'Farm Machinery Mechanics',
+        yearCompleted: '2019'
+      }
+    ],
+    certifications: [
+      {
+        id: 'cert-h1',
+        name: 'Heavy Agricultural Machinery Trade Test Grade 1 (Combine & Tractor)',
+        issuer: 'Federal Ministry of Labour and Employment',
+        year: '2022',
+        evidenceLevel: 'institutional_credential'
+      },
+      {
+        id: 'cert-h2',
+        name: 'John Deere S-Series Harvester Operation & Threshing Concave Calibration',
+        issuer: 'John Deere West Africa / Tata Agri',
+        year: '2023',
+        evidenceLevel: 'verified_document'
+      }
+    ],
+    availability: 'Immediately Available',
+    preferences: {
+      employmentTypes: ['Seasonal', 'Contract', 'Full-time'],
+      preferredStates: ['Niger', 'Kaduna', 'Kogi', 'Kwara', 'Benue'],
+      willingToRelocate: true
+    },
+    completionPercentage: 96,
+    verifiedStatus: 'verified'
+  },
+  {
+    id: 'worker-203',
+    fullName: 'Grace Nneka Okoli',
+    headline: 'Commercial Poultry Operations Lead (Layers, Broilers & Biosecurity)',
+    email: 'grace.okoli@example.ng',
+    phone: '+234 803 778 9900',
+    location: {
+      state: 'Ogun',
+      lga: 'Sagamu'
+    },
+    summary:
+      'Livestock husbandry specialist with 4+ years running automated broiler deep-litter pens (45,000 birds) and layer battery cages. Expert in automated climate ventilation, feed conversion ratios (FCR < 1.62), and veterinary cold-chain vaccination.',
+    capabilities: [
+      {
+        id: 'cap-g1',
+        title: 'Automated Flock Ventilation & Ammonia Monitoring',
+        description:
+          'Maintained optimal tunnel ventilation and environmental temperature curves, keeping flock mortality under 2.8% to 6-week harvest weight.',
+        evidenceLevel: 'institutional_credential',
+        evidenceDocumentName: 'BigDutchman_Ventilation_Cert.pdf'
+      },
+      {
+        id: 'cap-g2',
+        title: 'Poultry Cold-Chain Vaccination Scheduling',
+        description:
+          'Administered over 120,000 doses of Gumboro, Lasota, and Infectious Bronchitis vaccines under strict temperature-controlled cold chains.',
+        evidenceLevel: 'verified_document',
+        evidenceDocumentName: 'NVRI_Vom_Vaccination_Log.pdf'
+      }
+    ],
+    skills: [
+      'Poultry Husbandry',
+      'Flock Vaccination',
+      'Biosecurity Compliance',
+      'Feed Conversion Tracking',
+      'Automated Auger Maintenance',
+      'Egg Grading'
+    ],
+    workExperience: [
+      {
+        id: 'wexp-g1',
+        role: 'Assistant Farm Manager — Commercial Poultry',
+        organisation: 'Crestline Agro-Livestock Ltd',
+        location: 'Sagamu, Ogun State',
+        startDate: '2022-01',
+        endDate: '2026-08',
+        current: false,
+        responsibilities: [
+          'Supervised daily flock feed allocation, mortality autopsies, and automated egg sorting lines.',
+          'Reduced brooding stage heat mortality by 35% through digital infrared sensor monitoring.'
+        ]
+      }
+    ],
+    education: [
+      {
+        id: 'edu-g1',
+        institution: 'Federal University of Agriculture, Abeokuta (FUNAAB)',
+        qualification: 'B.Agric in Animal Science',
+        field: 'Animal Nutrition & Poultry Husbandry',
+        yearCompleted: '2021'
+      }
+    ],
+    certifications: [
+      {
+        id: 'cert-g1',
+        name: 'Commercial Poultry Biosecurity & Disease Surveillance',
+        issuer: 'Poultry Association of Nigeria (PAN) & NAPRI',
+        year: '2023',
+        evidenceLevel: 'institutional_credential'
+      },
+      {
+        id: 'cert-g2',
+        name: 'Automated Climate & Ventilation Controller Certification',
+        issuer: 'Big Dutchman West Africa',
+        year: '2024',
+        evidenceLevel: 'verified_document'
+      }
+    ],
+    availability: 'Immediately Available',
+    preferences: {
+      employmentTypes: ['Full-time', 'Contract'],
+      preferredStates: ['Ogun', 'Oyo', 'Lagos', 'Osun'],
+      willingToRelocate: false
+    },
+    completionPercentage: 94,
+    verifiedStatus: 'verified'
+  },
+  {
+    id: 'worker-204',
+    fullName: 'Suleiman Bello Garba',
+    headline: 'Calibrated Boom Sprayer Specialist & Weed Science Agronomist',
+    email: 'suleiman.garba@example.ng',
+    phone: '+234 802 889 4411',
+    location: {
+      state: 'Kaduna',
+      lga: 'Ikara'
+    },
+    summary:
+      'Precision agrochemical application specialist with 6 years experience operating 12-18m tractor-mounted hydraulic sprayers, chemical drift shields, and ISO flow-rate nozzle calibrators for commercial maize, soya bean, and tomato fields.',
+    capabilities: [
+      {
+        id: 'cap-s1',
+        title: 'Tractor-Mounted Hydraulic Boom Sprayer Calibration',
+        description:
+          'Calibrated air-induction and twin-fan nozzles across 500+ hectares, preventing chemical drift onto non-target crops and saving 22% in herbicide expenditure.',
+        evidenceLevel: 'institutional_credential',
+        evidenceDocumentName: 'CropLife_Applicator_License.pdf'
+      }
+    ],
+    skills: [
+      'Boom Sprayer Calibration',
+      'Chemical Drift Management',
+      'Integrated Weed Management',
+      'PPE & Hazmat Safety',
+      'Water-Sensitive Test Paper Sampling'
+    ],
+    workExperience: [
+      {
+        id: 'wexp-s1',
+        role: 'Lead Chemical Application Officer',
+        organisation: 'Zaria Grain & Oilseeds Alliance',
+        location: 'Ikara LGA, Kaduna State',
+        startDate: '2020-05',
+        endDate: '2026-09',
+        current: false,
+        responsibilities: [
+          'Managed 4 chemical application rigs and safety compliance for 18 field crew members.',
+          'Maintained zero pesticide contamination incidents over 6 seasons.'
+        ]
+      }
+    ],
+    education: [
+      {
+        id: 'edu-s1',
+        institution: 'Ahmadu Bello University, Zaria',
+        qualification: 'B.Sc Crop Protection',
+        field: 'Weed Science & Toxicology',
+        yearCompleted: '2020'
+      }
+    ],
+    certifications: [
+      {
+        id: 'cert-s1',
+        name: 'Tractor-Mounted Hydraulic Boom Sprayer Calibration',
+        issuer: 'CropLife Nigeria / IITA',
+        year: '2023',
+        evidenceLevel: 'institutional_credential'
+      },
+      {
+        id: 'cert-s2',
+        name: 'Agricultural Hazardous Chemical Handling & Field PPE Protocol',
+        issuer: 'Federal Ministry of Agriculture & Rural Development',
+        year: '2022',
+        evidenceLevel: 'verified_document'
+      }
+    ],
+    availability: 'Immediately Available',
+    preferences: {
+      employmentTypes: ['Seasonal', 'Contract'],
+      preferredStates: ['Kaduna', 'Kano', 'Niger', 'Katsina'],
+      willingToRelocate: true
+    },
+    completionPercentage: 91,
+    verifiedStatus: 'verified'
+  },
+  {
+    id: 'worker-205',
+    fullName: 'Tariere Doubra Pere',
+    headline: 'Recirculating Aquaculture System (RAS) & Hatchery Specialist',
+    email: 'tariere.pere@example.ng',
+    phone: '+234 809 332 1199',
+    location: {
+      state: 'Delta',
+      lga: 'Warri South'
+    },
+    summary:
+      'Aquaculture technologist with 5 years managing indoor recirculating aquaculture systems, broodstock hypophysation, Artemia live feed culture, and UV bio-filtration for African Catfish and Nile Tilapia hatcheries.',
+    capabilities: [
+      {
+        id: 'cap-t1',
+        title: 'RAS Bio-filter & DO Water Chemistry Management',
+        description:
+          'Monitored dissolved oxygen, ammonia, and pH using digital spectrophotometers, sustaining 88% fry survival from yolk absorption to fingerling stage.',
+        evidenceLevel: 'institutional_credential',
+        evidenceDocumentName: 'AfricanAquaculture_RAS_License.pdf'
+      }
+    ],
+    skills: [
+      'Broodstock Stripping & Hypophysation',
+      'Water Chemistry Testing (DO, pH, Ammonia)',
+      'Bio-Filter Maintenance',
+      'Artemia Live Feed Culture',
+      'Fry Grading'
+    ],
+    workExperience: [
+      {
+        id: 'wexp-t1',
+        role: 'Senior Hatchery Technologist',
+        organisation: 'Niger Delta Blue Waters Fisheries',
+        location: 'Warri South LGA, Delta State',
+        startDate: '2021-06',
+        endDate: '2026-09',
+        current: false,
+        responsibilities: [
+          'Oversaw artificial spawning cycles producing 60,000 fingerlings monthly.',
+          'Maintained oxygen blowers and backwash cycles on mechanical drum filters.'
+        ]
+      }
+    ],
+    education: [
+      {
+        id: 'edu-t1',
+        institution: 'Delta State University, Abraka',
+        qualification: 'B.Sc Fisheries & Aquaculture',
+        field: 'Aquaculture Technology',
+        yearCompleted: '2021'
+      }
+    ],
+    certifications: [
+      {
+        id: 'cert-t1',
+        name: 'Recirculating Aquaculture System (RAS) Bio-filtration & UV Management',
+        issuer: 'African Aquaculture Society (AAS)',
+        year: '2023',
+        evidenceLevel: 'institutional_credential'
+      },
+      {
+        id: 'cert-t2',
+        name: 'Digital Water Quality Photometer Diagnostics',
+        issuer: 'Hach Water Analytics Nigeria',
+        year: '2022',
+        evidenceLevel: 'verified_document'
+      }
+    ],
+    availability: '2 Weeks Notice',
+    preferences: {
+      employmentTypes: ['Full-time', 'Contract'],
+      preferredStates: ['Delta', 'Edo', 'Rivers', 'Bayelsa', 'Lagos'],
+      willingToRelocate: true
+    },
+    completionPercentage: 90,
+    verifiedStatus: 'verified'
+  },
+  {
+    id: 'worker-206',
+    fullName: 'Terver Emmanuel Iorfa',
+    headline: 'Commercial Drip & Center-Pivot Irrigation Lead',
+    email: 'terver.iorfa@example.ng',
+    phone: '+234 814 665 4422',
+    location: {
+      state: 'Benue',
+      lga: 'Gboko'
+    },
+    summary:
+      'Irrigation engineer with 4+ years specializing in pressurized drip tape installation, diesel booster pump overhaul, and tensiometer moisture tracking for dry-season commercial hybrid maize and soya bean production.',
+    capabilities: [
+      {
+        id: 'cap-te1',
+        title: 'Pressurized Drip Network Hydraulic Design',
+        description:
+          'Installed 45 hectares of subsurface drip lines with venture injector fertigation manifolds, ensuring uniform pressure distribution across slopes.',
+        evidenceLevel: 'institutional_credential',
+        evidenceDocumentName: 'Netafim_Pressurized_Irrigation.pdf'
+      }
+    ],
+    skills: [
+      'Drip Irrigation Installation',
+      'Diesel Booster Pump Overhaul',
+      'Soil Moisture Tensiometers',
+      'Fertigation Manifold Setup',
+      'Pitot Tube Pressure Testing'
+    ],
+    workExperience: [
+      {
+        id: 'wexp-te1',
+        role: 'Irrigation & Water Resource Supervisor',
+        organisation: 'Benue Agro-Valley Farms Ltd',
+        location: 'Gboko LGA, Benue State',
+        startDate: '2022-02',
+        endDate: '2026-10',
+        current: false,
+        responsibilities: [
+          'Maintained 3 Lister Petter 4-cylinder diesel booster pumps and disc filter backwash manifolds.',
+          'Eliminated emitter clogging through acid-flushing maintenance regimes.'
+        ]
+      }
+    ],
+    education: [
+      {
+        id: 'edu-te1',
+        institution: 'Federal University of Agriculture, Makurdi (FUAM)',
+        qualification: 'B.Eng Agricultural & Environmental Engineering',
+        field: 'Soil & Water Resources Engineering',
+        yearCompleted: '2021'
+      }
+    ],
+    certifications: [
+      {
+        id: 'cert-te1',
+        name: 'Pressurized Irrigation System Design & Maintenance',
+        issuer: 'Lower Benue River Basin Authority / Netafim',
+        year: '2023',
+        evidenceLevel: 'institutional_credential'
+      },
+      {
+        id: 'cert-te2',
+        name: 'Commercial Diesel Pump Station Operation & Maintenance',
+        issuer: 'Lister Petter Technical Certification',
+        year: '2022',
+        evidenceLevel: 'verified_document'
+      }
+    ],
+    availability: 'Immediately Available',
+    preferences: {
+      employmentTypes: ['Seasonal', 'Contract', 'Full-time'],
+      preferredStates: ['Benue', 'Nasarawa', 'Plateau', 'Kogi'],
+      willingToRelocate: true
+    },
+    completionPercentage: 93,
+    verifiedStatus: 'verified'
+  }
+];
+
 export const SAMPLE_EMPLOYER: EmployerProfile = {
   id: 'emp-101',
   companyName: 'Flourish Agri-Enterprises Ltd',
@@ -801,6 +1215,8 @@ export const SAMPLE_EMPLOYER: EmployerProfile = {
   contactPerson: 'Adewale Johnson (Managing Director)',
   email: 'operations@flourishagri.ng',
   phone: '+234 802 334 5566',
+  isVerified: true,
+  phoneVerified: true,
   verificationStatus: 'verified',
   verificationDocuments: [
     {
@@ -821,6 +1237,95 @@ export const SAMPLE_EMPLOYER: EmployerProfile = {
     }
   ]
 };
+
+export const SAMPLE_EMPLOYERS: EmployerProfile[] = [
+  SAMPLE_EMPLOYER,
+  {
+    id: 'emp-102',
+    companyName: 'GreenFields Agro-Ventures Ltd',
+    businessType: 'Commercial Grain & Oilseed Production',
+    registrationNumber: 'RC 2094812',
+    cacVerified: false,
+    location: {
+      state: 'Kaduna',
+      lga: 'Ikara',
+      farmSiteAddress: 'Plot 4, Ikara-Zaria Agricultural Corridor, Kaduna State'
+    },
+    contactPerson: 'Sani Abdullahi (Chief Operating Officer)',
+    email: 'sani.a@greenfieldsagro.ng',
+    phone: '+234 803 998 7711',
+    verificationStatus: 'pending',
+    verificationDocuments: [
+      {
+        id: 'doc-g1',
+        title: 'CAC Certificate of Incorporation',
+        documentType: 'CAC_RC',
+        submittedAt: '2026-10-28',
+        status: 'pending',
+        notes: 'Submitted document RC 2094899 contains conflict with profile RC 2094812.'
+      },
+      {
+        id: 'doc-g2',
+        title: 'Kaduna State Agricultural Lease Agreement',
+        documentType: 'LAND_LEASE',
+        submittedAt: '2026-10-28',
+        status: 'pending'
+      }
+    ]
+  },
+  {
+    id: 'emp-103',
+    companyName: 'Savannah Cattle & Grain Ranch Ltd',
+    businessType: 'Commercial Livestock & Grain Operations',
+    registrationNumber: 'RC 3819201',
+    cacVerified: false,
+    location: {
+      state: 'Niger',
+      lga: 'Mokwa',
+      farmSiteAddress: 'Mokwa Grazing Reserve Extension, Niger State'
+    },
+    contactPerson: 'Bello Al-Hassan (Managing Partner)',
+    email: 'bello@savannahranch.ng',
+    phone: '+234 814 223 9900',
+    verificationStatus: 'pending',
+    verificationDocuments: [
+      {
+        id: 'doc-s1',
+        title: 'CAC Certificate of Incorporation',
+        documentType: 'CAC_RC',
+        submittedAt: '2026-10-29',
+        status: 'pending',
+        notes: 'Certificate reads Savannah Global Logistics & Feeds Ltd.'
+      }
+    ]
+  },
+  {
+    id: 'emp-104',
+    companyName: 'Delta Aqua Blue Ventures',
+    businessType: 'Commercial RAS Catfish & Tilapia Aquaculture',
+    registrationNumber: 'BN 2819034',
+    cacVerified: false,
+    location: {
+      state: 'Delta',
+      lga: 'Warri South',
+      farmSiteAddress: 'Osubi Waterway Enclave, Delta State'
+    },
+    contactPerson: 'Doubra Ebi (Founder)',
+    email: 'doubra@deltaaquablue.ng',
+    phone: '+234 809 111 2244',
+    verificationStatus: 'pending',
+    verificationDocuments: [
+      {
+        id: 'doc-d1',
+        title: 'Business Name Registration Certificate (BN)',
+        documentType: 'CAC_BN',
+        submittedAt: '2026-10-30',
+        status: 'pending',
+        notes: 'Embossed seal displays digital raster manipulation.'
+      }
+    ]
+  }
+];
 
 export const SAMPLE_APPLICATIONS: JobApplication[] = [
   {

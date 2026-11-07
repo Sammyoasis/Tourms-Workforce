@@ -55,7 +55,7 @@ export const AdminJobDetailReview: React.FC<AdminJobDetailReviewProps> = ({
   };
 
   return (
-    <div className="space-y-6 max-w-5xl text-left">
+    <div className="space-y-6 max-w-5xl text-left overflow-x-hidden min-w-0 break-words">
       {/* Top Bar */}
       <div className="flex items-center justify-between pb-4 border-b border-[#C4C8C5]">
         <button
