@@ -373,7 +373,7 @@ WAGE BENCHMARK DETAILS (${aiGeneratedInfo.wageBenchmark?.marketTier || aiGenerat
             <Sparkles className="w-3.5 h-3.5 text-[#E6C687] animate-pulse" />
             <span>AI Job Drafter</span>
             <span className="text-[10px] bg-white/20 px-1.5 py-0.2 rounded font-mono font-medium">
-              Gemini 3.8
+              Standard
             </span>
           </button>
         </div>
@@ -442,7 +442,7 @@ WAGE BENCHMARK DETAILS (${aiGeneratedInfo.wageBenchmark?.marketTier || aiGenerat
                   <span>AI Job Drafter: Quick Synthesis</span>
                 </div>
                 <span className="text-[10px] bg-[#0E5A46] text-white font-semibold px-2 py-0.5 rounded">
-                  Gemini 3.8 Flash
+                  TOURMS Intelligence
                 </span>
               </div>
 
@@ -862,7 +862,7 @@ WAGE BENCHMARK DETAILS (${aiGeneratedInfo.wageBenchmark?.marketTier || aiGenerat
                     AI Job Drafter
                   </h3>
                   <p className="text-[11px] text-[#5A6E68]">
-                    Powered by Gemini 3.8 Flash & Nigerian Agro-Ecological Intelligence
+                    Powered by TOURMS Nigerian Agro-Ecological Intelligence
                   </p>
                 </div>
               </div>
@@ -913,7 +913,7 @@ WAGE BENCHMARK DETAILS (${aiGeneratedInfo.wageBenchmark?.marketTier || aiGenerat
                 onClick={() => handleAIDraft()}
                 className="justify-center"
               >
-                {isGeneratingAI ? 'Synthesizing with Gemini...' : 'Generate Complete Demand'}
+                {isGeneratingAI ? 'Synthesizing Agro Demand...' : 'Generate Complete Demand'}
               </Button>
             </div>
 

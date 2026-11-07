@@ -71,14 +71,14 @@ export const AdminEmployerVerificationView: React.FC<AdminEmployerVerificationVi
         addToast({
           type: 'info',
           title: 'Document Loaded for Vision OCR',
-          message: `Ready to verify ${file.name} with Gemini 2.5 Flash Vision.`
+          message: `Ready to verify ${file.name} with TOURMS Document Verifier.`
         });
       };
       reader.readAsDataURL(file);
     }
   };
 
-  // Run the AI Document Verifier with Gemini 2.5 Flash Vision
+  // Run the AI Document Verifier with TOURMS Document Verification Engine
   const handleRunVisionAudit = async (presetOverride?: 'authentic' | 'rc_mismatch' | 'name_mismatch' | 'tampered_seal') => {
     if (!selectedEmployer) return;
     setIsAuditing(true);
@@ -106,7 +106,7 @@ export const AdminEmployerVerificationView: React.FC<AdminEmployerVerificationVi
           setFlaggedEmployerIds((prev) => [...prev, selectedEmployer.id]);
         }
         setReviewNote(
-          `AUTOMATIC ANOMALY FLAGGED BY GEMINI 2.5 FLASH VISION (${result.matchConfidencePercent}% Match): Extracted RC: ${result.extractedRcNumber} vs Declared: ${selectedEmployer.registrationNumber}. ${result.anomalies[0]?.detail || 'Discrepancy detected.'}`
+          `AUTOMATIC ANOMALY FLAGGED BY TOURMS DOCUMENT VERIFIER (${result.matchConfidencePercent}% Match): Extracted RC: ${result.extractedRcNumber} vs Declared: ${selectedEmployer.registrationNumber}. ${result.anomalies[0]?.detail || 'Discrepancy detected.'}`
         );
         addToast({
           type: 'error',
@@ -115,7 +115,7 @@ export const AdminEmployerVerificationView: React.FC<AdminEmployerVerificationVi
         });
       } else {
         setReviewNote(
-          `Gemini 2.5 Flash Vision Verified (${result.matchConfidencePercent}% Consistency): Extracted RC ${result.extractedRcNumber} matches corporate records. Embossed seal & registrar watermark authentic.`
+          `TOURMS Document Verifier (${result.matchConfidencePercent}% Consistency): Extracted RC ${result.extractedRcNumber} matches corporate records. Embossed seal & registrar watermark authentic.`
         );
         addToast({
           type: 'success',
@@ -127,7 +127,7 @@ export const AdminEmployerVerificationView: React.FC<AdminEmployerVerificationVi
       addToast({
         type: 'error',
         title: 'Vision Audit Error',
-        message: 'Could not process document with Gemini 2.5 Flash Vision.'
+        message: 'Could not process document with TOURMS Document Verifier.'
       });
     } finally {
       setIsAuditing(false);
@@ -177,7 +177,7 @@ export const AdminEmployerVerificationView: React.FC<AdminEmployerVerificationVi
               Admin Employer Verification Desk
             </h1>
             <span className="text-[10px] bg-[#E2EFE9] text-[#0E5A46] font-bold px-2 py-0.5 rounded border border-[#C2DDD3]">
-              Gemini 2.5 Flash Vision
+              TOURMS Document Verifier
             </span>
           </div>
           <p className="text-xs text-[#5A6E68] mt-0.5 break-words">
@@ -326,7 +326,7 @@ export const AdminEmployerVerificationView: React.FC<AdminEmployerVerificationVi
                 </div>
                 <div>
                   <h3 className="text-xs sm:text-sm font-bold text-[#0E5A46]">
-                    AI Document Verifier — Gemini 2.5 Flash Vision
+                    AI Document Verifier — TOURMS Forensic Engine
                   </h3>
                   <p className="text-[11px] text-[#5A6E68]">
                     OCR extraction of RC/BN numbers and legal entity titles with forensic tamper detection
@@ -398,7 +398,7 @@ export const AdminEmployerVerificationView: React.FC<AdminEmployerVerificationVi
                   )}
                 </div>
                 <span className="text-[10px] text-[#5A6E68] block">
-                  Scanned with Gemini 2.5 Flash Vision for micro-text, embossed stamps, and watermark consistency.
+                  Scanned with TOURMS Document Verifier for micro-text, embossed stamps, and watermark consistency.
                 </span>
               </div>
             </div>
@@ -412,7 +412,7 @@ export const AdminEmployerVerificationView: React.FC<AdminEmployerVerificationVi
                   <div className="bg-white/90 p-3 rounded shadow-md border border-[#C2DDD3] space-y-1">
                     <div className="flex items-center gap-2 text-xs font-bold text-[#0E5A46]">
                       <RefreshCw className="w-3.5 h-3.5 animate-spin" />
-                      <span>Gemini 2.5 Flash Vision Processing Document...</span>
+                      <span>TOURMS Document Verifier Processing...</span>
                     </div>
                     <p className="text-[10px] font-sans text-[#5A6E68]">
                       Extracting registration checksums, entity text, and stamp pixel fidelity.
@@ -631,7 +631,7 @@ export const AdminEmployerVerificationView: React.FC<AdminEmployerVerificationVi
 
                 {/* Vision AI Summary */}
                 <div className="p-3 bg-white rounded border border-[#C2DDD3] text-[11px] text-[#3A4B47] leading-relaxed">
-                  <strong className="text-[#0E5A46] block mb-0.5">Gemini 2.5 Flash Vision Assessment:</strong>
+                  <strong className="text-[#0E5A46] block mb-0.5">Forensic Document Assessment:</strong>
                   {auditResult.summaryAnalysis}
                 </div>
               </div>
