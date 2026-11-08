@@ -15,8 +15,6 @@ export const Footer: React.FC<FooterProps> = ({
   userRole = 'public',
   isMobilePreview = false
 }) => {
-  const isAdmin = userRole === 'admin';
-
   if (isMobilePreview) {
     return (
       <footer className="w-full bg-[#0F1F1C] text-[#F7F7EE] border-t border-[#1F332F] py-8 px-4 text-left">
@@ -56,16 +54,6 @@ export const Footer: React.FC<FooterProps> = ({
               <button onClick={() => onNavigate('/employer')} className="text-[#A0B0AB] hover:text-white block text-left">
                 Employer Hub
               </button>
-              {isAdmin && (
-                <>
-                  <button onClick={() => onNavigate('/admin')} className="text-[#A0B0AB] hover:text-white block text-left">
-                    Admin Console
-                  </button>
-                  <button onClick={onOpenSpecs} className="text-[#C98A3A] font-semibold block text-left">
-                    UI States
-                  </button>
-                </>
-              )}
             </div>
           </div>
 
@@ -81,8 +69,8 @@ export const Footer: React.FC<FooterProps> = ({
   return (
     <footer className="w-full bg-[#0F1F1C] text-[#F7F7EE] border-t border-[#1F332F] pt-12 md:pt-16 pb-12 mt-16 md:mt-20">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Main Grid: 4 columns for public/worker/employer; 5 columns when admin */}
-        <div className={`grid grid-cols-1 md:grid-cols-2 ${isAdmin ? 'lg:grid-cols-5' : 'lg:grid-cols-4'} gap-8 md:gap-10 pb-10 md:pb-12 border-b border-[#1F332F]`}>
+        {/* Main Grid: 4 columns */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 md:gap-10 pb-10 md:pb-12 border-b border-[#1F332F]">
           {/* Brand Column */}
           <div className="lg:col-span-2 space-y-3.5 text-left">
             <TourmsLogo variant="agro-solutions" size="lg" theme="dark" />
@@ -184,58 +172,44 @@ export const Footer: React.FC<FooterProps> = ({
             </ul>
           </div>
 
-          {/* Column 4: Operational Console & Specs (Admin View Only) */}
-          {isAdmin && (
-            <div className="text-left space-y-3">
-              <div className="flex items-center gap-1.5">
-                <p className="text-xs font-bold text-white uppercase tracking-wider">Administration</p>
-                <span className="text-[9px] font-mono px-1.5 py-0.5 rounded bg-[#C98A3A]/20 text-[#C98A3A] font-semibold">ADMIN</span>
-              </div>
-              <ul className="space-y-2.5 text-xs sm:text-sm text-[#A0B0AB]">
-                <li>
-                  <button
-                    onClick={() => onNavigate('/admin')}
-                    className="hover:text-white transition-colors cursor-pointer text-left"
-                  >
-                    Admin Operations Console
-                  </button>
-                </li>
-                <li>
-                  <button
-                    onClick={() => onNavigate('/admin/jobs-queue')}
-                    className="hover:text-white transition-colors cursor-pointer text-left"
-                  >
-                    Jobs Review Queue
-                  </button>
-                </li>
-                <li>
-                  <button
-                    onClick={() => onNavigate('/admin/employers')}
-                    className="hover:text-white transition-colors cursor-pointer text-left"
-                  >
-                    Employer CAC Verification
-                  </button>
-                </li>
-                <li>
-                  <button
-                    onClick={() => onNavigate('/admin/reports')}
-                    className="hover:text-white transition-colors cursor-pointer text-left"
-                  >
-                    Reports & Moderation
-                  </button>
-                </li>
-                <li>
-                  <button
-                    onClick={onOpenSpecs}
-                    className="text-[#C98A3A] hover:underline font-semibold text-xs inline-flex items-center gap-1 cursor-pointer pt-1"
-                  >
-                    <span>Interaction States & Skeletons</span>
-                    <span>→</span>
-                  </button>
-                </li>
-              </ul>
-            </div>
-          )}
+          {/* Column 4: Standards & Verification */}
+          <div className="text-left space-y-3">
+            <p className="text-xs font-bold text-white uppercase tracking-wider">Standards & Trust</p>
+            <ul className="space-y-2.5 text-xs sm:text-sm text-[#A0B0AB]">
+              <li>
+                <button
+                  onClick={() => onNavigate('/about')}
+                  className="hover:text-white transition-colors cursor-pointer text-left"
+                >
+                  CAC Identity Verification
+                </button>
+              </li>
+              <li>
+                <button
+                  onClick={() => onNavigate('/jobs')}
+                  className="hover:text-white transition-colors cursor-pointer text-left"
+                >
+                  Agri-Wage Benchmarks
+                </button>
+              </li>
+              <li>
+                <button
+                  onClick={() => onNavigate('/opportunities')}
+                  className="hover:text-white transition-colors cursor-pointer text-left"
+                >
+                  Verified Funding Pathways
+                </button>
+              </li>
+              <li>
+                <button
+                  onClick={() => onNavigate('/about')}
+                  className="hover:text-white transition-colors cursor-pointer text-left"
+                >
+                  Platform Data Protection
+                </button>
+              </li>
+            </ul>
+          </div>
         </div>
 
         {/* Bottom Bar */}

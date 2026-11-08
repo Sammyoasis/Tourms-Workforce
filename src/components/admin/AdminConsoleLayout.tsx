@@ -13,7 +13,8 @@ import {
   Shield,
   ChevronDown,
   ChevronUp,
-  Receipt
+  Receipt,
+  LogOut
 } from 'lucide-react';
 
 export interface AdminConsoleLayoutProps {
@@ -23,6 +24,7 @@ export interface AdminConsoleLayoutProps {
   pendingJobsCount: number;
   pendingEmployersCount: number;
   openReportsCount: number;
+  onSignOut?: () => void;
   children: React.ReactNode;
 }
 
@@ -33,6 +35,7 @@ export const AdminConsoleLayout: React.FC<AdminConsoleLayoutProps> = ({
   pendingJobsCount,
   pendingEmployersCount,
   openReportsCount,
+  onSignOut,
   children
 }) => {
   const [mobileNavOpen, setMobileNavOpen] = useState(false);
@@ -145,6 +148,19 @@ export const AdminConsoleLayout: React.FC<AdminConsoleLayoutProps> = ({
                 </button>
               );
             })}
+
+            {onSignOut && (
+              <button
+                onClick={() => {
+                  setMobileNavOpen(false);
+                  onSignOut();
+                }}
+                className="w-full flex items-center gap-2.5 px-3 py-2.5 rounded text-xs font-semibold text-[#FF8585] hover:bg-[#331414] transition-colors border border-[#8C2E2E]/40 mt-2"
+              >
+                <LogOut className="w-4 h-4 shrink-0" />
+                <span>Exit Admin Console (Sign Out)</span>
+              </button>
+            )}
           </div>
         )}
       </div>
@@ -201,10 +217,23 @@ export const AdminConsoleLayout: React.FC<AdminConsoleLayoutProps> = ({
           </nav>
         </div>
 
-        {/* Footer info */}
-        <div className="p-4 border-t border-[#243B36] text-[11px] text-[#7A8B86] space-y-1">
-          <p className="font-semibold text-[#A0B0AB]">Tourms Operations Core</p>
-          <p>Audited Session ID: #TRM-OPS-2026</p>
+        {/* Footer info & Exit Button */}
+        <div className="p-4 border-t border-[#243B36] space-y-3">
+          {onSignOut && (
+            <button
+              onClick={onSignOut}
+              className="w-full flex items-center justify-center gap-2 py-2 px-3 rounded text-xs font-semibold text-[#F7F7EE] bg-[#243B36] hover:bg-[#331414] hover:text-[#FF8585] hover:border-[#8C2E2E] border border-[#2B4741] transition-colors cursor-pointer"
+              title="Sign out of Admin Console"
+            >
+              <LogOut className="w-3.5 h-3.5 shrink-0" />
+              <span>Sign Out / Exit Admin</span>
+            </button>
+          )}
+
+          <div className="text-[11px] text-[#7A8B86] space-y-0.5">
+            <p className="font-semibold text-[#A0B0AB]">Tourms Operations Core</p>
+            <p>Audited Session ID: #TRM-OPS-2026</p>
+          </div>
         </div>
       </aside>
 

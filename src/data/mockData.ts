@@ -1405,9 +1405,18 @@ export const SAMPLE_MODERATION_REPORTS: ModerationReport[] = [
 
 export const SAMPLE_ADMIN_USERS: SystemUser[] = [
   {
+    id: 'usr-0',
+    name: 'M-Olany Solutions (Executive Super Admin)',
+    email: 'molanysolutions@gmail.com',
+    role: 'super_admin',
+    status: 'active',
+    lastActive: 'Just now',
+    permissions: ['all_access', 'role_management', 'system_audit', 'content_publish', 'employer_verify', 'payout_authorize', 'financial_oversight']
+  },
+  {
     id: 'usr-1',
     name: 'Olufemi Danjuma',
-    email: 'olufemi.d@tourms.ng',
+    email: 'admin@tourmsworkforce.com.ng',
     role: 'super_admin',
     status: 'active',
     lastActive: '10 minutes ago',

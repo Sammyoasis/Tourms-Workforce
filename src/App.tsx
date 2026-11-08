@@ -24,7 +24,7 @@ import {
   SAMPLE_ADMIN_USERS
 } from './data/mockData';
 import { ToastProvider, useToast } from './components/ui/Toast';
-import { RoleBar, CANONICAL_SCREENS } from './components/layout/RoleBar';
+import { CANONICAL_SCREENS } from './components/layout/RoleBar';
 import { Header } from './components/layout/Header';
 import { Footer } from './components/layout/Footer';
 import { StateSpecimenDrawer } from './components/dev/StateSpecimenDrawer';
@@ -72,6 +72,7 @@ import { AdminOpportunitiesReviewView } from './components/admin/AdminOpportunit
 import { AdminContentManagementView } from './components/admin/AdminContentManagementView';
 import { AdminReportsModerationView } from './components/admin/AdminReportsModerationView';
 import { AdminUsersRolesView } from './components/admin/AdminUsersRolesView';
+import { AdminLoginView } from './components/admin/AdminLoginView';
 
 // Payment & Engagement views (Screens 25 - 39)
 import { WorkerPaymentHub } from './components/worker/WorkerPaymentHub';
@@ -93,6 +94,7 @@ import {
 import { UserCheck, Building2, Briefcase, User, Sparkles, Smartphone, Monitor, Wifi, Battery, Signal, ArrowLeftRight } from 'lucide-react';
 
 function AppContent() {
+  const { addToast } = useToast();
   // Navigation & State
   const [currentPath, setCurrentPath] = useState<string>('/');
   const [userRole, setUserRole] = useState<UserRole>(() => {
@@ -724,6 +726,25 @@ function AppContent() {
 
     // 10. Admin Console (Screens 16 to 24)
     if (currentPath.startsWith('/admin')) {
+      if (userRole !== 'admin') {
+        return (
+          <AdminLoginView
+            onSignInSuccess={(role, subRole, _email) => {
+              setUserRole(role);
+              setAdminSubRole(subRole);
+              setCurrentPath('/admin');
+              setAdminTab('dashboard');
+              addToast({
+                type: 'success',
+                title: 'Admin Session Authenticated',
+                message: `Welcome to TOURMS Operations Console (${subRole.replace('_', ' ').toUpperCase()}).`
+              });
+            }}
+            onCancel={() => handleNavigate('/')}
+          />
+        );
+      }
+
       const pendingJobsCount = jobs.filter((j) => j.status === 'awaiting_review').length;
       const pendingEmployersCount = employerProfile.cacVerified ? 0 : 1;
       const openReportsCount = reports.filter((r) => r.status === 'open').length;
@@ -742,6 +763,7 @@ function AppContent() {
             pendingJobsCount={pendingJobsCount}
             pendingEmployersCount={pendingEmployersCount}
             openReportsCount={openReportsCount}
+            onSignOut={handleSignOut}
           >
             <AdminJobDetailReview
               job={jobToReview}
@@ -760,6 +782,7 @@ function AppContent() {
           pendingJobsCount={pendingJobsCount}
           pendingEmployersCount={pendingEmployersCount}
           openReportsCount={openReportsCount}
+          onSignOut={handleSignOut}
         >
           {adminTab === 'dashboard' && (
             <AdminDashboardView
@@ -873,23 +896,6 @@ function AppContent() {
 
   return (
     <div className="min-h-screen flex flex-col bg-[#F7F7EE] text-[#0F1F1C]">
-      {/* Top Review & Persona Switcher */}
-      <RoleBar
-        currentRole={userRole}
-        adminSubRole={adminSubRole}
-        onRoleChange={(newRole) => {
-          setUserRole(newRole);
-          if (newRole === 'public') setCurrentPath('/');
-          if (newRole === 'worker') setCurrentPath('/worker/profile');
-          if (newRole === 'employer') setCurrentPath('/employer');
-          if (newRole === 'admin') setCurrentPath('/admin');
-        }}
-        onAdminSubRoleChange={setAdminSubRole}
-        onJumpToScreen={handleJumpToScreen}
-        onOpenStateSpecimens={() => setSpecimensDrawerOpen(true)}
-        currentScreenId={currentScreenId}
-      />
-
       {isMobilePreview ? (
         /* ====================================================================== */
         /* AUTHENTIC MOBILE DEVICE SIMULATOR (Screen 02, 04, 06, 09)             */

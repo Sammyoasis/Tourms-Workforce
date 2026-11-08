@@ -94,6 +94,7 @@ export const AuthModal: React.FC<AuthModalProps> = ({
   const [signInEmail, setSignInEmail] = useState('');
   const [signInPassword, setSignInPassword] = useState('');
   const [signInMode, setSignInMode] = useState<'password' | 'sms_otp'>('password');
+  const [signInRole, setSignInRole] = useState<'worker' | 'employer'>('worker');
 
   // Phone & Email Verification Modal State
   const [workerPhoneVerified, setWorkerPhoneVerified] = useState(false);
@@ -309,9 +310,7 @@ export const AuthModal: React.FC<AuthModalProps> = ({
 
     // Direct password/PIN sign in
     const lower = identifier.toLowerCase();
-    if (lower.includes('admin') || lower.includes('tourms.ng')) {
-      onSignIn('admin', identifier);
-    } else if (lower.includes('farm') || lower.includes('agro') || lower.includes('ltd')) {
+    if (signInRole === 'employer' || lower.includes('farm') || lower.includes('agro') || lower.includes('ltd')) {
       onSignIn('employer', identifier);
     } else {
       onSignIn('worker', identifier);
@@ -320,7 +319,7 @@ export const AuthModal: React.FC<AuthModalProps> = ({
     addToast({
       type: 'success',
       title: 'Session Authenticated',
-      message: `Signed in successfully as ${identifier}`
+      message: `Signed in successfully as ${signInRole.toUpperCase()}: ${identifier}`
     });
     onClose();
   };
@@ -336,9 +335,7 @@ export const AuthModal: React.FC<AuthModalProps> = ({
       });
     } else if (verificationContext === 'signin_otp') {
       const lower = verifiedVal.toLowerCase();
-      if (lower.includes('admin')) {
-        onSignIn('admin', verifiedVal);
-      } else if (lower.includes('farm') || lower.includes('agro') || lower.includes('ltd')) {
+      if (lower.includes('farm') || lower.includes('agro') || lower.includes('ltd')) {
         onSignIn('employer', verifiedVal);
       } else {
         onSignIn('worker', verifiedVal);
@@ -649,14 +646,32 @@ export const AuthModal: React.FC<AuthModalProps> = ({
               </button>
             </div>
 
-            {signInMode === 'sms_otp' && (
-              <div className="p-2.5 bg-[#F2F7F4] border border-[#C2DDD3] rounded text-xs text-[#0E5A46] flex items-start gap-2">
-                <Info className="w-4 h-4 shrink-0 mt-0.5" />
-                <span>
-                  <strong>Informal Worker Mode:</strong> No email or complex password required. Enter your Nigerian phone number to receive a 6-digit one-time code via SMS or WhatsApp.
-                </span>
+            {/* Account Role Selector */}
+            <div className="space-y-1">
+              <label className="text-[11px] font-bold text-[#5A6E68] uppercase tracking-wider block">
+                Account Type:
+              </label>
+              <div className="grid grid-cols-2 gap-1 p-1 bg-[#EBEBDD] rounded border border-[#C4C8C5] text-xs">
+                <button
+                  type="button"
+                  onClick={() => setSignInRole('worker')}
+                  className={`py-1.5 px-2 rounded font-semibold text-center transition-colors cursor-pointer ${
+                    signInRole === 'worker' ? 'bg-[#0E5A46] text-white shadow-xs' : 'text-[#3A4B47] hover:text-[#0F1F1C]'
+                  }`}
+                >
+                  Worker
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setSignInRole('employer')}
+                  className={`py-1.5 px-2 rounded font-semibold text-center transition-colors cursor-pointer ${
+                    signInRole === 'employer' ? 'bg-[#0E5A46] text-white shadow-xs' : 'text-[#3A4B47] hover:text-[#0F1F1C]'
+                  }`}
+                >
+                  Agribusiness
+                </button>
               </div>
-            )}
+            </div>
 
             <form onSubmit={handleSubmitSignIn} className="space-y-3">
               <Input
@@ -706,7 +721,7 @@ export const AuthModal: React.FC<AuthModalProps> = ({
                 <span className="text-[10px] text-[#7A8B86]">Instant session switch</span>
               </div>
 
-              <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 text-xs">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs">
                 <button
                   type="button"
                   onClick={() => {
@@ -735,21 +750,6 @@ export const AuthModal: React.FC<AuthModalProps> = ({
                     <span>Employer Demo</span>
                   </div>
                   <p className="text-[10px] text-[#5A6E68] truncate">AgroGreen Valley Ltd</p>
-                </button>
-
-                <button
-                  type="button"
-                  onClick={() => {
-                    onSignIn('admin', 'admin@tourms.ng');
-                    onClose();
-                  }}
-                  className="p-2.5 rounded bg-[#F7F7EE] hover:bg-[#E7F3EF] border border-[#C4C8C5] text-left space-y-0.5 transition-colors cursor-pointer"
-                >
-                  <div className="flex items-center gap-1 text-[#C98A3A] font-bold">
-                    <ShieldCheck className="w-3 h-3" />
-                    <span>Admin Demo</span>
-                  </div>
-                  <p className="text-[10px] text-[#5A6E68] truncate">Operations Super Admin</p>
                 </button>
               </div>
             </div>
