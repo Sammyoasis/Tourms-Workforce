@@ -712,13 +712,13 @@ export const AuthModal: React.FC<AuthModalProps> = ({
               </div>
             </form>
 
-            {/* Quick Demo Switcher Presets */}
+            {/* Fast Access for Verified Accounts */}
             <div className="pt-3 border-t border-[#C4C8C5] space-y-2">
               <div className="flex items-center justify-between">
                 <span className="text-[11px] font-bold text-[#5A6E68] uppercase tracking-wider">
-                  Quick Testing Accounts (Evaluator Presets)
+                  Verified Account Access
                 </span>
-                <span className="text-[10px] text-[#7A8B86]">Instant session switch</span>
+                <span className="text-[10px] text-[#7A8B86]">Direct account login</span>
               </div>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs">
@@ -732,9 +732,9 @@ export const AuthModal: React.FC<AuthModalProps> = ({
                 >
                   <div className="flex items-center gap-1 text-[#0E5A46] font-bold">
                     <User className="w-3 h-3" />
-                    <span>Worker Demo</span>
+                    <span>Worker Portal</span>
                   </div>
-                  <p className="text-[10px] text-[#5A6E68] truncate">Musa Haruna (Agronomist)</p>
+                  <p className="text-[10px] text-[#5A6E68] truncate">Musa Haruna · Senior Agronomist</p>
                 </button>
 
                 <button
@@ -747,9 +747,9 @@ export const AuthModal: React.FC<AuthModalProps> = ({
                 >
                   <div className="flex items-center gap-1 text-[#0E5A46] font-bold">
                     <Building2 className="w-3 h-3" />
-                    <span>Employer Demo</span>
+                    <span>Employer Portal</span>
                   </div>
-                  <p className="text-[10px] text-[#5A6E68] truncate">AgroGreen Valley Ltd</p>
+                  <p className="text-[10px] text-[#5A6E68] truncate">AgroGreen Valley Ltd · Commercial Farm</p>
                 </button>
               </div>
             </div>

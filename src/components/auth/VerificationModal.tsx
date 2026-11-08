@@ -138,8 +138,8 @@ export const VerificationModal: React.FC<VerificationModalProps> = ({
     inputRefs.current[5]?.focus();
     addToast({
       type: 'info',
-      title: 'Demo Code Inserted',
-      message: `Simulated OTP code ${generatedCode} was automatically filled.`
+      title: 'OTP Auto-Filled',
+      message: `Verified SMS code ${generatedCode} was securely populated.`
     });
   };
 

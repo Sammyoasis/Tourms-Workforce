@@ -202,7 +202,7 @@ export const AdminEmployerVerificationView: React.FC<AdminEmployerVerificationVi
             <span className="text-xs font-bold text-[#5A6E68] uppercase tracking-wider">
               Employer Queue ({employerList.length})
             </span>
-            <span className="text-[10px] text-[#5A6E68]">Screen 19</span>
+            <span className="text-[11px] font-mono tabular-nums text-[#0E5A46] font-semibold">Active Desk</span>
           </div>
 
           {/* Filter Pills */}

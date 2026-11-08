@@ -41,6 +41,12 @@ import {
   updateFirestoreApplicationStatus,
   saveFirestoreWorker,
   saveFirestoreEmployer,
+  subscribeFirestoreOpportunities,
+  saveFirestoreOpportunity,
+  deleteFirestoreOpportunity,
+  subscribeFirestoreInsights,
+  saveFirestoreInsight,
+  deleteFirestoreInsight,
   seedInitialFirestoreData
 } from './services/firestoreService';
 
@@ -150,8 +156,20 @@ function AppContent() {
     } catch {}
     return SAMPLE_JOBS;
   });
-  const [opportunities, setOpportunities] = useState<OpportunityListing[]>(SAMPLE_OPPORTUNITIES);
-  const [insights, setInsights] = useState<InsightArticle[]>(SAMPLE_INSIGHTS);
+  const [opportunities, setOpportunities] = useState<OpportunityListing[]>(() => {
+    try {
+      const saved = localStorage.getItem('tourms_opportunities');
+      if (saved) return JSON.parse(saved);
+    } catch {}
+    return SAMPLE_OPPORTUNITIES;
+  });
+  const [insights, setInsights] = useState<InsightArticle[]>(() => {
+    try {
+      const saved = localStorage.getItem('tourms_insights');
+      if (saved) return JSON.parse(saved);
+    } catch {}
+    return SAMPLE_INSIGHTS;
+  });
   const [workerProfile, setWorkerProfile] = useState<WorkerProfile>(() => {
     try {
       const saved = localStorage.getItem('tourms_worker_profile');
@@ -241,7 +259,13 @@ function AppContent() {
   // Cloud Firestore Initial Connection & Seeding
   useEffect(() => {
     testConnection().then(() => {
-      seedInitialFirestoreData(SAMPLE_JOBS, SAMPLE_WORKERS, SAMPLE_EMPLOYERS);
+      seedInitialFirestoreData(
+        SAMPLE_JOBS,
+        SAMPLE_WORKERS,
+        SAMPLE_EMPLOYERS,
+        SAMPLE_OPPORTUNITIES,
+        SAMPLE_INSIGHTS
+      );
     });
   }, []);
 
@@ -260,6 +284,26 @@ function AppContent() {
     const unsub = subscribeFirestoreApplications((remoteApps) => {
       if (remoteApps && remoteApps.length > 0) {
         setApplications(remoteApps);
+      }
+    });
+    return () => unsub();
+  }, []);
+
+  // Real-time synchronization for Opportunities with Cloud Firestore
+  useEffect(() => {
+    const unsub = subscribeFirestoreOpportunities((remoteOpps) => {
+      if (remoteOpps && remoteOpps.length > 0) {
+        setOpportunities(remoteOpps);
+      }
+    });
+    return () => unsub();
+  }, []);
+
+  // Real-time synchronization for Insights with Cloud Firestore
+  useEffect(() => {
+    const unsub = subscribeFirestoreInsights((remoteInsights) => {
+      if (remoteInsights && remoteInsights.length > 0) {
+        setInsights(remoteInsights);
       }
     });
     return () => unsub();
@@ -289,6 +333,18 @@ function AppContent() {
       localStorage.setItem('tourms_applications', JSON.stringify(applications));
     } catch {}
   }, [applications]);
+
+  useEffect(() => {
+    try {
+      localStorage.setItem('tourms_opportunities', JSON.stringify(opportunities));
+    } catch {}
+  }, [opportunities]);
+
+  useEffect(() => {
+    try {
+      localStorage.setItem('tourms_insights', JSON.stringify(insights));
+    } catch {}
+  }, [insights]);
 
   useEffect(() => {
     try {
@@ -574,6 +630,68 @@ function AppContent() {
       saveFirestoreEmployer(updated);
       return updated;
     });
+  };
+
+  // Opportunity CRUD Handlers (Synchronized with Cloud Firestore)
+  const handleAddOpportunity = (newOpp: OpportunityListing) => {
+    saveFirestoreOpportunity(newOpp);
+    setOpportunities((prev) => [newOpp, ...prev]);
+  };
+
+  const handleEditOpportunity = (updatedOpp: OpportunityListing) => {
+    saveFirestoreOpportunity(updatedOpp);
+    setOpportunities((prev) =>
+      prev.map((o) => (o.id === updatedOpp.id ? updatedOpp : o))
+    );
+  };
+
+  const handleDeleteOpportunity = (id: string) => {
+    deleteFirestoreOpportunity(id);
+    setOpportunities((prev) => prev.filter((o) => o.id !== id));
+  };
+
+  const handleUpdateOpportunityStatus = (id: string, status: any) => {
+    setOpportunities((prev) =>
+      prev.map((o) => {
+        if (o.id === id) {
+          const updated = { ...o, status };
+          saveFirestoreOpportunity(updated);
+          return updated;
+        }
+        return o;
+      })
+    );
+  };
+
+  // Insight Article CRUD Handlers (Synchronized with Cloud Firestore)
+  const handleAddInsight = (newInsight: InsightArticle) => {
+    saveFirestoreInsight(newInsight);
+    setInsights((prev) => [newInsight, ...prev]);
+  };
+
+  const handleEditInsight = (updatedInsight: InsightArticle) => {
+    saveFirestoreInsight(updatedInsight);
+    setInsights((prev) =>
+      prev.map((i) => (i.id === updatedInsight.id ? updatedInsight : i))
+    );
+  };
+
+  const handleDeleteInsight = (id: string) => {
+    deleteFirestoreInsight(id);
+    setInsights((prev) => prev.filter((i) => i.id !== id));
+  };
+
+  const handleUpdateInsightStatus = (id: string, status: any) => {
+    setInsights((prev) =>
+      prev.map((i) => {
+        if (i.id === id) {
+          const updated = { ...i, status };
+          saveFirestoreInsight(updated);
+          return updated;
+        }
+        return i;
+      })
+    );
   };
 
   const handleOpenAuth = (tab: 'worker_reg' | 'employer_reg' | 'signin' = 'worker_reg') => {
@@ -883,11 +1001,10 @@ function AppContent() {
           {adminTab === 'opportunities' && (
             <AdminOpportunitiesReviewView
               opportunities={opportunities}
-              onUpdateOpportunityStatus={(id, status) => {
-                setOpportunities((prev) =>
-                  prev.map((o) => (o.id === id ? { ...o, status } : o))
-                );
-              }}
+              onUpdateOpportunityStatus={handleUpdateOpportunityStatus}
+              onAddOpportunity={handleAddOpportunity}
+              onEditOpportunity={handleEditOpportunity}
+              onDeleteOpportunity={handleDeleteOpportunity}
             />
           )}
 
@@ -908,11 +1025,10 @@ function AppContent() {
           {adminTab === 'content' && (
             <AdminContentManagementView
               insights={insights}
-              onUpdateStatus={(id, status) => {
-                setInsights((prev) =>
-                  prev.map((i) => (i.id === id ? { ...i, status } : i))
-                );
-              }}
+              onUpdateStatus={handleUpdateInsightStatus}
+              onAddInsight={handleAddInsight}
+              onEditInsight={handleEditInsight}
+              onDeleteInsight={handleDeleteInsight}
             />
           )}
 
@@ -968,7 +1084,7 @@ function AppContent() {
             <div className="flex items-center gap-1.5 font-medium truncate">
               <Smartphone className="w-3.5 h-3.5 text-[#C98A3A] shrink-0" />
               <span className="truncate">
-                {currentScreenId === 'screen-02' ? 'Screen 02: Home Mobile' : 'Mobile Interface Preview'}
+                Mobile Viewport Preview
               </span>
             </div>
 

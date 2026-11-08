@@ -82,7 +82,7 @@ export const AdminUsersRolesView: React.FC<AdminUsersRolesViewProps> = ({
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-[#C4C8C5]">
         <div>
           <h1 className="text-lg sm:text-xl font-bold text-[#0F1F1C] break-words">
-            Admin Users & Role Permissions (Screen 24)
+            Staff Directory & Access Governance
           </h1>
           <p className="text-xs text-[#5A6E68] mt-0.5 break-words">
             Role-Based Access Control (RBAC): Super Admin, Operations, Verification, Editorial, Support, Analyst.

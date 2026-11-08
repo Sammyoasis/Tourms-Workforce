@@ -34,7 +34,7 @@ export const AdminJobsQueueView: React.FC<AdminJobsQueueViewProps> = ({
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-[#C4C8C5]">
         <div>
           <h1 className="text-lg sm:text-xl font-bold text-[#0F1F1C] break-words">
-            Admin Jobs Review Queue (Screen 17)
+            Agribusiness Job Verification Queue
           </h1>
           <p className="text-xs text-[#5A6E68] mt-0.5 break-words">
             Review submitted employment requirements prior to public indexation.

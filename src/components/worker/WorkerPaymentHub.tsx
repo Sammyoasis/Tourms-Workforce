@@ -179,7 +179,7 @@ export const WorkerPaymentHub: React.FC<WorkerPaymentHubProps> = ({
                 : 'bg-[#F7F7EE] text-[#3A4B47] hover:bg-[#EBEBDD] border border-[#C4C8C5]'
             }`}
           >
-            Screen 25: Offer Breakdown
+            Offer Breakdown
           </button>
 
           <button
@@ -191,7 +191,7 @@ export const WorkerPaymentHub: React.FC<WorkerPaymentHubProps> = ({
                 : 'bg-[#F7F7EE] text-[#3A4B47] hover:bg-[#EBEBDD] border border-[#C4C8C5]'
             }`}
           >
-            Screen 26: Payment Status
+            Payment Status
           </button>
 
           <button
@@ -203,7 +203,7 @@ export const WorkerPaymentHub: React.FC<WorkerPaymentHubProps> = ({
                 : 'bg-[#F7F7EE] text-[#3A4B47] hover:bg-[#EBEBDD] border border-[#C4C8C5]'
             }`}
           >
-            Screen 27: Submit Completion
+            Submit Completion
           </button>
 
           <button
@@ -215,7 +215,7 @@ export const WorkerPaymentHub: React.FC<WorkerPaymentHubProps> = ({
                 : 'bg-[#F7F7EE] text-[#3A4B47] hover:bg-[#EBEBDD] border border-[#C4C8C5]'
             }`}
           >
-            Screen 28: Earnings & Receipts
+            Earnings & Receipts
           </button>
         </div>
       </div>
@@ -229,7 +229,7 @@ export const WorkerPaymentHub: React.FC<WorkerPaymentHubProps> = ({
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-4 border-b border-[#EBEBDD]">
               <div>
                 <span className="text-[11px] font-bold text-[#8E5A18] uppercase tracking-wider block">
-                  Screen 25 · Engagement Offer Review
+                  Engagement Offer Review
                 </span>
                 <h2 className="text-base sm:text-xl font-bold text-[#0F1F1C] mt-0.5">
                   {currentOffer.jobTitle}
@@ -361,7 +361,7 @@ export const WorkerPaymentHub: React.FC<WorkerPaymentHubProps> = ({
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-4 border-b border-[#EBEBDD]">
               <div>
                 <span className="text-[11px] font-bold text-[#0E5A46] uppercase tracking-wider block">
-                  Screen 26 · Engagement & Funding Monitor
+                  Engagement & Funding Monitor
                 </span>
                 <h2 className="text-base sm:text-xl font-bold text-[#0F1F1C] mt-0.5">
                   {currentOffer.jobTitle}
@@ -542,7 +542,7 @@ export const WorkerPaymentHub: React.FC<WorkerPaymentHubProps> = ({
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-4 border-b border-[#EBEBDD]">
               <div>
                 <span className="text-[11px] font-bold text-[#0E5A46] uppercase tracking-wider block">
-                  Screen 27 · Formal Completion Submission
+                  Formal Completion Submission
                 </span>
                 <h2 className="text-base sm:text-xl font-bold text-[#0F1F1C] mt-0.5">
                   Submit Work Completion
@@ -720,7 +720,7 @@ export const WorkerPaymentHub: React.FC<WorkerPaymentHubProps> = ({
             <div className="flex items-center justify-between pb-3 border-b border-[#EBEBDD]">
               <div>
                 <span className="text-[11px] font-bold text-[#0E5A46] uppercase tracking-wider block">
-                  Screen 28 · Payment Ledger
+                  Payment Ledger
                 </span>
                 <h3 className="text-sm sm:text-base font-bold text-[#0F1F1C]">
                   Payout Transactions & Settlement History

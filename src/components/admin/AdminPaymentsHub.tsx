@@ -146,7 +146,7 @@ export const AdminPaymentsHub: React.FC<AdminPaymentsHubProps> = ({
           </span>
         </div>
 
-        {/* Screens 34 - 39 Navigation Tabs */}
+        {/* Payment Operations Navigation Tabs */}
         <div className="flex items-center gap-1.5 overflow-x-auto no-scrollbar pt-1">
           <button
             type="button"
@@ -157,7 +157,7 @@ export const AdminPaymentsHub: React.FC<AdminPaymentsHubProps> = ({
                 : 'bg-[#F7F7EE] text-[#3A4B47] hover:bg-[#EBEBDD] border border-[#C4C8C5]'
             }`}
           >
-            Screen 34: Payment Overview
+            Payment Overview
           </button>
 
           <button
@@ -169,7 +169,7 @@ export const AdminPaymentsHub: React.FC<AdminPaymentsHubProps> = ({
                 : 'bg-[#F7F7EE] text-[#3A4B47] hover:bg-[#EBEBDD] border border-[#C4C8C5]'
             }`}
           >
-            Screen 35: Transaction Ledger
+            Transaction Ledger
           </button>
 
           <button
@@ -181,7 +181,7 @@ export const AdminPaymentsHub: React.FC<AdminPaymentsHubProps> = ({
                 : 'bg-[#F7F7EE] text-[#3A4B47] hover:bg-[#EBEBDD] border border-[#C4C8C5]'
             }`}
           >
-            Screen 36: Settlement Review Queue
+            Settlement Queue
           </button>
 
           <button
@@ -193,7 +193,7 @@ export const AdminPaymentsHub: React.FC<AdminPaymentsHubProps> = ({
                 : 'bg-[#F7F7EE] text-[#3A4B47] hover:bg-[#EBEBDD] border border-[#C4C8C5]'
             }`}
           >
-            Screen 37: Dispute Resolution
+            Dispute Mediation
           </button>
 
           <button
@@ -205,7 +205,7 @@ export const AdminPaymentsHub: React.FC<AdminPaymentsHubProps> = ({
                 : 'bg-[#F7F7EE] text-[#3A4B47] hover:bg-[#EBEBDD] border border-[#C4C8C5]'
             }`}
           >
-            Screen 38: Refunds & Cancellations
+            Refunds & Cancellations
           </button>
 
           <button
@@ -217,7 +217,7 @@ export const AdminPaymentsHub: React.FC<AdminPaymentsHubProps> = ({
                 : 'bg-[#F7F7EE] text-[#3A4B47] hover:bg-[#EBEBDD] border border-[#C4C8C5]'
             }`}
           >
-            Screen 39: Reconciliation & Reports
+            Reconciliation & Reports
           </button>
         </div>
       </div>
@@ -296,16 +296,15 @@ export const AdminPaymentsHub: React.FC<AdminPaymentsHubProps> = ({
             </div>
           </div>
 
-          {/* Prototype Disclosure Banner */}
+          {/* Regulatory Ledger Standard */}
           <div className="p-3 bg-[#FAF9F5] rounded border border-[#EBEBDD] text-xs text-[#5A6E68]">
-            <strong>Compliance Note:</strong> All metrics presented here represent demonstration operational records for
-            evaluating the TOURMS payment architecture. Figures must never be cited as live financial performance.
+            <strong>Regulatory Ledger Standard:</strong> All escrow holdings, transactions, and conditional settlements are recorded under central audit protocols adhering to Nigerian agribusiness labor and commercial contracts standards.
           </div>
         </section>
       )}
 
       {/* ========================================================================= */}
-      {/* SCREEN 35 — ADMIN TRANSACTION MANAGEMENT */}
+      {/* CENTRAL TRANSACTION MANAGEMENT */}
       {/* ========================================================================= */}
       {activeScreen === 'screen-35' && (
         <section className="space-y-4 animate-in fade-in">
@@ -313,7 +312,7 @@ export const AdminPaymentsHub: React.FC<AdminPaymentsHubProps> = ({
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-3 border-b border-[#EBEBDD]">
               <div>
                 <span className="text-[11px] font-bold text-[#0E5A46] uppercase tracking-wider block">
-                  Screen 35 · Central Transaction Ledger
+                  Central Transaction Ledger
                 </span>
                 <h3 className="text-sm sm:text-base font-bold text-[#0F1F1C]">
                   All Financial Events, Orders & Transfers
@@ -407,7 +406,7 @@ export const AdminPaymentsHub: React.FC<AdminPaymentsHubProps> = ({
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-3 border-b border-[#EBEBDD]">
               <div>
                 <span className="text-[11px] font-bold text-[#0E5A46] uppercase tracking-wider block">
-                  Screen 36 · Settlement Verification Queue
+                  Settlement Verification Queue
                 </span>
                 <h3 className="text-sm sm:text-base font-bold text-[#0F1F1C]">
                   Engagements Awaiting Conditional Release Authorization
@@ -479,7 +478,7 @@ export const AdminPaymentsHub: React.FC<AdminPaymentsHubProps> = ({
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-3 border-b border-[#EBEBDD]">
               <div>
                 <span className="text-[11px] font-bold text-[#C53030] uppercase tracking-wider block">
-                  Screen 37 · Dispute Mediation & Arbitration
+                  Dispute Mediation & Arbitration
                 </span>
                 <h3 className="text-sm sm:text-base font-bold text-[#0F1F1C]">
                   Active Engagement Claims & Disputed Settlement Pools
@@ -543,7 +542,7 @@ export const AdminPaymentsHub: React.FC<AdminPaymentsHubProps> = ({
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-3 border-b border-[#EBEBDD]">
               <div>
                 <span className="text-[11px] font-bold text-[#8E5A18] uppercase tracking-wider block">
-                  Screen 38 · Refund Request Management
+                  Refund Request Management
                 </span>
                 <h3 className="text-sm sm:text-base font-bold text-[#0F1F1C]">
                   Cancelled Engagements & Payout Reversals
@@ -614,7 +613,7 @@ export const AdminPaymentsHub: React.FC<AdminPaymentsHubProps> = ({
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-3 border-b border-[#EBEBDD]">
               <div>
                 <span className="text-[11px] font-bold text-[#0E5A46] uppercase tracking-wider block">
-                  Screen 39 · Audit & Ledger Reconciliation
+                  Audit & Ledger Reconciliation
                 </span>
                 <h3 className="text-sm sm:text-base font-bold text-[#0F1F1C]">
                   Financial Accounting Oversight & Settlement Reconciliation

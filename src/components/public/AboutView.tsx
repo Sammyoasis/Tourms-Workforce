@@ -335,9 +335,9 @@ export const AboutView: React.FC<AboutViewProps> = ({
 
               <div className="p-5 bg-white rounded border border-[#C4C8C5] space-y-2">
                 <span className="text-[10px] font-bold text-[#C98A3A] uppercase">Body & Product Interfaces</span>
-                <h4 className="text-xl font-bold font-sans text-[#0F1F1C]">Inter</h4>
+                <h4 className="text-xl font-bold font-sans text-[#0F1F1C]">Plus Jakarta Sans</h4>
                 <p className="text-xs text-[#3A4B47]">
-                  Used for all digital reading, form inputs, metadata badges, data tables, and operational queues. Optimized for high screen legibility.
+                  Used for all digital reading, form inputs, metadata rows, data tables, and operational queues. Optimized for high screen legibility.
                 </p>
                 <div className="p-2.5 bg-[#F7F7EE] rounded font-sans text-xs text-[#3A4B47]">
                   Verified Tractor Operator • 450 ha seasonal experience • CAC Reg #RC-1849204

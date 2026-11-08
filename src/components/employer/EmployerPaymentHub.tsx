@@ -251,7 +251,7 @@ export const EmployerPaymentHub: React.FC<EmployerPaymentHubProps> = ({
                 : 'bg-[#F7F7EE] text-[#3A4B47] hover:bg-[#EBEBDD] border border-[#C4C8C5]'
             }`}
           >
-            Screen 31: Payment Dashboard
+            Payment Dashboard
           </button>
 
           <button
@@ -263,7 +263,7 @@ export const EmployerPaymentHub: React.FC<EmployerPaymentHubProps> = ({
                 : 'bg-[#F7F7EE] text-[#3A4B47] hover:bg-[#EBEBDD] border border-[#C4C8C5]'
             }`}
           >
-            Screen 29: Cost Summary
+            Cost Summary
           </button>
 
           <button
@@ -275,7 +275,7 @@ export const EmployerPaymentHub: React.FC<EmployerPaymentHubProps> = ({
                 : 'bg-[#F7F7EE] text-[#3A4B47] hover:bg-[#EBEBDD] border border-[#C4C8C5]'
             }`}
           >
-            Screen 30: Fund Engagement
+            Fund Engagement
           </button>
 
           <button
@@ -287,7 +287,7 @@ export const EmployerPaymentHub: React.FC<EmployerPaymentHubProps> = ({
                 : 'bg-[#F7F7EE] text-[#3A4B47] hover:bg-[#EBEBDD] border border-[#C4C8C5]'
             }`}
           >
-            Screen 32: Review Completion
+            Review Completion
           </button>
 
           <button
@@ -299,7 +299,7 @@ export const EmployerPaymentHub: React.FC<EmployerPaymentHubProps> = ({
                 : 'bg-[#F7F7EE] text-[#3A4B47] hover:bg-[#EBEBDD] border border-[#C4C8C5]'
             }`}
           >
-            Screen 33: Transactions & Receipts
+            Transactions & Receipts
           </button>
         </div>
       </div>
@@ -356,7 +356,7 @@ export const EmployerPaymentHub: React.FC<EmployerPaymentHubProps> = ({
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-3 border-b border-[#EBEBDD]">
               <div>
                 <span className="text-[11px] font-bold text-[#0E5A46] uppercase tracking-wider block">
-                  Screen 31 · Consolidated Engagement Pipeline
+                  Consolidated Engagement Pipeline
                 </span>
                 <h3 className="text-sm sm:text-base font-bold text-[#0F1F1C]">
                   All Contracted Engagements & Payment Statuses
@@ -490,7 +490,7 @@ export const EmployerPaymentHub: React.FC<EmployerPaymentHubProps> = ({
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-4 border-b border-[#EBEBDD]">
               <div>
                 <span className="text-[11px] font-bold text-[#8E5A18] uppercase tracking-wider block">
-                  Screen 29 · Financial Obligation Summary
+                  Financial Obligation Summary
                 </span>
                 <h2 className="text-base sm:text-xl font-bold text-[#0F1F1C] mt-0.5">
                   Employer Engagement Cost Breakdown
@@ -574,7 +574,7 @@ export const EmployerPaymentHub: React.FC<EmployerPaymentHubProps> = ({
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-4 border-b border-[#EBEBDD]">
               <div>
                 <span className="text-[11px] font-bold text-[#0E5A46] uppercase tracking-wider block">
-                  Screen 30 · Secure Engagement Funding
+                  Secure Engagement Funding
                 </span>
                 <h2 className="text-base sm:text-xl font-bold text-[#0F1F1C] mt-0.5">
                   Fund Engagement #{currentEngagement.referenceNumber}
@@ -740,7 +740,7 @@ export const EmployerPaymentHub: React.FC<EmployerPaymentHubProps> = ({
                       Card Authorization Simulation
                     </span>
                     <p className="text-[11px] text-[#5A6E68]">
-                      Clicking "Initiate Payment" will invoke the provider checkout gateway. Demo mode is enabled for verification.
+                      Clicking "Initiate Payment" will invoke the encrypted CBN-compliant checkout gateway to hold funds securely in escrow.
                     </p>
                   </div>
                 )}
@@ -799,7 +799,7 @@ export const EmployerPaymentHub: React.FC<EmployerPaymentHubProps> = ({
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-4 border-b border-[#EBEBDD]">
               <div>
                 <span className="text-[11px] font-bold text-[#0E5A46] uppercase tracking-wider block">
-                  Screen 32 · Completion Inspection & Approval
+                  Completion Inspection & Approval
                 </span>
                 <h2 className="text-base sm:text-xl font-bold text-[#0F1F1C] mt-0.5">
                   Review Work Completion
@@ -957,7 +957,7 @@ export const EmployerPaymentHub: React.FC<EmployerPaymentHubProps> = ({
             <div className="flex items-center justify-between pb-3 border-b border-[#EBEBDD]">
               <div>
                 <span className="text-[11px] font-bold text-[#0E5A46] uppercase tracking-wider block">
-                  Screen 33 · Transaction Records
+                  Transaction Records
                 </span>
                 <h3 className="text-sm sm:text-base font-bold text-[#0F1F1C]">
                   Employer Financial Transactions & Receipts

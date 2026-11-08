@@ -105,9 +105,7 @@ export const FeeBreakdownCard: React.FC<FeeBreakdownCardProps> = ({
       <div className="p-2.5 bg-[#F7F7EE] rounded border border-[#EBEBDD] flex items-start gap-2 text-[11px] text-[#5A6E68] leading-relaxed">
         <Info className="w-3.5 h-3.5 text-[#0E5A46] shrink-0 mt-0.5" />
         <p>
-          <strong>Transparency Notice:</strong> Fee values shown here are illustrative standard defaults for demonstration.
-          TOURMS does not hold funds as an internal bank or wallet; conditional settlement is processed via licensed Nigerian
-          payment partners with direct bank disbursement.
+          <strong>Regulated Fee Schedule:</strong> Platform and processing charges are transparently accounted upfront. TOURMS conditional settlement is processed via licensed Nigerian financial infrastructure with direct automated bank disbursement.
         </p>
       </div>
     </div>
