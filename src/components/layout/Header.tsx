@@ -71,6 +71,7 @@ export const Header: React.FC<HeaderProps> = ({
           {/* Zone 1: Official Brand Logo with Symbol */}
           <button
             onClick={() => handleNavClick('/')}
+            onDoubleClick={() => handleNavClick('/admin')}
             className="flex items-center text-left focus-visible:outline-2 focus-visible:outline-[#0E5A46] rounded shrink-0 cursor-pointer py-1"
             aria-label="Tourms Agro-Solutions Homepage"
           >

@@ -58,7 +58,7 @@ export const Footer: React.FC<FooterProps> = ({
           </div>
 
           <div className="pt-4 border-t border-[#1F332F] text-[10px] text-[#7A8B86] space-y-1">
-            <p>© {new Date().getFullYear()} TOURMS AGRO-SOLUTIONS</p>
+            <p onClick={() => onNavigate('/admin')} className="cursor-default select-none">© {new Date().getFullYear()} TOURMS AGRO-SOLUTIONS</p>
             <p>Nigeria-First Agricultural Architecture · WCAG 2.2 AA</p>
           </div>
         </div>
@@ -214,7 +214,7 @@ export const Footer: React.FC<FooterProps> = ({
 
         {/* Bottom Bar */}
         <div className="pt-6 md:pt-8 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-[#7A8B86] text-center sm:text-left">
-          <p>© {new Date().getFullYear()} TOURMS AGRO-SOLUTIONS. Nigeria-first agricultural architecture.</p>
+          <p><span onClick={() => onNavigate('/admin')} className="cursor-default select-none hover:text-[#A0B0AB] transition-colors" title="Operations">© {new Date().getFullYear()}</span> TOURMS AGRO-SOLUTIONS. Nigeria-first agricultural architecture.</p>
           <div className="flex flex-wrap items-center justify-center gap-3 sm:gap-4 text-[11px]">
             <span>WCAG 2.2 AA Compliant</span>
             <span aria-hidden="true">·</span>

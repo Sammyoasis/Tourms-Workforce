@@ -93,10 +93,35 @@ import {
 
 import { UserCheck, Building2, Briefcase, User, Sparkles, Smartphone, Monitor, Wifi, Battery, Signal, ArrowLeftRight } from 'lucide-react';
 
+const getInitialPath = (): string => {
+  try {
+    if (typeof window === 'undefined') return '/';
+    const path = window.location.pathname;
+    const hash = window.location.hash.replace(/^#\/?/, '/');
+    const search = new URLSearchParams(window.location.search);
+
+    // 1. Direct query parameter fallback (?admin or ?portal=admin)
+    if (search.has('admin') || search.get('portal') === 'admin') {
+      return '/admin';
+    }
+
+    // 2. Hash routing fallback (/#/admin or /#admin)
+    if (hash && hash !== '/' && hash !== '') {
+      return hash.startsWith('/') ? hash : `/${hash}`;
+    }
+
+    // 3. Pathname routing (/admin, /jobs, etc.)
+    if (path && path !== '') {
+      return path;
+    }
+  } catch {}
+  return '/';
+};
+
 function AppContent() {
   const { addToast } = useToast();
   // Navigation & State
-  const [currentPath, setCurrentPath] = useState<string>('/');
+  const [currentPath, setCurrentPath] = useState<string>(getInitialPath);
   const [userRole, setUserRole] = useState<UserRole>(() => {
     try {
       const saved = localStorage.getItem('tourms_user_role');
@@ -453,9 +478,45 @@ function AppContent() {
 
   const handleNavigate = (path: string) => {
     setCurrentPath(path);
+    try {
+      if (typeof window !== 'undefined' && window.location.pathname !== path) {
+        window.history.pushState(null, '', path);
+      }
+    } catch {}
     setIsMobilePreview(false);
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
+
+  // URL synchronization and keyboard shortcut listener
+  useEffect(() => {
+    const handleLocationChange = () => {
+      const active = getInitialPath();
+      setCurrentPath(active);
+    };
+
+    const handleKeyDown = (e: KeyboardEvent) => {
+      // Secret Admin hotkey: Alt + A or Ctrl + Shift + A
+      if ((e.altKey && e.key.toLowerCase() === 'a') || (e.ctrlKey && e.shiftKey && e.key.toLowerCase() === 'a')) {
+        e.preventDefault();
+        handleNavigate('/admin');
+        addToast({
+          type: 'info',
+          title: 'Admin Gateway Triggered',
+          message: 'Opening Staff & Admin Console authentication portal.'
+        });
+      }
+    };
+
+    window.addEventListener('popstate', handleLocationChange);
+    window.addEventListener('hashchange', handleLocationChange);
+    window.addEventListener('keydown', handleKeyDown);
+
+    return () => {
+      window.removeEventListener('popstate', handleLocationChange);
+      window.removeEventListener('hashchange', handleLocationChange);
+      window.removeEventListener('keydown', handleKeyDown);
+    };
+  }, []);
 
   const handleApplySuccess = (jobId: string) => {
     setAppliedJobIds((prev) => [...prev, jobId]);
