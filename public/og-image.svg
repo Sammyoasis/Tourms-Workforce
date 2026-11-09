@@ -1,0 +1,53 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#08382B" />
+      <stop offset="100%" stop-color="#0F1F1C" />
+    </linearGradient>
+  </defs>
+
+  <rect width="1200" height="630" fill="url(#bg)"/>
+
+  <!-- Subtle Frequency Rhythm Motif in Background -->
+  <g opacity="0.12">
+    <rect x="900" y="140" width="12" height="120" rx="6" fill="#C98A3A"/>
+    <rect x="930" y="100" width="12" height="200" rx="6" fill="#0E5A46"/>
+    <rect x="960" y="160" width="12" height="80" rx="6" fill="#F7F7EE"/>
+    <rect x="990" y="80" width="12" height="240" rx="6" fill="#C98A3A"/>
+    <rect x="1020" y="120" width="12" height="160" rx="6" fill="#0E5A46"/>
+    <rect x="1050" y="150" width="12" height="100" rx="6" fill="#F7F7EE"/>
+  </g>
+
+  <!-- Brand Emblem -->
+  <g transform="translate(100, 100)">
+    <rect width="80" height="80" rx="16" fill="#0E5A46"/>
+    <path d="M24 26 L40 40 L24 54" stroke="#F7F7EE" stroke-width="7" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+    <path d="M38 26 L54 40 L38 54" stroke="#C98A3A" stroke-width="7" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+  </g>
+
+  <!-- Typography -->
+  <text x="205" y="150" font-family="'Montserrat', sans-serif" font-size="34" font-weight="800" fill="#F7F7EE" letter-spacing="2">TOURMS AGRO-SOLUTIONS</text>
+  <text x="205" y="175" font-family="'Plus Jakarta Sans', sans-serif" font-size="16" font-weight="600" fill="#C98A3A" letter-spacing="3">SAME SOUND, DIFFERENT FREQUENCY</text>
+
+  <!-- Main Headline -->
+  <text x="100" y="300" font-family="'Montserrat', sans-serif" font-size="60" font-weight="900" fill="#FFFFFF" letter-spacing="-1">AGRICULTURE, CONNECTED BETTER.</text>
+
+  <!-- Subtitle -->
+  <text x="100" y="380" font-family="'Plus Jakarta Sans', sans-serif" font-size="24" font-weight="400" fill="#C4C8C5">
+    <tspan x="100" dy="0">Work, opportunity and knowledge for the people and businesses</tspan>
+    <tspan x="100" dy="36">shaping agriculture across Nigeria and Africa.</tspan>
+  </text>
+
+  <!-- Key Pillars Footer -->
+  <g transform="translate(100, 500)">
+    <rect width="1000" height="1" fill="#243B36"/>
+    <text x="0" y="45" font-family="'Plus Jakarta Sans', sans-serif" font-size="18" font-weight="700" fill="#0E5A46">WORKFORCE ENGINE</text>
+    <text x="0" y="70" font-family="'Plus Jakarta Sans', sans-serif" font-size="14" font-weight="500" fill="#A0B0AB">Capability-First Hiring</text>
+
+    <text x="350" y="45" font-family="'Plus Jakarta Sans', sans-serif" font-size="18" font-weight="700" fill="#C98A3A">OPPORTUNITIES DESK</text>
+    <text x="350" y="70" font-family="'Plus Jakarta Sans', sans-serif" font-size="14" font-weight="500" fill="#A0B0AB">Grants, Loans & Capital</text>
+
+    <text x="700" y="45" font-family="'Plus Jakarta Sans', sans-serif" font-size="18" font-weight="700" fill="#F7F7EE">FIELD INTELLIGENCE</text>
+    <text x="700" y="70" font-family="'Plus Jakarta Sans', sans-serif" font-size="14" font-weight="500" fill="#A0B0AB">36 States & FCT Coverage</text>
+  </g>
+</svg>

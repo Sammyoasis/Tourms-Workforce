@@ -113,22 +113,20 @@ export const EmployerOnboarding: React.FC<EmployerOnboardingProps> = ({
   // Form State
   const [companyName, setCompanyName] = useState(initialProfile.companyName || '');
   const [businessType, setBusinessType] = useState(initialProfile.businessType || LEGAL_STRUCTURES[0]);
-  const [registrationNumber, setRegistrationNumber] = useState(initialProfile.registrationNumber || 'RC 1492084');
-  const [establishedYear, setEstablishedYear] = useState(initialProfile.establishedYear || '2020');
+  const [registrationNumber, setRegistrationNumber] = useState(initialProfile.registrationNumber || '');
+  const [establishedYear, setEstablishedYear] = useState(initialProfile.establishedYear || '');
   
   // Location
-  const [state, setState] = useState(initialProfile.location?.state || 'Oyo');
-  const [lga, setLga] = useState(initialProfile.location?.lga || 'Iseyin');
+  const [state, setState] = useState(initialProfile.location?.state || ALL_STATE_NAMES[0]);
+  const [lga, setLga] = useState(initialProfile.location?.lga || '');
   const [farmSiteAddress, setFarmSiteAddress] = useState(initialProfile.location?.farmSiteAddress || '');
   const [farmScale, setFarmScale] = useState(initialProfile.farmScale || FARM_SCALES[1]);
   const [landTenure, setLandTenure] = useState(initialProfile.landTenure || TENURE_TYPES[0]);
 
   // Agricultural Focus
-  const [primaryFocus, setPrimaryFocus] = useState(initialProfile.primaryFocus || 'Commercial Grain & Root Crop Production');
+  const [primaryFocus, setPrimaryFocus] = useState(initialProfile.primaryFocus || '');
   const [selectedCrops, setSelectedCrops] = useState<string[]>(
-    initialProfile.crops && initialProfile.crops.length > 0
-      ? initialProfile.crops
-      : ['Commercial Maize', 'Cassava (HQCF & Industrial)']
+    initialProfile.crops && initialProfile.crops.length > 0 ? initialProfile.crops : []
   );
   const [selectedLivestock, setSelectedLivestock] = useState<string[]>(
     initialProfile.livestock && initialProfile.livestock.length > 0 ? initialProfile.livestock : []
@@ -137,14 +135,10 @@ export const EmployerOnboarding: React.FC<EmployerOnboardingProps> = ({
 
   // Mechanization & Capacity
   const [mechanizationLevel, setMechanizationLevel] = useState(
-    initialProfile.mechanizationLevel || 'Fully Mechanized Field Operations'
+    initialProfile.mechanizationLevel || 'Partially Mechanized'
   );
-  const [selectedMachinery, setSelectedMachinery] = useState<string[]>([
-    'Tractors (75HP+)',
-    'Tractor-Mounted Boom Sprayers',
-    'Center-Pivot / Drip Irrigation Pumps'
-  ]);
-  const [workforceSize, setWorkforceSize] = useState(initialProfile.workforceSize || '15 Permanent · 40 Seasonal');
+  const [selectedMachinery, setSelectedMachinery] = useState<string[]>([]);
+  const [workforceSize, setWorkforceSize] = useState(initialProfile.workforceSize || '');
 
   // Executive Contact
   const [contactPerson, setContactPerson] = useState(initialProfile.contactPerson || '');
@@ -152,7 +146,7 @@ export const EmployerOnboarding: React.FC<EmployerOnboardingProps> = ({
   const [phone, setPhone] = useState(initialProfile.phone || '');
 
   // Document Upload State
-  const [uploadedDocName, setUploadedDocName] = useState<string>('CAC_Certificate_Incorporation.pdf');
+  const [uploadedDocName, setUploadedDocName] = useState<string>('');
 
   const availableLgas = getLgasForState(state);
 
@@ -353,7 +347,7 @@ export const EmployerOnboarding: React.FC<EmployerOnboardingProps> = ({
               <Input
                 label="CAC Registration Number (RC / BN)"
                 required
-                placeholder="e.g. RC 1492084 or BN 291034"
+                placeholder="e.g. RC 0000000 or BN 000000"
                 value={registrationNumber}
                 onChange={(e) => setRegistrationNumber(e.target.value)}
                 helperText="Verified against Federal Corporate Registry gazette."

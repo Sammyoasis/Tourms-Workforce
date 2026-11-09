@@ -65,25 +65,25 @@ export const OpportunitiesView: React.FC<OpportunitiesViewProps> = ({
       }`}
     >
       {/* Banner */}
-      <section className={`bg-white border-b border-[#C4C8C5] ${isMobilePreview ? 'py-6 px-4' : 'py-6 sm:py-10 md:py-12 px-3.5 sm:px-6 lg:px-8'}`}>
-        <div className="max-w-7xl mx-auto space-y-3 sm:space-y-4">
-          <div className="inline-flex items-center gap-1.5 text-[10px] sm:text-xs font-semibold text-[#8E5A18] tracking-wider uppercase">
+      <section className={`bg-white border-b border-[#C4C8C5] ${isMobilePreview ? 'py-8 px-5' : 'py-10 sm:py-14 md:py-16 px-4 sm:px-6 lg:px-8'}`}>
+        <div className="max-w-7xl mx-auto space-y-4 sm:space-y-6">
+          <div className="inline-flex items-center gap-2 text-xs font-bold text-[#8E5A18] tracking-widest uppercase">
             <TourmsSymbol size={16} />
             <span>PROGRAMMES & CAPITAL</span>
             <span aria-hidden="true">·</span>
             <span>NOT EMPLOYMENT DEMAND</span>
           </div>
 
-          <h1 className={`${isMobilePreview ? 'text-xl' : 'text-xl sm:text-3xl md:text-4xl'} font-extrabold text-[#0F1F1C] tracking-tight font-display break-words`}>
+          <h1 className={`${isMobilePreview ? 'text-2xl' : 'text-2xl sm:text-4xl md:text-5xl'} font-extrabold text-[#0F1F1C] tracking-tight font-display break-words`}>
             AGRICULTURAL OPPORTUNITIES.
           </h1>
 
-          <p className={`${isMobilePreview ? 'text-xs' : 'text-xs sm:text-sm md:text-base'} text-[#3A4B47] max-w-2xl leading-relaxed`}>
+          <p className={`${isMobilePreview ? 'text-sm' : 'text-sm sm:text-base md:text-lg'} text-[#3A4B47] max-w-3xl leading-relaxed`}>
             Verified scholarships, concessionary grants, fellowships, competitions, and developmental funding pathways shaping Nigerian agriculture.
           </p>
 
           {/* Search & Category Filter */}
-          <div className="pt-1 sm:pt-2 max-w-3xl flex flex-col sm:flex-row gap-2.5 sm:gap-3">
+          <div className="pt-2 sm:pt-4 max-w-3xl flex flex-col sm:flex-row gap-3 sm:gap-4">
             <div className="flex-1 min-w-0">
               <SearchField
                 value={searchQuery}
@@ -92,7 +92,7 @@ export const OpportunitiesView: React.FC<OpportunitiesViewProps> = ({
                 placeholder="Search grants, scholarships, or fellowships..."
               />
             </div>
-            <div className={isMobilePreview ? 'w-full' : 'sm:w-64'}>
+            <div className={isMobilePreview ? 'w-full' : 'sm:w-72'}>
               <Select
                 value={selectedCategory}
                 onChange={(e) => setSelectedCategory(e.target.value)}
@@ -107,12 +107,12 @@ export const OpportunitiesView: React.FC<OpportunitiesViewProps> = ({
       </section>
 
       {/* Grid of Opportunities */}
-      <div className={`max-w-7xl mx-auto ${isMobilePreview ? 'px-4 py-6' : 'px-3.5 sm:px-6 lg:px-8 py-6 sm:py-10 md:py-12'}`}>
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-1 text-xs text-[#5A6E68] pb-3 border-b border-[#C4C8C5] mb-5 sm:mb-6">
+      <div className={`max-w-7xl mx-auto ${isMobilePreview ? 'px-5 py-8' : 'px-4 sm:px-6 lg:px-8 py-10 sm:py-16'}`}>
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 text-xs sm:text-sm text-[#5A6E68] pb-3 border-b border-[#C4C8C5] mb-6 sm:mb-8">
           <span>
             Displaying <strong className="text-[#0F1F1C] tabular-nums">{filteredOpportunities.length}</strong> verified programme{filteredOpportunities.length === 1 ? '' : 's'}
           </span>
-          <span className="text-[#0E5A46] font-semibold text-[10px] sm:text-xs">
+          <span className="text-[#0E5A46] font-semibold text-xs sm:text-sm">
             Sources Vetted by Editorial Verification Desk
           </span>
         </div>
@@ -128,34 +128,34 @@ export const OpportunitiesView: React.FC<OpportunitiesViewProps> = ({
             }}
           />
         ) : (
-          <div className={`grid grid-cols-1 ${isMobilePreview ? '' : 'md:grid-cols-2 lg:grid-cols-3'} gap-4 sm:gap-6`}>
+          <div className={`grid grid-cols-1 ${isMobilePreview ? '' : 'md:grid-cols-2 lg:grid-cols-3'} gap-6 sm:gap-8`}>
             {filteredOpportunities.map((opp) => (
               <div
                 key={opp.id}
                 onClick={() => setSelectedOpp(opp)}
-                className="bg-white border border-[#C4C8C5] rounded p-4 sm:p-6 hover:border-[#C98A3A] transition-all cursor-pointer flex flex-col justify-between shadow-2xs group"
+                className="bg-white border border-[#C4C8C5] rounded p-6 sm:p-7 md:p-8 hover:border-[#C98A3A] transition-all cursor-pointer flex flex-col justify-between shadow-2xs group"
               >
-                <div className="space-y-2.5 sm:space-y-3">
-                  <div className="flex items-center justify-between gap-2 text-xs">
+                <div className="space-y-3.5">
+                  <div className="flex items-center justify-between gap-2 text-xs sm:text-sm">
                     <span className="font-bold text-[#8E5A18]">{opp.category}</span>
-                    <span className="text-[#5A6E68] flex items-center gap-1 text-[11px]">
-                      <Calendar className="w-3.5 h-3.5" />
+                    <span className="text-[#5A6E68] flex items-center gap-1.5 text-xs">
+                      <Calendar className="w-4 h-4" />
                       <span>{opp.deadline}</span>
                     </span>
                   </div>
 
-                  <h2 className="text-sm sm:text-base font-bold text-[#0F1F1C] group-hover:text-[#8E5A18] transition-colors leading-snug">
+                  <h2 className="text-lg sm:text-xl font-bold text-[#0F1F1C] group-hover:text-[#8E5A18] transition-colors leading-snug">
                     {opp.title}
                   </h2>
 
-                  <p className="text-xs font-semibold text-[#08382B]">{opp.provider}</p>
+                  <p className="text-sm font-semibold text-[#08382B]">{opp.provider}</p>
 
-                  <p className="text-xs text-[#3A4B47] line-clamp-3 leading-relaxed">
+                  <p className="text-sm text-[#3A4B47] line-clamp-3 leading-relaxed">
                     {opp.description}
                   </p>
 
                   {/* Highlights (Zero-Pill clean inline text) */}
-                  <div className="pt-1.5 text-xs text-[#5A6E68] space-y-1">
+                  <div className="pt-2 text-xs sm:text-sm text-[#5A6E68] space-y-1.5">
                     <p className="truncate">
                       <strong className="text-[#0F1F1C]">Scope:</strong> {opp.locationScope}
                     </p>
@@ -167,9 +167,9 @@ export const OpportunitiesView: React.FC<OpportunitiesViewProps> = ({
                   </div>
                 </div>
 
-                <div className="pt-3.5 border-t border-[#EBEBDD] mt-3.5 flex items-center justify-between text-xs">
-                  <span className="text-[11px] text-[#5A6E68]">Source Verified</span>
-                  <span className="text-xs font-semibold text-[#8E5A18] group-hover:underline">
+                <div className="pt-4 border-t border-[#EBEBDD] mt-5 flex items-center justify-between text-xs sm:text-sm">
+                  <span className="text-xs text-[#5A6E68]">Source Verified</span>
+                  <span className="font-bold text-[#8E5A18] group-hover:underline">
                     View Requirements →
                   </span>
                 </div>

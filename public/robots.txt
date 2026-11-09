@@ -1,0 +1,17 @@
+# robots.txt for Tourms Agro-Solutions (tourmsworkforce.com.ng)
+User-agent: *
+Allow: /
+Allow: /jobs
+Allow: /opportunities
+Allow: /insights
+Allow: /about
+Allow: /worker/onboarding
+Allow: /employer/onboarding
+
+# Protect administrative console and internal API routes from indexing
+Disallow: /admin
+Disallow: /admin/*
+Disallow: /api/
+
+# Sitemap location for Google Search Console and web crawlers
+Sitemap: https://tourmsworkforce.com.ng/sitemap.xml

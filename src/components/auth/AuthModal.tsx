@@ -413,7 +413,7 @@ export const AuthModal: React.FC<AuthModalProps> = ({
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
               <Input
                 label="Full Legal Name"
-                placeholder="e.g. Musa Haruna"
+                placeholder="Enter your legal full name"
                 value={workerName}
                 onChange={(e) => setWorkerName(e.target.value)}
                 required
@@ -421,7 +421,7 @@ export const AuthModal: React.FC<AuthModalProps> = ({
               <Input
                 label="Email Address (Optional)"
                 type="email"
-                placeholder="musa.haruna@example.ng (optional)"
+                placeholder="you@example.com (optional)"
                 value={workerEmail}
                 onChange={(e) => setWorkerEmail(e.target.value)}
                 helperText="Optional for field workers. Mobile phone is your primary login."
@@ -677,7 +677,7 @@ export const AuthModal: React.FC<AuthModalProps> = ({
               <Input
                 label={signInMode === 'sms_otp' ? 'Registered Phone Number or Email' : 'Phone Number or Email Address'}
                 type="text"
-                placeholder={signInMode === 'sms_otp' ? '+234 803 000 0000' : '+234 803 000 0000 or musa.haruna@tourms.ng'}
+                placeholder={signInMode === 'sms_otp' ? 'e.g. +234 803 123 4567' : 'e.g. you@example.com or +234 803 123 4567'}
                 value={signInEmail}
                 onChange={(e) => setSignInEmail(e.target.value)}
                 required
@@ -693,7 +693,7 @@ export const AuthModal: React.FC<AuthModalProps> = ({
                 />
               )}
 
-              <div className="pt-1 flex items-center justify-between">
+              <div className="pt-2 flex items-center justify-between">
                 <button
                   type="button"
                   onClick={() => setActiveTab('worker_reg')}
@@ -703,56 +703,14 @@ export const AuthModal: React.FC<AuthModalProps> = ({
                 </button>
                 <Button
                   variant="primary"
-                  size="sm"
+                  size="md"
                   type="submit"
-                  rightIcon={signInMode === 'sms_otp' ? <Smartphone className="w-3.5 h-3.5" /> : undefined}
+                  rightIcon={signInMode === 'sms_otp' ? <Smartphone className="w-4 h-4" /> : undefined}
                 >
                   {signInMode === 'sms_otp' ? 'Send OTP & Sign In' : 'Sign In'}
                 </Button>
               </div>
             </form>
-
-            {/* Fast Access for Verified Accounts */}
-            <div className="pt-3 border-t border-[#C4C8C5] space-y-2">
-              <div className="flex items-center justify-between">
-                <span className="text-[11px] font-bold text-[#5A6E68] uppercase tracking-wider">
-                  Verified Account Access
-                </span>
-                <span className="text-[10px] text-[#7A8B86]">Direct account login</span>
-              </div>
-
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs">
-                <button
-                  type="button"
-                  onClick={() => {
-                    onSignIn('worker', 'musa.haruna@tourms.ng');
-                    onClose();
-                  }}
-                  className="p-2.5 rounded bg-[#F7F7EE] hover:bg-[#E7F3EF] border border-[#C4C8C5] text-left space-y-0.5 transition-colors cursor-pointer"
-                >
-                  <div className="flex items-center gap-1 text-[#0E5A46] font-bold">
-                    <User className="w-3 h-3" />
-                    <span>Worker Portal</span>
-                  </div>
-                  <p className="text-[10px] text-[#5A6E68] truncate">Musa Haruna · Senior Agronomist</p>
-                </button>
-
-                <button
-                  type="button"
-                  onClick={() => {
-                    onSignIn('employer', 'hr@agrogreen.ng');
-                    onClose();
-                  }}
-                  className="p-2.5 rounded bg-[#F7F7EE] hover:bg-[#E7F3EF] border border-[#C4C8C5] text-left space-y-0.5 transition-colors cursor-pointer"
-                >
-                  <div className="flex items-center gap-1 text-[#0E5A46] font-bold">
-                    <Building2 className="w-3 h-3" />
-                    <span>Employer Portal</span>
-                  </div>
-                  <p className="text-[10px] text-[#5A6E68] truncate">AgroGreen Valley Ltd · Commercial Farm</p>
-                </button>
-              </div>
-            </div>
           </div>
         )}
       </div>

@@ -55,24 +55,24 @@ export const InsightsView: React.FC<InsightsViewProps> = ({
       }`}
     >
       {/* Header Banner */}
-      <section className={`bg-white border-b border-[#C4C8C5] ${isMobilePreview ? 'py-6 px-4' : 'py-6 sm:py-10 md:py-12 px-3.5 sm:px-6 lg:px-8'}`}>
-        <div className="max-w-7xl mx-auto space-y-3 sm:space-y-4">
-          <div className="inline-flex items-center gap-1.5 text-[10px] sm:text-xs font-semibold text-[#0E5A46] tracking-wider uppercase">
+      <section className={`bg-white border-b border-[#C4C8C5] ${isMobilePreview ? 'py-8 px-5' : 'py-10 sm:py-14 md:py-16 px-4 sm:px-6 lg:px-8'}`}>
+        <div className="max-w-7xl mx-auto space-y-4 sm:space-y-6">
+          <div className="inline-flex items-center gap-2 text-xs font-bold text-[#0E5A46] tracking-widest uppercase">
             <TourmsSymbol size={16} />
             <span>EDITORIAL & INTELLIGENCE</span>
             <span aria-hidden="true">·</span>
             <span>AGRONOMIC KNOWLEDGE BASE</span>
           </div>
 
-          <h1 className={`${isMobilePreview ? 'text-xl' : 'text-xl sm:text-3xl md:text-4xl'} font-extrabold text-[#0F1F1C] tracking-tight font-display break-words`}>
+          <h1 className={`${isMobilePreview ? 'text-2xl' : 'text-2xl sm:text-4xl md:text-5xl'} font-extrabold text-[#0F1F1C] tracking-tight font-display break-words`}>
             FIELD INSIGHTS & RESEARCH.
           </h1>
 
-          <p className={`${isMobilePreview ? 'text-xs' : 'text-xs sm:text-sm md:text-base'} text-[#3A4B47] max-w-2xl leading-relaxed break-words`}>
+          <p className={`${isMobilePreview ? 'text-sm' : 'text-sm sm:text-base md:text-lg'} text-[#3A4B47] max-w-3xl leading-relaxed break-words`}>
             Evidence-backed agricultural analysis, post-harvest engineering, irrigation economics, and supply chain telemetry from practitioners across Nigeria.
           </p>
 
-          <div className="pt-1 sm:pt-2 max-w-3xl flex flex-col sm:flex-row gap-2.5 sm:gap-3">
+          <div className="pt-2 sm:pt-4 max-w-3xl flex flex-col sm:flex-row gap-3 sm:gap-4">
             <div className="flex-1 min-w-0">
               <SearchField
                 value={searchQuery}
@@ -81,7 +81,7 @@ export const InsightsView: React.FC<InsightsViewProps> = ({
                 placeholder="Search research briefs or field notes..."
               />
             </div>
-            <div className={isMobilePreview ? 'w-full' : 'sm:w-64'}>
+            <div className={isMobilePreview ? 'w-full' : 'sm:w-72'}>
               <Select
                 value={selectedCategory}
                 onChange={(e) => setSelectedCategory(e.target.value)}
@@ -96,51 +96,51 @@ export const InsightsView: React.FC<InsightsViewProps> = ({
       </section>
 
       {/* Articles Grid */}
-      <div className={`max-w-7xl mx-auto ${isMobilePreview ? 'px-4 py-6' : 'px-3.5 sm:px-6 lg:px-8 py-6 sm:py-10 md:py-12'}`}>
-        <div className={`grid grid-cols-1 ${isMobilePreview ? '' : 'md:grid-cols-2'} gap-4 sm:gap-6 md:gap-8`}>
+      <div className={`max-w-7xl mx-auto ${isMobilePreview ? 'px-5 py-8' : 'px-4 sm:px-6 lg:px-8 py-10 sm:py-16'}`}>
+        <div className={`grid grid-cols-1 ${isMobilePreview ? '' : 'md:grid-cols-2'} gap-8 sm:gap-10`}>
           {filteredArticles.map((art) => (
             <article
               key={art.id}
               onClick={() => setActiveArticle(art)}
-              className="bg-white border border-[#C4C8C5] rounded p-4 sm:p-6 md:p-8 hover:border-[#0E5A46] transition-all cursor-pointer flex flex-col justify-between shadow-2xs group overflow-hidden break-words"
+              className="bg-white border border-[#C4C8C5] rounded p-6 sm:p-8 md:p-9 hover:border-[#0E5A46] transition-all cursor-pointer flex flex-col justify-between shadow-2xs group overflow-hidden break-words"
             >
-              <div className="space-y-3 sm:space-y-4">
-                <div className="flex flex-wrap items-center gap-2 text-xs text-[#5A6E68]">
-                  <span className="font-semibold text-[#0E5A46]">{art.category}</span>
+              <div className="space-y-4 sm:space-y-5">
+                <div className="flex flex-wrap items-center gap-2.5 text-xs text-[#5A6E68]">
+                  <span className="font-bold text-[#0E5A46]">{art.category}</span>
                   <span aria-hidden="true">·</span>
-                  <span className="flex items-center gap-1">
-                    <Clock className="w-3.5 h-3.5" />
-                    <span>{art.readingTimeMinutes} min</span>
+                  <span className="flex items-center gap-1.5">
+                    <Clock className="w-4 h-4" />
+                    <span>{art.readingTimeMinutes} min read</span>
                   </span>
                   <span aria-hidden="true">·</span>
                   <span>{art.publishedDate}</span>
                 </div>
 
-                <h2 className="text-base sm:text-lg md:text-xl font-bold text-[#0F1F1C] group-hover:text-[#0E5A46] transition-colors leading-snug">
+                <h2 className="text-lg sm:text-xl md:text-2xl font-bold text-[#0F1F1C] group-hover:text-[#0E5A46] transition-colors leading-snug">
                   {art.title}
                 </h2>
 
-                <p className="text-xs sm:text-sm text-[#3A4B47] leading-relaxed line-clamp-3">
+                <p className="text-sm sm:text-base text-[#3A4B47] leading-relaxed line-clamp-3">
                   {art.excerpt}
                 </p>
 
                 {/* Author attribution */}
-                <div className="pt-1.5 flex items-center gap-2.5 sm:gap-3">
-                  <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-[#EBEBDD] flex items-center justify-center text-[#0E5A46] font-bold text-xs shrink-0">
+                <div className="pt-2 flex items-center gap-3">
+                  <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-[#EBEBDD] flex items-center justify-center text-[#0E5A46] font-bold text-xs shrink-0">
                     {art.author.name.charAt(0)}
                   </div>
-                  <div className="text-xs min-w-0">
+                  <div className="text-xs sm:text-sm min-w-0">
                     <p className="font-bold text-[#0F1F1C] truncate">{art.author.name}</p>
-                    <p className="text-[#5A6E68] text-[11px] truncate max-w-[220px] sm:max-w-xs">{art.author.affiliation}</p>
+                    <p className="text-[#5A6E68] text-xs truncate max-w-[220px] sm:max-w-xs">{art.author.affiliation}</p>
                   </div>
                 </div>
               </div>
 
-              <div className="pt-4 sm:pt-6 border-t border-[#EBEBDD] mt-4 sm:mt-6 flex items-center justify-between text-xs">
-                <span className="text-[#5A6E68] text-[11px]">Practitioner Research</span>
-                <span className="font-semibold text-[#0E5A46] group-hover:underline inline-flex items-center gap-1">
+              <div className="pt-5 sm:pt-6 border-t border-[#EBEBDD] mt-6 flex items-center justify-between text-xs sm:text-sm">
+                <span className="text-[#5A6E68]">Practitioner Research</span>
+                <span className="font-bold text-[#0E5A46] group-hover:underline inline-flex items-center gap-1">
                   <span>Read Brief</span>
-                  <ArrowRight className="w-3.5 h-3.5" />
+                  <ArrowRight className="w-4 h-4" />
                 </span>
               </div>
             </article>

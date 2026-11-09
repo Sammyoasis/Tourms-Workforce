@@ -124,6 +124,43 @@ const getInitialPath = (): string => {
   return '/';
 };
 
+const BLANK_WORKER_PROFILE: WorkerProfile = {
+  id: 'worker-new',
+  fullName: '',
+  headline: '',
+  email: '',
+  phone: '',
+  location: { state: 'Oyo', lga: '' },
+  summary: '',
+  capabilities: [],
+  skills: [],
+  workExperience: [],
+  education: [],
+  certifications: [],
+  availability: 'Immediately Available',
+  preferences: {
+    employmentTypes: ['Full-time'],
+    preferredStates: ['Oyo'],
+    willingToRelocate: true
+  },
+  completionPercentage: 10,
+  verifiedStatus: 'unverified'
+};
+
+const BLANK_EMPLOYER_PROFILE: EmployerProfile = {
+  id: 'emp-new',
+  companyName: '',
+  businessType: 'Private Limited Liability Company (Ltd / RC)',
+  registrationNumber: '',
+  cacVerified: false,
+  location: { state: 'Oyo', lga: '', farmSiteAddress: '' },
+  contactPerson: '',
+  email: '',
+  phone: '',
+  verificationStatus: 'unverified',
+  verificationDocuments: []
+};
+
 function AppContent() {
   const { addToast } = useToast();
   // Navigation & State
@@ -797,7 +834,7 @@ function AppContent() {
     if (currentPath === '/worker/onboarding') {
       return (
         <WorkerOnboarding
-          initialProfile={workerProfile}
+          initialProfile={userRole === 'worker' ? workerProfile : BLANK_WORKER_PROFILE}
           onComplete={(updated) => {
             saveFirestoreWorker(updated);
             setWorkerProfile(updated);
@@ -838,7 +875,7 @@ function AppContent() {
     if (currentPath === '/employer/onboarding') {
       return (
         <EmployerOnboarding
-          initialProfile={employerProfile}
+          initialProfile={userRole === 'employer' ? employerProfile : BLANK_EMPLOYER_PROFILE}
           onComplete={(completedProfile) => {
             saveFirestoreEmployer(completedProfile);
             setEmployerProfile(completedProfile);

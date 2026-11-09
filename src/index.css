@@ -20,14 +20,18 @@
     font-family: var(--font-sans);
     color: #0F1F1C;
     background-color: #F7F7EE;
-    line-height: 1.6;
-    letter-spacing: -0.011em;
+    line-height: 1.7;
+    letter-spacing: -0.012em;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
   }
 
   h1, h2, h3, h4, h5, h6 {
     font-family: var(--font-display);
-    letter-spacing: -0.02em;
+    letter-spacing: -0.025em;
     text-wrap: balance;
+    line-height: 1.25;
   }
 }
 

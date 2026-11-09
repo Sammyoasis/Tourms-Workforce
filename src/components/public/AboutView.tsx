@@ -45,44 +45,44 @@ export const AboutView: React.FC<AboutViewProps> = ({
       }`}
     >
       {/* Doctrine Hero & Canonical Positioning */}
-      <section className={`bg-white border-b border-[#C4C8C5] ${isMobilePreview ? 'py-6 px-4' : 'py-10 md:py-16 px-4 sm:px-6 lg:px-8'}`}>
-        <div className="max-w-4xl mx-auto space-y-4">
-          <div className="inline-flex items-center gap-2 text-[10px] sm:text-xs font-bold text-[#0E5A46] tracking-wider uppercase bg-[#E7F3EF] px-2.5 py-1 rounded">
-            <TourmsSymbol size={14} />
+      <section className={`bg-white border-b border-[#C4C8C5] ${isMobilePreview ? 'py-8 px-5' : 'py-12 sm:py-20 md:py-24 px-4 sm:px-6 lg:px-8'}`}>
+        <div className="max-w-4xl mx-auto space-y-6">
+          <div className="inline-flex items-center gap-2 text-xs font-bold text-[#0E5A46] tracking-widest uppercase bg-[#E7F3EF] px-3 py-1 rounded">
+            <TourmsSymbol size={16} />
             <span>TOURMS COMPREHENSIVE DOCTRINE</span>
           </div>
 
-          <div className="space-y-1">
-            <p className="text-[11px] sm:text-xs font-bold text-[#C98A3A] uppercase tracking-wider">
+          <div className="space-y-2">
+            <p className="text-xs font-bold text-[#C98A3A] uppercase tracking-wider">
               TOURMS MASTER BRAND • SAME SOUND, DIFFERENT FREQUENCY.
             </p>
-            <h1 className={`${isMobilePreview ? 'text-2xl' : 'text-2xl sm:text-4xl md:text-5xl'} font-extrabold text-[#0F1F1C] tracking-tight font-display leading-[1.2] break-words`}>
+            <h1 className={`${isMobilePreview ? 'text-2xl' : 'text-2xl sm:text-4xl md:text-5xl'} font-extrabold text-[#0F1F1C] tracking-tight font-display leading-[1.15] break-words`}>
               AGRICULTURE, CONNECTED BETTER.
             </h1>
           </div>
 
-          <p className={`${isMobilePreview ? 'text-xs' : 'text-sm sm:text-base md:text-lg'} text-[#3A4B47] leading-relaxed break-words`}>
+          <p className={`${isMobilePreview ? 'text-sm' : 'text-base sm:text-lg'} text-[#3A4B47] leading-relaxed break-words max-w-3xl`}>
             Work, opportunity and knowledge for the people and businesses shaping agriculture across Nigeria and Africa.
             Built on purposeful simplicity, verified capability, and resilient systems.
           </p>
 
-          {/* Canonical Architecture Pill Strip */}
-          <div className="pt-2 grid grid-cols-2 sm:grid-cols-4 gap-2 text-left">
-            <div className="p-2.5 rounded bg-[#F7F7EE] border border-[#C4C8C5]">
-              <span className="text-[10px] uppercase font-bold text-[#5A6E68] block">Master Brand</span>
-              <span className="text-xs font-bold text-[#0F1F1C]">TOURMS</span>
+          {/* Canonical Architecture Strip - Spacious & Unboxed */}
+          <div className="pt-4 grid grid-cols-2 sm:grid-cols-4 gap-4 text-left border-t border-[#EBEBDD]">
+            <div className="p-4 rounded bg-[#F7F7EE] border border-[#C4C8C5] space-y-1">
+              <span className="text-xs uppercase font-bold text-[#5A6E68] block">Master Brand</span>
+              <span className="text-sm sm:text-base font-bold text-[#0F1F1C] block">TOURMS</span>
             </div>
-            <div className="p-2.5 rounded bg-[#F7F7EE] border border-[#C4C8C5]">
-              <span className="text-[10px] uppercase font-bold text-[#5A6E68] block">Master Tagline</span>
-              <span className="text-xs font-bold text-[#0E5A46]">Same Sound, Diff. Freq.</span>
+            <div className="p-4 rounded bg-[#F7F7EE] border border-[#C4C8C5] space-y-1">
+              <span className="text-xs uppercase font-bold text-[#5A6E68] block">Master Tagline</span>
+              <span className="text-sm sm:text-base font-bold text-[#0E5A46] block">Same Sound, Diff. Freq.</span>
             </div>
-            <div className="p-2.5 rounded bg-[#F7F7EE] border border-[#C4C8C5]">
-              <span className="text-[10px] uppercase font-bold text-[#5A6E68] block">Product Line</span>
-              <span className="text-xs font-bold text-[#0F1F1C]">Agro-Solutions</span>
+            <div className="p-4 rounded bg-[#F7F7EE] border border-[#C4C8C5] space-y-1">
+              <span className="text-xs uppercase font-bold text-[#5A6E68] block">Product Line</span>
+              <span className="text-sm sm:text-base font-bold text-[#0F1F1C] block">Agro-Solutions</span>
             </div>
-            <div className="p-2.5 rounded bg-[#F7F7EE] border border-[#C4C8C5]">
-              <span className="text-[10px] uppercase font-bold text-[#5A6E68] block">Corporate Expression</span>
-              <span className="text-xs font-bold text-[#C98A3A]">One Co. Many Possibilities</span>
+            <div className="p-4 rounded bg-[#F7F7EE] border border-[#C4C8C5] space-y-1">
+              <span className="text-xs uppercase font-bold text-[#5A6E68] block">Expression</span>
+              <span className="text-sm sm:text-base font-bold text-[#C98A3A] block">One Co. Many Possibilities</span>
             </div>
           </div>
         </div>

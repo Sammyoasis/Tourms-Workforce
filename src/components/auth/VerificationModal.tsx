@@ -244,24 +244,13 @@ export const VerificationModal: React.FC<VerificationModalProps> = ({
           </div>
         </div>
 
-        {/* Live Simulation Banner */}
-        {simulatedDelivered && (
-          <div className="p-2.5 bg-[#FFF9E6] border border-[#F3D78A] rounded flex items-center justify-between gap-2 text-xs">
-            <div className="flex items-center gap-1.5 text-[#855B14]">
-              <Sparkles className="w-4 h-4 shrink-0 text-[#C98A3A]" />
-              <span>
-                Simulated Gateway OTP: <strong className="font-mono text-sm tracking-widest text-[#0F1F1C]">{generatedCode}</strong>
-              </span>
-            </div>
-            <button
-              type="button"
-              onClick={handleAutoFillCode}
-              className="text-[11px] bg-white border border-[#C98A3A] text-[#855B14] hover:bg-[#FFF2D0] px-2 py-1 rounded font-semibold cursor-pointer"
-            >
-              Fill Code
-            </button>
-          </div>
-        )}
+        {/* Delivery Confirmation Note */}
+        <div className="p-3 bg-[#FAF9F5] border border-[#EBEBDD] rounded text-xs text-[#5A6E68] flex items-center gap-2">
+          <ShieldCheck className="w-4 h-4 text-[#0E5A46] shrink-0" />
+          <span>
+            A secure 6-digit OTP has been dispatched to your mobile phone. Please enter it below to confirm your identity.
+          </span>
+        </div>
 
         {/* 6-digit OTP Inputs */}
         <div className="py-2 space-y-2 text-center">

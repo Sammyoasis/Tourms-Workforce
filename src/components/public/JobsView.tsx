@@ -144,46 +144,46 @@ export const JobsView: React.FC<JobsViewProps> = ({
       }`}
     >
       {/* Header Banner */}
-      <section className={`bg-white border-b border-[#C4C8C5] ${isMobilePreview ? 'py-5 px-4' : 'py-6 sm:py-9 px-3.5 sm:px-6 lg:px-8'}`}>
-        <div className="max-w-7xl mx-auto space-y-4">
-          <div className="space-y-1.5 sm:space-y-2">
-            <div className="inline-flex items-center gap-1.5 text-[10px] sm:text-xs font-semibold text-[#0E5A46] tracking-wider uppercase">
+      <section className={`bg-white border-b border-[#C4C8C5] ${isMobilePreview ? 'py-8 px-5' : 'py-10 sm:py-14 md:py-16 px-4 sm:px-6 lg:px-8'}`}>
+        <div className="max-w-7xl mx-auto space-y-6">
+          <div className="space-y-2 sm:space-y-3">
+            <div className="inline-flex items-center gap-2 text-xs font-bold text-[#0E5A46] tracking-widest uppercase">
               <TourmsSymbol size={16} />
               <span>TOURMS WORKFORCE</span>
               <span aria-hidden="true">·</span>
               <span>AGRICULTURAL EMPLOYMENT DISCOVERY</span>
             </div>
 
-            <h1 className={`${isMobilePreview ? 'text-xl' : 'text-xl sm:text-3xl md:text-4xl'} font-extrabold text-[#0F1F1C] tracking-tight font-display break-words`}>
+            <h1 className={`${isMobilePreview ? 'text-2xl' : 'text-2xl sm:text-4xl md:text-5xl'} font-extrabold text-[#0F1F1C] tracking-tight font-display break-words`}>
               FIND WORK IN AGRICULTURE.
             </h1>
 
-            <p className={`${isMobilePreview ? 'text-xs' : 'text-xs sm:text-sm md:text-base'} text-[#3A4B47] max-w-2xl leading-relaxed`}>
+            <p className={`${isMobilePreview ? 'text-sm' : 'text-sm sm:text-base md:text-lg'} text-[#3A4B47] max-w-3xl leading-relaxed`}>
               Direct connections between skilled agricultural professionals and vetted commercial agribusinesses across Nigeria.
             </p>
           </div>
 
           {/* Unified Search and Filter Bar */}
-          <div className="bg-[#FAF9F5] sm:bg-white rounded-lg border border-[#C4C8C5] p-3 sm:p-4 shadow-sm space-y-3">
+          <div className="bg-[#FAF9F5] sm:bg-white rounded-lg border border-[#C4C8C5] p-5 sm:p-6 md:p-7 shadow-sm space-y-4">
             {/* Main Bar: Keyword + Location + Category + More Filters */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-12 gap-2 sm:gap-2.5 items-center">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-12 gap-3 sm:gap-4 items-center">
               {/* Keyword Search */}
               <div className="lg:col-span-5 min-w-0">
                 <div className="relative flex items-center w-full">
-                  <Search className="absolute left-3.5 h-4 w-4 text-[#3A4B47] pointer-events-none" />
+                  <Search className="absolute left-4 h-4 w-4 text-[#3A4B47] pointer-events-none" />
                   <input
                     type="search"
                     value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}
                     placeholder="Search by role, skill (e.g. Boom Sprayer), or keyword..."
-                    className="w-full pl-10 pr-9 py-2.5 min-h-[44px] bg-white border border-[#C4C8C5] rounded text-sm text-[#0F1F1C] placeholder:text-[#5A6E68] focus:outline-none focus:ring-2 focus:ring-[#0E5A46] focus:border-[#0E5A46] transition-colors"
+                    className="w-full pl-11 pr-10 py-3 min-h-[48px] bg-white border border-[#C4C8C5] rounded text-sm text-[#0F1F1C] placeholder:text-[#5A6E68] focus:outline-none focus:ring-2 focus:ring-[#0E5A46] focus:border-[#0E5A46] transition-colors"
                   />
                   {searchQuery && (
                     <button
                       type="button"
                       onClick={() => setSearchQuery('')}
                       aria-label="Clear search"
-                      className="absolute right-3 text-xs text-[#5A6E68] hover:text-[#0F1F1C] p-1 cursor-pointer"
+                      className="absolute right-3.5 text-xs text-[#5A6E68] hover:text-[#0F1F1C] p-1.5 cursor-pointer"
                     >
                       <X className="w-4 h-4" />
                     </button>
@@ -194,7 +194,7 @@ export const JobsView: React.FC<JobsViewProps> = ({
               {/* Location Filter (State) */}
               <div className="lg:col-span-3 min-w-0">
                 <div className="relative">
-                  <MapPin className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-[#0E5A46] pointer-events-none z-10" />
+                  <MapPin className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-[#0E5A46] pointer-events-none z-10" />
                   <select
                     value={selectedState}
                     onChange={(e) => {
@@ -202,7 +202,7 @@ export const JobsView: React.FC<JobsViewProps> = ({
                       setSelectedLga('all');
                     }}
                     aria-label="Filter by Nigerian State"
-                    className="w-full appearance-none rounded bg-white text-[#0F1F1C] border border-[#C4C8C5] text-xs sm:text-sm min-h-[44px] pl-10 pr-8 py-2 focus:outline-none focus:ring-2 focus:ring-[#0E5A46] focus:border-[#0E5A46] cursor-pointer font-medium truncate"
+                    className="w-full appearance-none rounded bg-white text-[#0F1F1C] border border-[#C4C8C5] text-sm min-h-[48px] pl-11 pr-9 py-2.5 focus:outline-none focus:ring-2 focus:ring-[#0E5A46] focus:border-[#0E5A46] cursor-pointer font-medium truncate"
                   >
                     <option value="all">All States (36 + FCT)</option>
                     {ALL_STATE_NAMES.map((st) => (
@@ -211,19 +211,19 @@ export const JobsView: React.FC<JobsViewProps> = ({
                       </option>
                     ))}
                   </select>
-                  <ChevronDown className="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[#3A4B47] pointer-events-none" />
+                  <ChevronDown className="absolute right-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-[#3A4B47] pointer-events-none" />
                 </div>
               </div>
 
               {/* Role Category Filter */}
               <div className="lg:col-span-3 min-w-0">
                 <div className="relative">
-                  <Briefcase className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-[#0E5A46] pointer-events-none z-10" />
+                  <Briefcase className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-[#0E5A46] pointer-events-none z-10" />
                   <select
                     value={selectedCategory}
                     onChange={(e) => setSelectedCategory(e.target.value)}
                     aria-label="Filter by Role Category"
-                    className="w-full appearance-none rounded bg-white text-[#0F1F1C] border border-[#C4C8C5] text-xs sm:text-sm min-h-[44px] pl-10 pr-8 py-2 focus:outline-none focus:ring-2 focus:ring-[#0E5A46] focus:border-[#0E5A46] cursor-pointer font-medium truncate"
+                    className="w-full appearance-none rounded bg-white text-[#0F1F1C] border border-[#C4C8C5] text-sm min-h-[48px] pl-11 pr-9 py-2.5 focus:outline-none focus:ring-2 focus:ring-[#0E5A46] focus:border-[#0E5A46] cursor-pointer font-medium truncate"
                   >
                     <option value="all">All Role Categories</option>
                     {CATEGORIES.map((cat) => (
@@ -232,7 +232,7 @@ export const JobsView: React.FC<JobsViewProps> = ({
                       </option>
                     ))}
                   </select>
-                  <ChevronDown className="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[#3A4B47] pointer-events-none" />
+                  <ChevronDown className="absolute right-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-[#3A4B47] pointer-events-none" />
                 </div>
               </div>
 
@@ -241,7 +241,7 @@ export const JobsView: React.FC<JobsViewProps> = ({
                 <button
                   type="button"
                   onClick={() => setMobileFilterOpen(true)}
-                  className="w-full min-h-[44px] px-3 border border-[#C4C8C5] rounded bg-white hover:bg-[#F7F7EE] text-[#0F1F1C] text-xs font-semibold flex items-center justify-center gap-1.5 transition-colors cursor-pointer shadow-2xs"
+                  className="w-full min-h-[48px] px-3.5 border border-[#C4C8C5] rounded bg-white hover:bg-[#F7F7EE] text-[#0F1F1C] text-xs font-semibold flex items-center justify-center gap-1.5 transition-colors cursor-pointer shadow-2xs"
                   title="More filters (LGA, Employment Type, Verified Only)"
                 >
                   <SlidersHorizontal className="w-4 h-4 text-[#0E5A46]" />
@@ -256,10 +256,10 @@ export const JobsView: React.FC<JobsViewProps> = ({
             </div>
 
             {/* Quick Sector Chips + Verified Toggle + Quick Reset */}
-            <div className="pt-2 border-t border-[#EBEBDD] flex flex-col sm:flex-row sm:items-center justify-between gap-2.5">
-              <div className="flex items-center gap-1.5 overflow-x-auto no-scrollbar py-0.5">
-                <span className="text-[11px] font-semibold text-[#5A6E68] uppercase tracking-wider shrink-0 pr-1 hidden sm:inline">
-                  Quick Roles:
+            <div className="pt-3 border-t border-[#EBEBDD] flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+              <div className="flex items-center gap-2 overflow-x-auto no-scrollbar py-0.5">
+                <span className="text-xs font-bold text-[#5A6E68] uppercase tracking-wider shrink-0 pr-1 hidden sm:inline">
+                  Roles:
                 </span>
                 {QUICK_CATEGORIES.map((cat) => {
                   const isSelected = (cat === 'All' && selectedCategory === 'all') || selectedCategory === cat;
@@ -268,7 +268,7 @@ export const JobsView: React.FC<JobsViewProps> = ({
                       key={cat}
                       type="button"
                       onClick={() => setSelectedCategory(cat === 'All' ? 'all' : cat)}
-                      className={`text-[11px] sm:text-xs px-2.5 py-1 rounded transition-colors whitespace-nowrap shrink-0 font-medium cursor-pointer ${
+                      className={`text-xs px-3 py-1.5 rounded transition-colors whitespace-nowrap shrink-0 font-medium cursor-pointer ${
                         isSelected
                           ? 'bg-[#0E5A46] text-white font-semibold shadow-2xs'
                           : 'bg-white sm:bg-[#F7F7EE] text-[#3A4B47] hover:bg-[#EBEBDD] hover:text-[#0F1F1C] border border-[#C4C8C5]'
@@ -280,16 +280,16 @@ export const JobsView: React.FC<JobsViewProps> = ({
                 })}
               </div>
 
-              <div className="flex items-center justify-between sm:justify-end gap-3 shrink-0 pt-1 sm:pt-0">
-                <label className="flex items-center gap-1.5 text-xs text-[#0F1F1C] font-semibold cursor-pointer select-none">
+              <div className="flex items-center justify-between sm:justify-end gap-4 shrink-0 pt-1 sm:pt-0">
+                <label className="flex items-center gap-2 text-xs text-[#0F1F1C] font-semibold cursor-pointer select-none">
                   <input
                     type="checkbox"
                     checked={verifiedOnly}
                     onChange={(e) => setVerifiedOnly(e.target.checked)}
-                    className="rounded border-[#C4C8C5] text-[#0E5A46] focus:ring-[#0E5A46] w-3.5 h-3.5 cursor-pointer"
+                    className="rounded border-[#C4C8C5] text-[#0E5A46] focus:ring-[#0E5A46] w-4 h-4 cursor-pointer"
                   />
                   <span>Verified Employers</span>
-                  <ShieldCheck className="w-3.5 h-3.5 text-[#0E5A46]" />
+                  <ShieldCheck className="w-4 h-4 text-[#0E5A46]" />
                 </label>
 
                 {activeFilterCount > 0 && (
@@ -298,35 +298,35 @@ export const JobsView: React.FC<JobsViewProps> = ({
                     onClick={resetFilters}
                     className="text-xs text-[#C53030] hover:underline font-semibold flex items-center gap-1 cursor-pointer"
                   >
-                    <RotateCcw className="w-3 h-3" />
+                    <RotateCcw className="w-3.5 h-3.5" />
                     <span>Reset</span>
                   </button>
                 )}
               </div>
             </div>
 
-            {/* Active Filters Pill Strip */}
+            {/* Active Filters Bar */}
             {activeFilterCount > 0 && (
-              <div className="pt-2 border-t border-[#EBEBDD] flex flex-wrap items-center gap-1.5 text-xs text-[#5A6E68]">
-                <span className="font-semibold text-[#0F1F1C] text-[11px] uppercase tracking-wider">Active:</span>
+              <div className="pt-3 border-t border-[#EBEBDD] flex flex-wrap items-center gap-2 text-xs text-[#5A6E68]">
+                <span className="font-bold text-[#0F1F1C] uppercase tracking-wider">Active:</span>
                 {searchQuery.trim() && (
-                  <span className="inline-flex items-center gap-1 px-2 py-0.5 bg-[#EBEBDD] rounded text-[#0F1F1C]">
+                  <span className="inline-flex items-center gap-1.5 px-2.5 py-1 bg-[#EBEBDD] rounded text-[#0F1F1C]">
                     Keyword: <span className="font-semibold">"{searchQuery}"</span>
                     <button onClick={() => setSearchQuery('')} className="hover:text-[#C53030] p-0.5" aria-label="Clear keyword filter">
-                      <X className="w-3 h-3" />
+                      <X className="w-3.5 h-3.5" />
                     </button>
                   </span>
                 )}
                 {selectedCategory !== 'all' && (
-                  <span className="inline-flex items-center gap-1 px-2 py-0.5 bg-[#EBEBDD] rounded text-[#0F1F1C]">
+                  <span className="inline-flex items-center gap-1.5 px-2.5 py-1 bg-[#EBEBDD] rounded text-[#0F1F1C]">
                     Role: <span className="font-semibold">{selectedCategory}</span>
                     <button onClick={() => setSelectedCategory('all')} className="hover:text-[#C53030] p-0.5" aria-label="Clear role filter">
-                      <X className="w-3 h-3" />
+                      <X className="w-3.5 h-3.5" />
                     </button>
                   </span>
                 )}
                 {selectedState !== 'all' && (
-                  <span className="inline-flex items-center gap-1 px-2 py-0.5 bg-[#EBEBDD] rounded text-[#0F1F1C]">
+                  <span className="inline-flex items-center gap-1.5 px-2.5 py-1 bg-[#EBEBDD] rounded text-[#0F1F1C]">
                     State: <span className="font-semibold">{selectedState}</span>
                     <button
                       onClick={() => {
@@ -336,37 +336,37 @@ export const JobsView: React.FC<JobsViewProps> = ({
                       className="hover:text-[#C53030] p-0.5"
                       aria-label="Clear state filter"
                     >
-                      <X className="w-3 h-3" />
+                      <X className="w-3.5 h-3.5" />
                     </button>
                   </span>
                 )}
                 {selectedLga !== 'all' && (
-                  <span className="inline-flex items-center gap-1 px-2 py-0.5 bg-[#EBEBDD] rounded text-[#0F1F1C]">
+                  <span className="inline-flex items-center gap-1.5 px-2.5 py-1 bg-[#EBEBDD] rounded text-[#0F1F1C]">
                     LGA: <span className="font-semibold">{selectedLga}</span>
                     <button onClick={() => setSelectedLga('all')} className="hover:text-[#C53030] p-0.5" aria-label="Clear LGA filter">
-                      <X className="w-3 h-3" />
+                      <X className="w-3.5 h-3.5" />
                     </button>
                   </span>
                 )}
                 {selectedType !== 'all' && (
-                  <span className="inline-flex items-center gap-1 px-2 py-0.5 bg-[#EBEBDD] rounded text-[#0F1F1C]">
+                  <span className="inline-flex items-center gap-1.5 px-2.5 py-1 bg-[#EBEBDD] rounded text-[#0F1F1C]">
                     Type: <span className="font-semibold">{selectedType}</span>
                     <button onClick={() => setSelectedType('all')} className="hover:text-[#C53030] p-0.5" aria-label="Clear type filter">
-                      <X className="w-3 h-3" />
+                      <X className="w-3.5 h-3.5" />
                     </button>
                   </span>
                 )}
                 {verifiedOnly && (
-                  <span className="inline-flex items-center gap-1 px-2 py-0.5 bg-[#EBEBDD] rounded text-[#0F1F1C]">
+                  <span className="inline-flex items-center gap-1.5 px-2.5 py-1 bg-[#EBEBDD] rounded text-[#0F1F1C]">
                     <span>Verified Employers</span>
                     <button onClick={() => setVerifiedOnly(false)} className="hover:text-[#C53030] p-0.5" aria-label="Clear verified filter">
-                      <X className="w-3 h-3" />
+                      <X className="w-3.5 h-3.5" />
                     </button>
                   </span>
                 )}
                 <button
                   onClick={resetFilters}
-                  className="text-[11px] text-[#C53030] hover:underline ml-1 font-semibold cursor-pointer"
+                  className="text-xs text-[#C53030] hover:underline ml-1 font-semibold cursor-pointer"
                 >
                   Clear all
                 </button>
@@ -493,16 +493,16 @@ export const JobsView: React.FC<JobsViewProps> = ({
                 onAction={resetFilters}
               />
             ) : (
-              <div className="space-y-3.5 sm:space-y-4">
+              <div className="space-y-5 sm:space-y-6">
                 {filteredJobs.map((job) => (
                   <div
                     key={job.id}
                     onClick={() => onSelectJob(job.id)}
-                    className="bg-white border border-[#C4C8C5] rounded p-4 sm:p-5 hover:border-[#0E5A46] transition-all cursor-pointer shadow-2xs group flex flex-col justify-between"
+                    className="bg-white border border-[#C4C8C5] rounded p-6 sm:p-7 md:p-8 hover:border-[#0E5A46] transition-all cursor-pointer shadow-2xs group flex flex-col justify-between"
                   >
-                    <div className="space-y-2.5 sm:space-y-3">
+                    <div className="space-y-3 sm:space-y-3.5">
                       <div className="flex flex-wrap items-center justify-between gap-2">
-                        <span className="text-[11px] sm:text-xs font-medium text-[#5A6E68]">
+                        <span className="text-xs font-medium text-[#5A6E68]">
                           {job.category}
                         </span>
                         <StatusIndicator
@@ -512,16 +512,16 @@ export const JobsView: React.FC<JobsViewProps> = ({
                       </div>
 
                       <div>
-                        <h2 className="text-base sm:text-lg font-bold text-[#0F1F1C] group-hover:text-[#0E5A46] transition-colors leading-snug">
+                        <h2 className="text-lg sm:text-xl font-bold text-[#0F1F1C] group-hover:text-[#0E5A46] transition-colors leading-snug">
                           {job.title}
                         </h2>
-                        <p className="text-xs font-semibold text-[#08382B] mt-0.5">
+                        <p className="text-sm font-semibold text-[#08382B] mt-1">
                           {job.organisation}
                         </p>
                       </div>
 
                       {/* Metadata Row (Clean unboxed text with separators - Zero-Pill discipline) */}
-                      <div className="flex flex-wrap items-center gap-x-2 gap-y-1 text-xs text-[#5A6E68]">
+                      <div className="flex flex-wrap items-center gap-x-2.5 gap-y-1 text-xs sm:text-sm text-[#5A6E68]">
                         <span className="flex items-center gap-1 font-medium text-[#0F1F1C]">
                           <MapPin className="w-3.5 h-3.5 text-[#0E5A46]" />
                           <span>{job.location.state}, {job.location.lga}</span>
@@ -531,7 +531,7 @@ export const JobsView: React.FC<JobsViewProps> = ({
                         {job.duration && (
                           <>
                             <span aria-hidden="true">·</span>
-                            <span className="truncate max-w-[140px] sm:max-w-none">{job.duration}</span>
+                            <span className="truncate max-w-[160px] sm:max-w-none">{job.duration}</span>
                           </>
                         )}
                         <span aria-hidden="true">·</span>
@@ -540,13 +540,13 @@ export const JobsView: React.FC<JobsViewProps> = ({
                         </span>
                       </div>
 
-                      <p className="text-xs text-[#3A4B47] leading-relaxed line-clamp-2 pt-0.5">
+                      <p className="text-sm text-[#3A4B47] leading-relaxed line-clamp-2 pt-1">
                         {job.summary}
                       </p>
 
                       {/* Skills List */}
                       {job.skills.length > 0 && (
-                        <div className="flex flex-wrap items-center gap-x-2 gap-y-1 pt-1 text-[11px] text-[#5A6E68]">
+                        <div className="flex flex-wrap items-center gap-x-2 gap-y-1 pt-1.5 text-xs text-[#5A6E68]">
                           <span className="font-semibold text-[#0F1F1C]">Skills:</span>
                           {job.skills.map((skill, idx) => (
                             <React.Fragment key={skill}>
@@ -558,9 +558,9 @@ export const JobsView: React.FC<JobsViewProps> = ({
                       )}
                     </div>
 
-                    <div className="pt-3.5 border-t border-[#EBEBDD] mt-3.5 flex items-center justify-between text-xs">
-                      <span className="text-[#5A6E68] text-[11px]">Posted {job.postedDate}</span>
-                      <span className="font-semibold text-[#0E5A46] group-hover:underline inline-flex items-center gap-1">
+                    <div className="pt-4 border-t border-[#EBEBDD] mt-5 flex items-center justify-between text-xs">
+                      <span className="text-[#5A6E68]">Posted {job.postedDate}</span>
+                      <span className="font-bold text-[#0E5A46] group-hover:underline inline-flex items-center gap-1">
                         <span>View Details</span>
                         <ArrowRight className="w-3.5 h-3.5" />
                       </span>

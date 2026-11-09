@@ -14,7 +14,7 @@ import {
   CheckCircle2,
   Building2,
   FileCheck2,
-  Sparkles
+  ShieldCheck
 } from 'lucide-react';
 import { calculateCandidateFarmMatch } from '../../services/aiAgriService';
 
@@ -91,11 +91,11 @@ export const JobDetailView: React.FC<JobDetailViewProps> = ({
       </div>
 
       {/* Main Container */}
-      <div className={`max-w-5xl mx-auto ${isMobilePreview ? 'px-4 py-5 space-y-4' : 'px-3.5 sm:px-6 lg:px-8 py-6 sm:py-8 space-y-6 sm:space-y-8'}`}>
+      <div className={`max-w-5xl mx-auto ${isMobilePreview ? 'px-5 py-6 space-y-6' : 'px-4 sm:px-6 lg:px-8 py-8 sm:py-12 space-y-8 sm:space-y-10'}`}>
         {/* Core Question 1 & 3: What is the role? What will I receive? */}
-        <section className={`bg-white border border-[#C4C8C5] rounded shadow-2xs ${isMobilePreview ? 'p-4 space-y-4' : 'p-4 sm:p-6 md:p-8 space-y-5 sm:space-y-6'}`}>
-          <div className="flex flex-wrap items-center justify-between gap-2 pb-1">
-            <span className="text-[10px] sm:text-xs font-semibold text-[#5A6E68] uppercase tracking-wider">
+        <section className={`bg-white border border-[#C4C8C5] rounded shadow-2xs ${isMobilePreview ? 'p-6 space-y-5' : 'p-6 sm:p-8 md:p-10 space-y-6 sm:space-y-8'}`}>
+          <div className="flex flex-wrap items-center justify-between gap-3 pb-1">
+            <span className="text-xs font-bold text-[#5A6E68] uppercase tracking-wider">
               {job.category}
             </span>
             <StatusIndicator
@@ -108,102 +108,102 @@ export const JobDetailView: React.FC<JobDetailViewProps> = ({
             />
           </div>
 
-          <div>
-            <h1 className={`${isMobilePreview ? 'text-lg' : 'text-xl sm:text-2xl md:text-3xl'} font-extrabold text-[#0F1F1C] font-display leading-tight break-words`}>
+          <div className="space-y-2">
+            <h1 className={`${isMobilePreview ? 'text-xl' : 'text-2xl sm:text-3xl md:text-4xl'} font-extrabold text-[#0F1F1C] font-display leading-tight break-words`}>
               {job.title}
             </h1>
-            <div className="flex items-center gap-2 mt-1.5 text-xs sm:text-sm font-semibold text-[#08382B]">
+            <div className="flex items-center gap-2 text-sm sm:text-base font-semibold text-[#08382B]">
               <Building2 className="w-4 h-4 text-[#0E5A46]" />
               <span>{job.organisation}</span>
             </div>
           </div>
 
-          {/* Key Facts Strip (Optimized for 2-col on mobile screens) */}
-          <div className={`grid grid-cols-2 ${isMobilePreview ? '' : 'sm:grid-cols-4'} gap-2.5 sm:gap-4 p-3.5 sm:p-4 bg-[#F7F7EE] rounded border border-[#EBEBDD] text-xs`}>
+          {/* Key Facts Strip */}
+          <div className={`grid grid-cols-2 ${isMobilePreview ? '' : 'sm:grid-cols-4'} gap-4 sm:gap-6 p-5 sm:p-6 bg-[#F7F7EE] rounded border border-[#EBEBDD] text-xs sm:text-sm`}>
             <div>
-              <span className="text-[#5A6E68] text-[11px] block">Location</span>
-              <span className="font-bold text-[#0F1F1C] flex items-center gap-1 mt-0.5 truncate">
-                <MapPin className="w-3.5 h-3.5 text-[#0E5A46] shrink-0" />
+              <span className="text-[#5A6E68] text-xs block">Location</span>
+              <span className="font-bold text-[#0F1F1C] flex items-center gap-1.5 mt-1 truncate">
+                <MapPin className="w-4 h-4 text-[#0E5A46] shrink-0" />
                 <span className="truncate">{job.location.state}, {job.location.lga}</span>
               </span>
             </div>
 
             <div>
-              <span className="text-[#5A6E68] text-[11px] block">Employment</span>
-              <span className="font-bold text-[#0F1F1C] flex items-center gap-1 mt-0.5 truncate">
-                <Briefcase className="w-3.5 h-3.5 text-[#0E5A46] shrink-0" />
+              <span className="text-[#5A6E68] text-xs block">Employment</span>
+              <span className="font-bold text-[#0F1F1C] flex items-center gap-1.5 mt-1 truncate">
+                <Briefcase className="w-4 h-4 text-[#0E5A46] shrink-0" />
                 <span className="truncate">{job.employmentType}</span>
               </span>
             </div>
 
             <div>
-              <span className="text-[#5A6E68] text-[11px] block">Compensation</span>
-              <span className="font-bold text-[#8E5A18] text-xs sm:text-sm tabular-nums mt-0.5 block truncate">
+              <span className="text-[#5A6E68] text-xs block">Compensation</span>
+              <span className="font-bold text-[#8E5A18] text-sm sm:text-base tabular-nums mt-1 block truncate">
                 ₦{job.compensation.amountMin?.toLocaleString()} / {job.compensation.frequency}
               </span>
             </div>
 
             <div>
-              <span className="text-[#5A6E68] text-[11px] block">Deadline</span>
-              <span className="font-bold text-[#0F1F1C] flex items-center gap-1 mt-0.5 truncate">
-                <Calendar className="w-3.5 h-3.5 text-[#5A6E68] shrink-0" />
+              <span className="text-[#5A6E68] text-xs block">Deadline</span>
+              <span className="font-bold text-[#0F1F1C] flex items-center gap-1.5 mt-1 truncate">
+                <Calendar className="w-4 h-4 text-[#5A6E68] shrink-0" />
                 <span>{job.deadline}</span>
               </span>
             </div>
           </div>
 
           {job.compensation.notes && (
-            <p className="text-xs text-[#5A6E68] italic border-l-2 border-[#C98A3A] pl-3 py-0.5">
+            <p className="text-sm text-[#5A6E68] italic border-l-2 border-[#C98A3A] pl-4 py-1 leading-relaxed">
               Note on compensation: {job.compensation.notes}
             </p>
           )}
 
-          {/* AI Smart Farm Match & Seasonal Availability Assessment */}
+          {/* Algorithmic Qualification & Seasonal Readiness Assessment */}
           {(() => {
             const match = calculateCandidateFarmMatch(workerProfile, job);
             return (
-              <div className="p-4 bg-[#F2F7F4] rounded border border-[#C2DDD3] space-y-2.5 text-xs text-left">
-                <div className="flex flex-wrap items-center justify-between gap-2 pb-1.5 border-b border-[#C2DDD3]">
-                  <div className="flex items-center gap-1.5 font-bold text-[#0E5A46]">
-                    <Sparkles className="w-4 h-4 text-[#C98A3A]" />
-                    <span>AI Candidate Compatibility & Seasonal Availability Match</span>
+              <div className="p-5 sm:p-6 bg-[#F2F7F4] rounded border border-[#C2DDD3] space-y-3.5 text-xs text-left">
+                <div className="flex flex-wrap items-center justify-between gap-3 pb-2.5 border-b border-[#C2DDD3]">
+                  <div className="flex items-center gap-2 font-bold text-[#0E5A46] text-xs sm:text-sm">
+                    <ShieldCheck className="w-4 h-4 text-[#0E5A46]" />
+                    <span>Agronomic Qualification & Seasonal Readiness Assessment</span>
                   </div>
-                  <span className="text-xs font-mono font-bold text-[#0E5A46] bg-white px-2.5 py-0.5 rounded border border-[#C2DDD3]">
-                    {match.overallMatchPercent}% Profile Fit
+                  <span className="text-xs font-mono font-bold text-[#0E5A46] bg-white px-3 py-1 rounded border border-[#C2DDD3]">
+                    {match.overallMatchPercent}% Profile Match
                   </span>
                 </div>
 
-                <p className="text-[#0F1F1C] font-semibold text-xs leading-relaxed">
+                <p className="text-[#0F1F1C] font-semibold text-xs sm:text-sm leading-relaxed">
                   {match.matchSummary}
                 </p>
 
                 {/* Sub-Scores */}
-                <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 pt-1 text-[11px] text-[#5A6E68]">
-                  <div className="p-2 bg-white rounded border border-[#C2DDD3]">
-                    <span className="block text-[10px]">Crop / Category</span>
-                    <strong className="text-[#0F1F1C]">{match.categoryScore}% Match</strong>
+                <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 pt-1 text-xs text-[#5A6E68]">
+                  <div className="p-3 bg-white rounded border border-[#C2DDD3]">
+                    <span className="block text-xs">Crop / Category</span>
+                    <strong className="text-[#0F1F1C] text-sm">{match.categoryScore}% Match</strong>
                   </div>
-                  <div className="p-2 bg-white rounded border border-[#C2DDD3]">
-                    <span className="block text-[10px]">Geopolitical Proximity</span>
-                    <strong className="text-[#0F1F1C]">{match.locationScore}% Match</strong>
+                  <div className="p-3 bg-white rounded border border-[#C2DDD3]">
+                    <span className="block text-xs">Regional Proximity</span>
+                    <strong className="text-[#0F1F1C] text-sm">{match.locationScore}% Match</strong>
                   </div>
-                  <div className="p-2 bg-white rounded border border-[#C2DDD3]">
-                    <span className="block text-[10px]">Equipment & Skills</span>
-                    <strong className="text-[#0F1F1C]">{match.skillsScore}% Match</strong>
+                  <div className="p-3 bg-white rounded border border-[#C2DDD3]">
+                    <span className="block text-xs">Equipment & Skills</span>
+                    <strong className="text-[#0F1F1C] text-sm">{match.skillsScore}% Match</strong>
                   </div>
-                  <div className="p-2 bg-white rounded border border-[#C2DDD3]">
-                    <span className="block text-[10px]">Seasonal Readiness</span>
-                    <strong className="text-[#0E5A46]">{match.seasonalityScore}% Match</strong>
+                  <div className="p-3 bg-white rounded border border-[#C2DDD3]">
+                    <span className="block text-xs">Seasonal Readiness</span>
+                    <strong className="text-[#0E5A46] text-sm">{match.seasonalityScore}% Match</strong>
                   </div>
                 </div>
 
                 {match.strengths.length > 0 && (
-                  <div className="space-y-1 pt-1">
-                    <span className="text-[10px] font-bold text-[#5A6E68] uppercase">Top Compatibility Factors:</span>
-                    <ul className="space-y-0.5 text-[11px] text-[#3A4B47]">
+                  <div className="space-y-1.5 pt-2">
+                    <span className="text-xs font-bold text-[#5A6E68] uppercase tracking-wider">Verified Compatibility Factors:</span>
+                    <ul className="space-y-1 text-xs sm:text-sm text-[#3A4B47]">
                       {match.strengths.map((str, idx) => (
-                        <li key={idx} className="flex items-center gap-1.5">
-                          <CheckCircle2 className="w-3.5 h-3.5 text-[#0E5A46] shrink-0" />
+                        <li key={idx} className="flex items-center gap-2">
+                          <CheckCircle2 className="w-4 h-4 text-[#0E5A46] shrink-0" />
                           <span>{str}</span>
                         </li>
                       ))}
@@ -243,14 +243,14 @@ export const JobDetailView: React.FC<JobDetailViewProps> = ({
         </section>
 
         {/* Core Question 4: What do I need to do? (Responsibilities) */}
-        <section className="bg-white border border-[#C4C8C5] rounded p-4 sm:p-6 md:p-8 space-y-3 sm:space-y-4">
-          <h2 className="text-base sm:text-lg font-bold text-[#0F1F1C] border-b border-[#EBEBDD] pb-2.5">
+        <section className="bg-white border border-[#C4C8C5] rounded p-6 sm:p-8 md:p-10 space-y-4 sm:space-y-6">
+          <h2 className="text-lg sm:text-xl font-bold text-[#0F1F1C] border-b border-[#EBEBDD] pb-3">
             Primary Field Responsibilities
           </h2>
-          <ul className="space-y-2 text-xs sm:text-sm text-[#3A4B47] leading-relaxed">
+          <ul className="space-y-3 text-sm sm:text-base text-[#3A4B47] leading-relaxed">
             {job.responsibilities.map((resp, i) => (
-              <li key={i} className="flex items-start gap-2.5">
-                <span className="w-1.5 h-1.5 rounded-full bg-[#0E5A46] mt-2 shrink-0" />
+              <li key={i} className="flex items-start gap-3">
+                <span className="w-2 h-2 rounded-full bg-[#0E5A46] mt-2.5 shrink-0" />
                 <span>{resp}</span>
               </li>
             ))}
@@ -258,19 +258,19 @@ export const JobDetailView: React.FC<JobDetailViewProps> = ({
         </section>
 
         {/* Core Question 2: Is it suitable for me? (Requirements & Qualifications) */}
-        <section className="bg-white border border-[#C4C8C5] rounded p-4 sm:p-6 md:p-8 space-y-5 sm:space-y-6">
-          <h2 className="text-base sm:text-lg font-bold text-[#0F1F1C] border-b border-[#EBEBDD] pb-2.5">
+        <section className="bg-white border border-[#C4C8C5] rounded p-6 sm:p-8 md:p-10 space-y-6 sm:space-y-8">
+          <h2 className="text-lg sm:text-xl font-bold text-[#0F1F1C] border-b border-[#EBEBDD] pb-3">
             Eligibility & Required Capabilities
           </h2>
 
-          <div className="space-y-3">
+          <div className="space-y-3.5">
             <h3 className="text-xs font-bold text-[#0F1F1C] uppercase tracking-wider">
               Essential Requirements
             </h3>
-            <ul className="space-y-2 text-xs sm:text-sm text-[#3A4B47]">
+            <ul className="space-y-2.5 text-sm sm:text-base text-[#3A4B47] leading-relaxed">
               {job.essentialRequirements.map((req, i) => (
-                <li key={i} className="flex items-start gap-2.5">
-                  <CheckCircle2 className="w-4 h-4 text-[#0E5A46] mt-0.5 shrink-0" />
+                <li key={i} className="flex items-start gap-3">
+                  <CheckCircle2 className="w-4 h-4 text-[#0E5A46] mt-1 shrink-0" />
                   <span>{req}</span>
                 </li>
               ))}
@@ -278,14 +278,14 @@ export const JobDetailView: React.FC<JobDetailViewProps> = ({
           </div>
 
           {job.desirableQualifications.length > 0 && (
-            <div className="space-y-3 pt-3 border-t border-[#EBEBDD]">
+            <div className="space-y-3.5 pt-4 border-t border-[#EBEBDD]">
               <h3 className="text-xs font-bold text-[#5A6E68] uppercase tracking-wider">
                 Desirable / Advantageous Qualifications
               </h3>
-              <ul className="space-y-2 text-xs sm:text-sm text-[#5A6E68]">
+              <ul className="space-y-2.5 text-sm sm:text-base text-[#5A6E68] leading-relaxed">
                 {job.desirableQualifications.map((des, i) => (
-                  <li key={i} className="flex items-start gap-2.5">
-                    <span className="w-1.5 h-1.5 rounded-full bg-[#C4C8C5] mt-1.5 shrink-0" />
+                  <li key={i} className="flex items-start gap-3">
+                    <span className="w-1.5 h-1.5 rounded-full bg-[#C4C8C5] mt-2 shrink-0" />
                     <span>{des}</span>
                   </li>
                 ))}
@@ -294,11 +294,11 @@ export const JobDetailView: React.FC<JobDetailViewProps> = ({
           )}
 
           {/* Capabilities & Skills Tag List */}
-          <div className="pt-3 border-t border-[#EBEBDD] space-y-1.5">
+          <div className="pt-4 border-t border-[#EBEBDD] space-y-2">
             <h3 className="text-xs font-bold text-[#0F1F1C] uppercase tracking-wider">
               Relevant Technical Skills
             </h3>
-            <div className="flex flex-wrap items-center gap-x-2 gap-y-1 text-xs text-[#5A6E68]">
+            <div className="flex flex-wrap items-center gap-x-2.5 gap-y-1.5 text-sm text-[#5A6E68]">
               {job.skills.map((skill, i) => (
                 <React.Fragment key={skill}>
                   <span className="text-[#08382B] font-semibold">{skill}</span>
@@ -310,17 +310,17 @@ export const JobDetailView: React.FC<JobDetailViewProps> = ({
         </section>
 
         {/* Core Question 5: How do I apply? */}
-        <section className="bg-white border border-[#C4C8C5] rounded p-4 sm:p-6 md:p-8 space-y-3 sm:space-y-4">
-          <h2 className="text-base sm:text-lg font-bold text-[#0F1F1C] border-b border-[#EBEBDD] pb-2.5">
+        <section className="bg-white border border-[#C4C8C5] rounded p-6 sm:p-8 md:p-10 space-y-4 sm:space-y-6">
+          <h2 className="text-lg sm:text-xl font-bold text-[#0F1F1C] border-b border-[#EBEBDD] pb-3">
             Application Instructions
           </h2>
-          <p className="text-xs sm:text-sm text-[#3A4B47] leading-relaxed">
+          <p className="text-sm sm:text-base text-[#3A4B47] leading-relaxed">
             {job.applicationInstructions}
           </p>
 
-          <div className="p-3.5 bg-[#F7F7EE] rounded border border-[#EBEBDD] text-xs text-[#5A6E68] space-y-1">
-            <p className="font-semibold text-[#0F1F1C]">Tourms Capability Guarantee:</p>
-            <p className="text-[11px] leading-relaxed">
+          <div className="p-4 sm:p-5 bg-[#F7F7EE] rounded border border-[#EBEBDD] text-xs sm:text-sm text-[#5A6E68] space-y-1.5">
+            <p className="font-bold text-[#0F1F1C]">Tourms Capability Guarantee:</p>
+            <p className="leading-relaxed">
               Applying through Tourms automatically attaches your verified credentials and work history.
               Employers on Tourms are prohibited from charging application or interview fees.
             </p>

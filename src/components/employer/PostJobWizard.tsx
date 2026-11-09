@@ -81,34 +81,26 @@ export const PostJobWizard: React.FC<PostJobWizardProps> = ({
   const [title, setTitle] = useState('');
   const [category, setCategory] = useState<JobCategory>('Crop Production');
   const [summary, setSummary] = useState('');
-  const [responsibilitiesText, setResponsibilitiesText] = useState(
-    '• Manage day-to-day agricultural operations\n• Supervise field technicians\n• Track inputs and seasonal output'
-  );
-  const [skillsText, setSkillsText] = useState('Field Agronomy, Crop Scouting, Record Keeping');
-  const [essentialRequirementsText, setEssentialRequirementsText] = useState(
-    '• Minimum 2 years commercial field experience\n• Relevant agricultural degree or diploma'
-  );
-  const [desirableQualificationsText, setDesirableQualificationsText] = useState(
-    '• Tractor implement operation\n• Valid driving license'
-  );
-  const [state, setState] = useState('Oyo');
-  const [lga, setLga] = useState('Iseyin');
+  const [responsibilitiesText, setResponsibilitiesText] = useState('');
+  const [skillsText, setSkillsText] = useState('');
+  const [essentialRequirementsText, setEssentialRequirementsText] = useState('');
+  const [desirableQualificationsText, setDesirableQualificationsText] = useState('');
+  const [state, setState] = useState(ALL_STATE_NAMES[0]);
+  const [lga, setLga] = useState('');
   const [siteAddress, setSiteAddress] = useState('');
   const [employmentType, setEmploymentType] = useState<EmploymentType>('Full-time');
-  const [duration, setDuration] = useState('12 Months Renewable');
+  const [duration, setDuration] = useState('');
   const [compType, setCompType] = useState<'fixed' | 'range' | 'negotiable'>('range');
-  const [amountMin, setAmountMin] = useState(250000);
-  const [amountMax, setAmountMax] = useState(350000);
+  const [amountMin, setAmountMin] = useState<number | undefined>(undefined);
+  const [amountMax, setAmountMax] = useState<number | undefined>(undefined);
   const [frequency, setFrequency] = useState<'month' | 'day' | 'week' | 'season' | 'project'>('month');
-  const [compNotes, setCompNotes] = useState('Includes farm accommodation and meal allowance.');
-  const [deadline, setDeadline] = useState('2026-12-15');
-  const [appInstructions, setAppInstructions] = useState(
-    'Submit your Tourms capability profile with verified educational credentials attached.'
-  );
+  const [compNotes, setCompNotes] = useState('');
+  const [deadline, setDeadline] = useState('');
+  const [appInstructions, setAppInstructions] = useState('');
 
   // Dedicated AI Job Drafter State
   const [isAIDrafterOpen, setIsAIDrafterOpen] = useState(false);
-  const [aiPrompt, setAiPrompt] = useState('Need 8 harvesters and 1 combine driver in Niger State for 3 weeks');
+  const [aiPrompt, setAiPrompt] = useState('');
   const [aiTargetState, setAiTargetState] = useState('');
   const [isGeneratingAI, setIsGeneratingAI] = useState(false);
   const [aiGeneratedInfo, setAiGeneratedInfo] = useState<AIJobDemandResult | null>(null);
@@ -798,7 +790,7 @@ WAGE BENCHMARK DETAILS (${aiGeneratedInfo.wageBenchmark?.marketTier || aiGenerat
               <div className="flex justify-between border-b border-[#EBEBDD] pb-2">
                 <span className="text-[#5A6E68]">Compensation:</span>
                 <span className="font-bold text-[#8E5A18] tabular-nums">
-                  ₦{amountMin.toLocaleString()} {compType === 'range' ? `– ₦${amountMax.toLocaleString()}` : ''} / {frequency}
+                  ₦{(amountMin ?? 0).toLocaleString()} {compType === 'range' && amountMax != null ? `– ₦${amountMax.toLocaleString()}` : ''} / {frequency}
                 </span>
               </div>
               <div className="flex justify-between">
