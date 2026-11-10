@@ -107,6 +107,37 @@
         "appliedAt": { "type": "string" }
       },
       "required": ["id", "jobId", "applicantId", "applicantName", "status"]
+    },
+    "Opportunity": {
+      "title": "OpportunityListing",
+      "description": "Agricultural funding call, grant, fellowship, or developmental programme.",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "pattern": "^[a-zA-Z0-9_-]+$" },
+        "title": { "type": "string", "maxLength": 250 },
+        "provider": { "type": "string", "maxLength": 200 },
+        "category": { "type": "string" },
+        "description": { "type": "string", "maxLength": 5000 },
+        "deadline": { "type": "string" },
+        "locationScope": { "type": "string" },
+        "status": { "type": "string" }
+      },
+      "required": ["id", "title", "provider", "status"]
+    },
+    "Insight": {
+      "title": "InsightArticle",
+      "description": "Agronomic research brief, explainer, or editorial analysis.",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "pattern": "^[a-zA-Z0-9_-]+$" },
+        "title": { "type": "string", "maxLength": 250 },
+        "slug": { "type": "string", "maxLength": 200 },
+        "category": { "type": "string" },
+        "excerpt": { "type": "string", "maxLength": 2000 },
+        "content": { "type": "string", "maxLength": 50000 },
+        "status": { "type": "string" }
+      },
+      "required": ["id", "title", "category", "status"]
     }
   },
   "firestore": {
@@ -125,6 +156,14 @@
     "/applications/{applicationId}": {
       "schema": "JobApplication",
       "description": "Collection of worker applications submitted for jobs."
+    },
+    "/opportunities/{opportunityId}": {
+      "schema": "Opportunity",
+      "description": "Collection of agricultural opportunities, grants, and capital calls."
+    },
+    "/insights/{insightId}": {
+      "schema": "Insight",
+      "description": "Collection of field research briefs and agronomic insights."
     }
   }
 }

@@ -70,5 +70,37 @@ service cloud.firestore {
                     request.resource.data.status is string;
       allow delete: if isValidId(applicationId);
     }
+
+    // Opportunities collection: Public reads for grants, scholarships, loans & fellowships
+    match /opportunities/{oppId} {
+      allow get: if isValidId(oppId);
+      allow list: if true;
+      allow create: if isValidId(oppId) &&
+                    request.resource.data.id == oppId &&
+                    request.resource.data.title is string &&
+                    request.resource.data.title.size() <= 250 &&
+                    request.resource.data.provider is string &&
+                    request.resource.data.status is string;
+      allow update: if isValidId(oppId) &&
+                    request.resource.data.title is string &&
+                    request.resource.data.title.size() <= 250;
+      allow delete: if isValidId(oppId);
+    }
+
+    // Insights collection: Field research briefs & editorial publications
+    match /insights/{insightId} {
+      allow get: if isValidId(insightId);
+      allow list: if true;
+      allow create: if isValidId(insightId) &&
+                    request.resource.data.id == insightId &&
+                    request.resource.data.title is string &&
+                    request.resource.data.title.size() <= 250 &&
+                    request.resource.data.category is string &&
+                    request.resource.data.status is string;
+      allow update: if isValidId(insightId) &&
+                    request.resource.data.title is string &&
+                    request.resource.data.title.size() <= 250;
+      allow delete: if isValidId(insightId);
+    }
   }
 }
