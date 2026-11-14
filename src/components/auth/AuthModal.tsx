@@ -1,25 +1,22 @@
 import React, { useState } from 'react';
-import { UserRole, WorkerProfile, EmployerProfile, EvidenceLevel } from '../../types';
+import { UserRole, WorkerProfile, EmployerProfile } from '../../types';
 import { ALL_STATE_NAMES, getLgasForState } from '../../data/nigeriaLocations';
 import { Modal } from '../ui/Modal';
 import { Input } from '../ui/Input';
 import { Select } from '../ui/Select';
 import { Button } from '../ui/Button';
 import { useToast } from '../ui/Toast';
-import { TourmsSymbol, TourmsFrequencyRhythm } from '../ui/TourmsLogo';
+import { useAuth } from '../../contexts/AuthContext';
 import {
   User,
-  Briefcase,
   ShieldCheck,
   Building2,
   LogIn,
   CheckCircle2,
   ArrowRight,
-  Info,
-  Clock,
   Smartphone,
   KeyRound,
-  Send
+  RotateCcw
 } from 'lucide-react';
 import { VerificationModal } from './VerificationModal';
 import { PostRegistrationOtpModal } from './PostRegistrationOtpModal';
@@ -63,6 +60,7 @@ export const AuthModal: React.FC<AuthModalProps> = ({
   onSignIn
 }) => {
   const { addToast } = useToast();
+  const { signIn, signUp, resetPassword } = useAuth();
   const [activeTab, setActiveTab] = useState<'worker_reg' | 'employer_reg' | 'signin'>(defaultTab);
 
   // Sync defaultTab if changed
@@ -74,6 +72,7 @@ export const AuthModal: React.FC<AuthModalProps> = ({
   const [workerName, setWorkerName] = useState('');
   const [workerEmail, setWorkerEmail] = useState('');
   const [workerPhone, setWorkerPhone] = useState('');
+  const [workerPassword, setWorkerPassword] = useState('');
   const [workerState, setWorkerState] = useState(ALL_STATE_NAMES[0]);
   const [workerLga, setWorkerLga] = useState('');
   const [workerSpec, setWorkerSpec] = useState(AG_SPECIALIZATIONS[0]);
@@ -85,6 +84,7 @@ export const AuthModal: React.FC<AuthModalProps> = ({
   const [contactPerson, setContactPerson] = useState('');
   const [employerEmail, setEmployerEmail] = useState('');
   const [employerPhone, setEmployerPhone] = useState('');
+  const [employerPassword, setEmployerPassword] = useState('');
   const [employerState, setEmployerState] = useState(ALL_STATE_NAMES[0]);
   const [employerLga, setEmployerLga] = useState('');
   const [employerSector, setEmployerSector] = useState(AG_SECTORS[0]);
@@ -95,6 +95,8 @@ export const AuthModal: React.FC<AuthModalProps> = ({
   const [signInPassword, setSignInPassword] = useState('');
   const [signInMode, setSignInMode] = useState<'password' | 'sms_otp'>('password');
   const [signInRole, setSignInRole] = useState<'worker' | 'employer'>('worker');
+  const [isForgotPassword, setIsForgotPassword] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   // Phone & Email Verification Modal State
   const [workerPhoneVerified, setWorkerPhoneVerified] = useState(false);
@@ -103,7 +105,7 @@ export const AuthModal: React.FC<AuthModalProps> = ({
   const [verificationTarget, setVerificationTarget] = useState('');
   const [verificationContext, setVerificationContext] = useState<'worker_phone' | 'employer_email' | 'signin_otp'>('worker_phone');
 
-  // Post-Registration Phone OTP Modal State (Mandatory phone verification, email excluded for workers)
+  // Post-Registration Phone OTP Modal State
   const [postRegOtpOpen, setPostRegOtpOpen] = useState(false);
   const [postRegRole, setPostRegRole] = useState<'worker' | 'employer'>('worker');
   const [pendingWorker, setPendingWorker] = useState<WorkerProfile | null>(null);
@@ -125,27 +127,48 @@ export const AuthModal: React.FC<AuthModalProps> = ({
     }
   }, [employerState, employerLgas, employerLga]);
 
-  // Handle Worker Registration (Email is strictly optional for informal laborers)
-  const handleSubmitWorker = (e: React.FormEvent) => {
+  // Handle Worker Registration with real Firebase Authentication
+  const handleSubmitWorker = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!workerName.trim() || !workerPhone.trim()) {
+    if (!workerName.trim() || !workerPhone.trim() || !workerEmail.trim()) {
       addToast({
         type: 'error',
         title: 'Missing information',
-        message: 'Please provide your full legal name and active mobile telephone number.'
+        message: 'Please provide your full legal name, active mobile number, and email address.'
       });
       return;
     }
+
+    if (!workerEmail.includes('@') || !workerEmail.includes('.')) {
+      addToast({
+        type: 'error',
+        title: 'Valid Email Required',
+        message: 'Please enter a valid personal email address for official Firebase Authentication.'
+      });
+      return;
+    }
+
+    if (!workerPassword || workerPassword.length < 6) {
+      addToast({
+        type: 'error',
+        title: 'Passcode required',
+        message: 'Security passcode must be at least 6 characters long.'
+      });
+      return;
+    }
+
+    // Official Firebase Authentication email
+    const accountEmail = workerEmail.trim().toLowerCase();
 
     const newWorker: WorkerProfile = {
       id: `worker-${Date.now()}`,
       fullName: workerName.trim(),
       headline: `${workerSpec} • ${workerYears} experience`,
-      email: workerEmail.trim() || undefined,
+      email: accountEmail,
       phone: workerPhone.trim(),
       isVerified: false,
-      phoneVerified: false,
-      emailVerified: Boolean(workerEmail.trim()),
+      phoneVerified: false, // Sandbox OTP does not grant production telecom verification
+      emailVerified: false,
       verificationMethod: 'sms_otp',
       location: {
         state: workerState,
@@ -196,19 +219,58 @@ export const AuthModal: React.FC<AuthModalProps> = ({
       verifiedStatus: 'unverified'
     };
 
-    setPendingWorker(newWorker);
-    setPostRegRole('worker');
-    setPostRegOtpOpen(true);
+    setIsSubmitting(true);
+    try {
+      const res = await signUp(accountEmail, workerPassword, 'worker', newWorker);
+      if (!res.success) {
+        addToast({
+          type: 'error',
+          title: 'Registration Failed',
+          message: res.error || 'Failed to create worker account.'
+        });
+        return;
+      }
+
+      if (res.user) {
+        newWorker.id = res.user.uid;
+      }
+
+      setPendingWorker(newWorker);
+      setPostRegRole('worker');
+      setPostRegOtpOpen(true);
+      addToast({
+        type: 'success',
+        title: 'Account Created',
+        message: 'Your worker identity has been provisioned on Firebase Auth.'
+      });
+    } catch (err: any) {
+      addToast({
+        type: 'error',
+        title: 'Registration Error',
+        message: err.message || 'Could not complete registration.'
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
-  // Handle Employer Registration
-  const handleSubmitEmployer = (e: React.FormEvent) => {
+  // Handle Employer Registration with real Firebase Authentication
+  const handleSubmitEmployer = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!companyName.trim() || !cacNumber.trim() || !employerEmail.trim() || !contactPerson.trim()) {
       addToast({
         type: 'error',
         title: 'Required fields missing',
         message: 'Business name, CAC RC/BN number, contact person, and official email are required for agribusiness verification.'
+      });
+      return;
+    }
+
+    if (!employerPassword || employerPassword.length < 6) {
+      addToast({
+        type: 'error',
+        title: 'Passcode required',
+        message: 'Security passcode must be at least 6 characters long.'
       });
       return;
     }
@@ -242,9 +304,39 @@ export const AuthModal: React.FC<AuthModalProps> = ({
       ]
     };
 
-    setPendingEmployer(newEmployer);
-    setPostRegRole('employer');
-    setPostRegOtpOpen(true);
+    setIsSubmitting(true);
+    try {
+      const res = await signUp(employerEmail.trim(), employerPassword, 'employer', newEmployer);
+      if (!res.success) {
+        addToast({
+          type: 'error',
+          title: 'Registration Failed',
+          message: res.error || 'Failed to create employer account.'
+        });
+        return;
+      }
+
+      if (res.user) {
+        newEmployer.id = res.user.uid;
+      }
+
+      setPendingEmployer(newEmployer);
+      setPostRegRole('employer');
+      setPostRegOtpOpen(true);
+      addToast({
+        type: 'success',
+        title: 'Enterprise Account Created',
+        message: 'Agribusiness account provisioned on Firebase Auth. Proceed to verification.'
+      });
+    } catch (err: any) {
+      addToast({
+        type: 'error',
+        title: 'Registration Error',
+        message: err.message || 'Could not complete employer registration.'
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   // Handles successful phone OTP verification right after registration
@@ -286,8 +378,8 @@ export const AuthModal: React.FC<AuthModalProps> = ({
     onClose();
   };
 
-  // Handle Sign In Form (Supports Email OR Phone Number via Password or SMS OTP)
-  const handleSubmitSignIn = (e: React.FormEvent) => {
+  // Handle Sign In with genuine Firebase Authentication
+  const handleSubmitSignIn = async (e: React.FormEvent) => {
     e.preventDefault();
     const identifier = signInEmail.trim();
     if (!identifier) {
@@ -308,20 +400,87 @@ export const AuthModal: React.FC<AuthModalProps> = ({
       return;
     }
 
-    // Direct password/PIN sign in
-    const lower = identifier.toLowerCase();
-    if (signInRole === 'employer' || lower.includes('farm') || lower.includes('agro') || lower.includes('ltd')) {
-      onSignIn('employer', identifier);
-    } else {
-      onSignIn('worker', identifier);
+    if (!signInPassword) {
+      addToast({
+        type: 'error',
+        title: 'Password required',
+        message: 'Please enter your account password or security PIN.'
+      });
+      return;
     }
 
-    addToast({
-      type: 'success',
-      title: 'Session Authenticated',
-      message: `Signed in successfully as ${signInRole.toUpperCase()}: ${identifier}`
-    });
-    onClose();
+    if (!identifier.includes('@')) {
+      addToast({
+        type: 'error',
+        title: 'Email Required for Password Sign In',
+        message: 'Please provide your registered email address (e.g. name@domain.com) to authenticate with password.'
+      });
+      return;
+    }
+
+    setIsSubmitting(true);
+    try {
+      const accountEmail = identifier.toLowerCase();
+
+      const result = await signIn(accountEmail, signInPassword);
+      if (!result.success) {
+        addToast({
+          type: 'error',
+          title: 'Sign In Failed',
+          message: result.error || 'Invalid credentials. Please verify your email and passcode.'
+        });
+        return;
+      }
+
+      const role = result.role || signInRole;
+      onSignIn(role, identifier);
+      addToast({
+        type: 'success',
+        title: 'Session Authenticated',
+        message: `Signed in successfully via Firebase Auth (${role.toUpperCase()}).`
+      });
+      onClose();
+    } catch (err: any) {
+      addToast({
+        type: 'error',
+        title: 'Authentication Error',
+        message: err.message || 'Sign in failed.'
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
+  // Handle Password Reset
+  const handleResetPassword = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!signInEmail.trim() || !signInEmail.includes('@')) {
+      addToast({
+        type: 'error',
+        title: 'Valid Email Required',
+        message: 'Please enter your registered email address to receive password reset instructions.'
+      });
+      return;
+    }
+
+    setIsSubmitting(true);
+    const result = await resetPassword(signInEmail.trim());
+    setIsSubmitting(false);
+
+    if (result.success) {
+      addToast({
+        type: 'success',
+        title: 'Password Reset Email Dispatched',
+        message: `Instructions have been sent to ${signInEmail.trim()}. Check your inbox.`
+      });
+      setIsForgotPassword(false);
+    } else {
+      addToast({
+        type: 'error',
+        title: 'Reset Failed',
+        message: result.error || 'Failed to dispatch reset email.'
+      });
+    }
   };
 
   // Callback from VerificationModal on successful OTP entry
@@ -357,7 +516,10 @@ export const AuthModal: React.FC<AuthModalProps> = ({
         <div className="grid grid-cols-3 gap-1.5 p-1 bg-[#EBEBDD] rounded border border-[#C4C8C5]">
           <button
             type="button"
-            onClick={() => setActiveTab('worker_reg')}
+            onClick={() => {
+              setActiveTab('worker_reg');
+              setIsForgotPassword(false);
+            }}
             className={`flex items-center justify-center gap-1.5 py-2 px-2 rounded text-xs font-semibold transition-colors cursor-pointer ${
               activeTab === 'worker_reg'
                 ? 'bg-white text-[#0E5A46] shadow-xs'
@@ -370,7 +532,10 @@ export const AuthModal: React.FC<AuthModalProps> = ({
 
           <button
             type="button"
-            onClick={() => setActiveTab('employer_reg')}
+            onClick={() => {
+              setActiveTab('employer_reg');
+              setIsForgotPassword(false);
+            }}
             className={`flex items-center justify-center gap-1.5 py-2 px-2 rounded text-xs font-semibold transition-colors cursor-pointer ${
               activeTab === 'employer_reg'
                 ? 'bg-white text-[#0E5A46] shadow-xs'
@@ -406,7 +571,7 @@ export const AuthModal: React.FC<AuthModalProps> = ({
                 <span>Tourms Workforce Capability Registration</span>
               </div>
               <p className="text-[11px] text-[#3A4B47]">
-                Registration registers your self-reported profile immediately so you can apply for jobs and build verified evidence.
+                Registration registers your capability-first profile immediately via Firebase Auth so you can apply for jobs and build verified credentials.
               </p>
             </div>
 
@@ -419,12 +584,13 @@ export const AuthModal: React.FC<AuthModalProps> = ({
                 required
               />
               <Input
-                label="Email Address (Optional)"
+                label="Email Address (Required for Firebase Login)"
                 type="email"
-                placeholder="you@example.com (optional)"
+                placeholder="you@example.com"
                 value={workerEmail}
                 onChange={(e) => setWorkerEmail(e.target.value)}
-                helperText="Optional for field workers. Mobile phone is your primary login."
+                required
+                helperText="Required for Firebase authentication, password reset, and identity protection."
               />
             </div>
 
@@ -466,15 +632,24 @@ export const AuthModal: React.FC<AuthModalProps> = ({
                   </div>
                 )}
               </div>
-              <Select
-                label="Primary Field Specialization"
-                value={workerSpec}
-                onChange={(e) => setWorkerSpec(e.target.value)}
-                options={AG_SPECIALIZATIONS.map((s) => ({ value: s, label: s }))}
+              <Input
+                label="Account Passcode / Security PIN"
+                type="password"
+                placeholder="Minimum 6 characters"
+                value={workerPassword}
+                onChange={(e) => setWorkerPassword(e.target.value)}
+                required
+                helperText="Secures your capability profile on Firebase."
               />
             </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+              <Select
+                label="Field Specialization"
+                value={workerSpec}
+                onChange={(e) => setWorkerSpec(e.target.value)}
+                options={AG_SPECIALIZATIONS.map((s) => ({ value: s, label: s }))}
+              />
               <Select
                 label="Operational State"
                 value={workerState}
@@ -482,21 +657,10 @@ export const AuthModal: React.FC<AuthModalProps> = ({
                 options={ALL_STATE_NAMES.map((st) => ({ value: st, label: st }))}
               />
               <Select
-                label="Local Government Area (LGA)"
+                label="LGA Location"
                 value={workerLga}
                 onChange={(e) => setWorkerLga(e.target.value)}
                 options={workerLgas.map((lg) => ({ value: lg, label: lg }))}
-              />
-              <Select
-                label="Practical Experience"
-                value={workerYears}
-                onChange={(e) => setWorkerYears(e.target.value)}
-                options={[
-                  { value: '1-2 years', label: '1 - 2 Years' },
-                  { value: '3-5 years', label: '3 - 5 Years' },
-                  { value: '6-10 years', label: '6 - 10 Years' },
-                  { value: '10+ years', label: 'Over 10 Years' }
-                ]}
               />
             </div>
 
@@ -506,8 +670,14 @@ export const AuthModal: React.FC<AuthModalProps> = ({
                 <Button variant="outline" size="sm" type="button" onClick={onClose}>
                   Cancel
                 </Button>
-                <Button variant="primary" size="sm" type="submit" rightIcon={<ArrowRight className="w-3.5 h-3.5" />}>
-                  Register Worker Profile
+                <Button
+                  variant="primary"
+                  size="sm"
+                  type="submit"
+                  disabled={isSubmitting}
+                  rightIcon={<ArrowRight className="w-3.5 h-3.5" />}
+                >
+                  {isSubmitting ? 'Registering with Firebase...' : 'Register Worker Profile'}
                 </Button>
               </div>
             </div>
@@ -565,23 +735,20 @@ export const AuthModal: React.FC<AuthModalProps> = ({
             </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              <Input
+                label="Create Security Password"
+                type="password"
+                placeholder="Minimum 6 characters"
+                value={employerPassword}
+                onChange={(e) => setEmployerPassword(e.target.value)}
+                required
+                helperText="Used for official corporate dashboard access."
+              />
               <Select
                 label="Agricultural Sub-Sector"
                 value={employerSector}
                 onChange={(e) => setEmployerSector(e.target.value)}
                 options={AG_SECTORS.map((sec) => ({ value: sec, label: sec }))}
-              />
-              <Select
-                label="Operational Scale"
-                value={farmScale}
-                onChange={(e) => setFarmScale(e.target.value)}
-                options={[
-                  { value: 'Under 50 Hectares', label: 'Under 50 Hectares (Smallholder/Mid)' },
-                  { value: '50 - 200 Hectares', label: '50 - 200 Hectares (Commercial)' },
-                  { value: '200 - 1,000 Hectares', label: '200 - 1,000 Hectares (Large Enterprise)' },
-                  { value: '1,000+ Hectares', label: '1,000+ Hectares (Mega Industrial Farm)' },
-                  { value: 'Processing Facility', label: 'Processing & Value-Addition Mill' }
-                ]}
               />
             </div>
 
@@ -606,8 +773,14 @@ export const AuthModal: React.FC<AuthModalProps> = ({
                 <Button variant="outline" size="sm" type="button" onClick={onClose}>
                   Cancel
                 </Button>
-                <Button variant="primary" size="sm" type="submit" rightIcon={<ArrowRight className="w-3.5 h-3.5" />}>
-                  Register Agribusiness
+                <Button
+                  variant="primary"
+                  size="sm"
+                  type="submit"
+                  disabled={isSubmitting}
+                  rightIcon={<ArrowRight className="w-3.5 h-3.5" />}
+                >
+                  {isSubmitting ? 'Registering with Firebase...' : 'Register Agribusiness'}
                 </Button>
               </div>
             </div>
@@ -615,102 +788,158 @@ export const AuthModal: React.FC<AuthModalProps> = ({
         )}
 
         {/* ==================================================================== */}
-        {/* TAB 3: SIGN IN & QUICK SWITCHER                                      */}
+        {/* TAB 3: SIGN IN & PASSWORD RESET                                       */}
         {/* ==================================================================== */}
         {activeTab === 'signin' && (
           <div className="space-y-4">
-            {/* Sign-in Method Selector */}
-            <div className="p-1 bg-[#EBEBDD] rounded border border-[#C4C8C5] grid grid-cols-2 gap-1 text-xs">
-              <button
-                type="button"
-                onClick={() => setSignInMode('password')}
-                className={`py-1.5 px-2 rounded font-semibold text-center transition-colors cursor-pointer ${
-                  signInMode === 'password'
-                    ? 'bg-white text-[#0E5A46] shadow-xs'
-                    : 'text-[#5A6E68] hover:text-[#0F1F1C]'
-                }`}
-              >
-                Password / PIN
-              </button>
-              <button
-                type="button"
-                onClick={() => setSignInMode('sms_otp')}
-                className={`py-1.5 px-2 rounded font-semibold text-center transition-colors cursor-pointer flex items-center justify-center gap-1 ${
-                  signInMode === 'sms_otp'
-                    ? 'bg-white text-[#0E5A46] shadow-xs'
-                    : 'text-[#5A6E68] hover:text-[#0F1F1C]'
-                }`}
-              >
-                <Smartphone className="w-3 h-3 text-[#0E5A46]" />
-                <span>Instant SMS OTP</span>
-              </button>
-            </div>
+            {isForgotPassword ? (
+              <form onSubmit={handleResetPassword} className="space-y-3.5">
+                <div className="p-3 bg-[#E7F3EF] border border-[#0E5A46]/20 rounded text-xs text-[#0F1F1C] space-y-1">
+                  <div className="flex items-center gap-1.5 font-bold text-[#0E5A46]">
+                    <KeyRound className="w-4 h-4 shrink-0" />
+                    <span>Reset Your Passcode</span>
+                  </div>
+                  <p className="text-[11px] text-[#3A4B47]">
+                    Enter your registered email address. We will dispatch a secure password reset link via Firebase Auth.
+                  </p>
+                </div>
 
-            {/* Account Role Selector */}
-            <div className="space-y-1">
-              <label className="text-[11px] font-bold text-[#5A6E68] uppercase tracking-wider block">
-                Account Type:
-              </label>
-              <div className="grid grid-cols-2 gap-1 p-1 bg-[#EBEBDD] rounded border border-[#C4C8C5] text-xs">
-                <button
-                  type="button"
-                  onClick={() => setSignInRole('worker')}
-                  className={`py-1.5 px-2 rounded font-semibold text-center transition-colors cursor-pointer ${
-                    signInRole === 'worker' ? 'bg-[#0E5A46] text-white shadow-xs' : 'text-[#3A4B47] hover:text-[#0F1F1C]'
-                  }`}
-                >
-                  Worker
-                </button>
-                <button
-                  type="button"
-                  onClick={() => setSignInRole('employer')}
-                  className={`py-1.5 px-2 rounded font-semibold text-center transition-colors cursor-pointer ${
-                    signInRole === 'employer' ? 'bg-[#0E5A46] text-white shadow-xs' : 'text-[#3A4B47] hover:text-[#0F1F1C]'
-                  }`}
-                >
-                  Agribusiness
-                </button>
-              </div>
-            </div>
-
-            <form onSubmit={handleSubmitSignIn} className="space-y-3">
-              <Input
-                label={signInMode === 'sms_otp' ? 'Registered Phone Number or Email' : 'Phone Number or Email Address'}
-                type="text"
-                placeholder={signInMode === 'sms_otp' ? 'e.g. +234 803 123 4567' : 'e.g. you@example.com or +234 803 123 4567'}
-                value={signInEmail}
-                onChange={(e) => setSignInEmail(e.target.value)}
-                required
-              />
-
-              {signInMode === 'password' && (
                 <Input
-                  label="Password / Security PIN"
-                  type="password"
-                  placeholder="••••••••"
-                  value={signInPassword}
-                  onChange={(e) => setSignInPassword(e.target.value)}
+                  label="Registered Email Address"
+                  type="email"
+                  placeholder="e.g. you@example.com"
+                  value={signInEmail}
+                  onChange={(e) => setSignInEmail(e.target.value)}
+                  required
                 />
-              )}
 
-              <div className="pt-2 flex items-center justify-between">
-                <button
-                  type="button"
-                  onClick={() => setActiveTab('worker_reg')}
-                  className="text-xs text-[#0E5A46] hover:underline"
-                >
-                  Need an account? Register here
-                </button>
-                <Button
-                  variant="primary"
-                  size="md"
-                  type="submit"
-                  rightIcon={signInMode === 'sms_otp' ? <Smartphone className="w-4 h-4" /> : undefined}
-                >
-                  {signInMode === 'sms_otp' ? 'Send OTP & Sign In' : 'Sign In'}
-                </Button>
-              </div>
-            </form>
+                <div className="pt-2 flex items-center justify-between">
+                  <button
+                    type="button"
+                    onClick={() => setIsForgotPassword(false)}
+                    className="text-xs text-[#5A6E68] hover:text-[#0F1F1C] flex items-center gap-1 cursor-pointer"
+                  >
+                    <RotateCcw className="w-3 h-3" />
+                    Back to Sign In
+                  </button>
+                  <Button variant="primary" size="sm" type="submit" disabled={isSubmitting}>
+                    {isSubmitting ? 'Sending Link...' : 'Send Reset Link'}
+                  </Button>
+                </div>
+              </form>
+            ) : (
+              <>
+                {/* Sign-in Method Selector */}
+                <div className="p-1 bg-[#EBEBDD] rounded border border-[#C4C8C5] grid grid-cols-2 gap-1 text-xs">
+                  <button
+                    type="button"
+                    onClick={() => setSignInMode('password')}
+                    className={`py-1.5 px-2 rounded font-semibold text-center transition-colors cursor-pointer ${
+                      signInMode === 'password'
+                        ? 'bg-white text-[#0E5A46] shadow-xs'
+                        : 'text-[#5A6E68] hover:text-[#0F1F1C]'
+                    }`}
+                  >
+                    Password / PIN
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => setSignInMode('sms_otp')}
+                    className={`py-1.5 px-2 rounded font-semibold text-center transition-colors cursor-pointer flex items-center justify-center gap-1 ${
+                      signInMode === 'sms_otp'
+                        ? 'bg-white text-[#0E5A46] shadow-xs'
+                        : 'text-[#5A6E68] hover:text-[#0F1F1C]'
+                    }`}
+                  >
+                    <Smartphone className="w-3 h-3 text-[#0E5A46]" />
+                    <span>Instant SMS OTP</span>
+                  </button>
+                </div>
+
+                {/* Account Role Selector */}
+                <div className="space-y-1">
+                  <label className="text-[11px] font-bold text-[#5A6E68] uppercase tracking-wider block">
+                    Account Type:
+                  </label>
+                  <div className="grid grid-cols-2 gap-1 p-1 bg-[#EBEBDD] rounded border border-[#C4C8C5] text-xs">
+                    <button
+                      type="button"
+                      onClick={() => setSignInRole('worker')}
+                      className={`py-1.5 px-2 rounded font-semibold text-center transition-colors cursor-pointer ${
+                        signInRole === 'worker' ? 'bg-[#0E5A46] text-white shadow-xs' : 'text-[#3A4B47] hover:text-[#0F1F1C]'
+                      }`}
+                    >
+                      Worker
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => setSignInRole('employer')}
+                      className={`py-1.5 px-2 rounded font-semibold text-center transition-colors cursor-pointer ${
+                        signInRole === 'employer' ? 'bg-[#0E5A46] text-white shadow-xs' : 'text-[#3A4B47] hover:text-[#0F1F1C]'
+                      }`}
+                    >
+                      Agribusiness
+                    </button>
+                  </div>
+                </div>
+
+                <form onSubmit={handleSubmitSignIn} className="space-y-3">
+                  <Input
+                    label={signInMode === 'sms_otp' ? 'Registered Phone Number or Email' : 'Email Address or Phone Number'}
+                    type="text"
+                    placeholder={signInMode === 'sms_otp' ? 'e.g. +234 803 123 4567' : 'e.g. you@example.com'}
+                    value={signInEmail}
+                    onChange={(e) => setSignInEmail(e.target.value)}
+                    required
+                  />
+
+                  {signInMode === 'password' && (
+                    <div className="space-y-1">
+                      <div className="flex items-center justify-between">
+                        <label className="text-xs font-semibold text-[#0F1F1C]">Password / Security PIN</label>
+                        <button
+                          type="button"
+                          onClick={() => setIsForgotPassword(true)}
+                          className="text-[11px] text-[#0E5A46] hover:underline cursor-pointer"
+                        >
+                          Forgot password?
+                        </button>
+                      </div>
+                      <Input
+                        type="password"
+                        placeholder="••••••••"
+                        value={signInPassword}
+                        onChange={(e) => setSignInPassword(e.target.value)}
+                        required
+                      />
+                    </div>
+                  )}
+
+                  <div className="pt-2 flex items-center justify-between">
+                    <button
+                      type="button"
+                      onClick={() => setActiveTab('worker_reg')}
+                      className="text-xs text-[#0E5A46] hover:underline cursor-pointer"
+                    >
+                      Need an account? Register here
+                    </button>
+                    <Button
+                      variant="primary"
+                      size="md"
+                      type="submit"
+                      disabled={isSubmitting}
+                      rightIcon={signInMode === 'sms_otp' ? <Smartphone className="w-4 h-4" /> : undefined}
+                    >
+                      {isSubmitting
+                        ? 'Verifying...'
+                        : signInMode === 'sms_otp'
+                        ? 'Send OTP & Sign In'
+                        : 'Sign In via Firebase'}
+                    </Button>
+                  </div>
+                </form>
+              </>
+            )}
           </div>
         )}
       </div>
@@ -724,7 +953,7 @@ export const AuthModal: React.FC<AuthModalProps> = ({
         onVerified={handleOtpVerified}
       />
 
-      {/* Post-Registration Phone OTP Verification Modal (Auto-triggered upon registration) */}
+      {/* Post-Registration Phone OTP Verification Modal */}
       <PostRegistrationOtpModal
         isOpen={postRegOtpOpen}
         onClose={() => setPostRegOtpOpen(false)}

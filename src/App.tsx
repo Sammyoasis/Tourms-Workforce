@@ -31,6 +31,7 @@ import { StateSpecimenDrawer } from './components/dev/StateSpecimenDrawer';
 import { Modal } from './components/ui/Modal';
 import { Button } from './components/ui/Button';
 import { AuthModal } from './components/auth/AuthModal';
+import { AuthProvider, useAuth } from './contexts/AuthContext';
 import { testConnection } from './lib/firebase';
 import {
   subscribeFirestoreJobs,
@@ -163,18 +164,20 @@ const BLANK_EMPLOYER_PROFILE: EmployerProfile = {
 
 function AppContent() {
   const { addToast } = useToast();
-  // Navigation & State
+  // Firebase Auth Identity & Authority Sync
+  const { userRole: authRole, adminSubRole: authAdminSubRole, signOutUser, currentUser } = useAuth();
   const [currentPath, setCurrentPath] = useState<string>(getInitialPath);
-  const [userRole, setUserRole] = useState<UserRole>(() => {
-    try {
-      const saved = localStorage.getItem('tourms_user_role');
-      if (saved && ['public', 'worker', 'employer', 'admin'].includes(saved)) {
-        return saved as UserRole;
-      }
-    } catch {}
-    return 'public';
-  });
-  const [adminSubRole, setAdminSubRole] = useState<AdminSubRole>('super_admin');
+  const [userRole, setUserRole] = useState<UserRole>(authRole);
+  const [adminSubRole, setAdminSubRole] = useState<AdminSubRole>(authAdminSubRole);
+
+  useEffect(() => {
+    setUserRole(authRole);
+  }, [authRole]);
+
+  useEffect(() => {
+    setAdminSubRole(authAdminSubRole);
+  }, [authAdminSubRole]);
+
   const [isMobilePreview, setIsMobilePreview] = useState<boolean>(false);
   const [mobileDeviceWidth, setMobileDeviceWidth] = useState<'390' | '360' | 'full'>('390');
   const [currentScreenId, setCurrentScreenId] = useState<string>('screen-01');
@@ -316,15 +319,16 @@ function AppContent() {
     return () => unsub();
   }, []);
 
-  // Real-time synchronization for Applications with Cloud Firestore
+  // Real-time synchronization for Applications with Cloud Firestore (Authenticated only)
   useEffect(() => {
+    if (!currentUser) return;
     const unsub = subscribeFirestoreApplications((remoteApps) => {
       if (remoteApps && remoteApps.length > 0) {
         setApplications(remoteApps);
       }
-    });
+    }, userRole === 'worker' ? currentUser.uid : undefined);
     return () => unsub();
-  }, []);
+  }, [currentUser, userRole]);
 
   // Real-time synchronization for Opportunities with Cloud Firestore
   useEffect(() => {
@@ -553,7 +557,7 @@ function AppContent() {
         engagementReference: targetEng.referenceNumber,
         jobTitle: targetEng.jobTitle,
         type: 'worker_payout',
-        senderParty: 'TOURMS Settlement Escrow Holding (Provider-Neutral)',
+        senderParty: 'TOURMS Settlement Demonstration Holding (Sandbox)',
         recipientParty: targetEng.workerName,
         grossAmountNaira: targetEng.grossCompensationNaira,
         feeAmountNaira: targetEng.workerFeeNaira,
@@ -766,7 +770,8 @@ function AppContent() {
     }
   };
 
-  const handleSignOut = () => {
+  const handleSignOut = async () => {
+    await signOutUser();
     setUserRole('public');
     setCurrentPath('/');
   };
@@ -1343,7 +1348,9 @@ function AppContent() {
 export default function App() {
   return (
     <ToastProvider>
-      <AppContent />
+      <AuthProvider>
+        <AppContent />
+      </AuthProvider>
     </ToastProvider>
   );
 }

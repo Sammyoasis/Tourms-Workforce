@@ -197,11 +197,9 @@ export const RoleBar: React.FC<RoleBarProps> = ({
               aria-label="Admin sub-role permission filter"
             >
               <option value="super_admin">Role: Super Admin</option>
-              <option value="operations">Role: Operations</option>
-              <option value="verification">Role: Verification</option>
-              <option value="editorial">Role: Editorial</option>
-              <option value="support">Role: Support</option>
-              <option value="analyst">Role: Analyst</option>
+              <option value="verifier">Role: Verifier</option>
+              <option value="moderator">Role: Moderator</option>
+              <option value="support_lead">Role: Support Lead</option>
             </select>
           )}
         </div>

@@ -189,35 +189,28 @@ export async function sendSmsOtp(
 
 /**
  * Verifies an entered OTP code against the active session.
+ * Enforces exact match against the securely generated session code.
  */
 export async function verifySmsOtp(
   phoneNumber: string,
   inputCode: string
 ): Promise<{ success: boolean; message: string }> {
   // Simulate network verification delay
-  await new Promise((resolve) => setTimeout(resolve, 400));
+  await new Promise((resolve) => setTimeout(resolve, 350));
 
   const normalized = normalizeNigerianPhone(phoneNumber);
   const trimmedCode = inputCode.trim();
 
-  // Test sandbox bypass: "123456" is always universally accepted for automated testing
-  if (trimmedCode === '123456') {
-    activeSessions.delete(normalized);
+  // Validate format
+  if (!/^\d{6}$/.test(trimmedCode)) {
     return {
-      success: true,
-      message: 'Mobile number verified successfully via sandbox credentials.'
+      success: false,
+      message: 'Please enter a valid 6-digit numeric verification code.'
     };
   }
 
   const session = activeSessions.get(normalized);
   if (!session) {
-    // If no active session found in memory, accept valid 6-digit numbers in simulation
-    if (/^\d{6}$/.test(trimmedCode)) {
-      return {
-        success: true,
-        message: 'Phone number verified successfully.'
-      };
-    }
     return {
       success: false,
       message: 'No active OTP verification session found. Please request a new code.'

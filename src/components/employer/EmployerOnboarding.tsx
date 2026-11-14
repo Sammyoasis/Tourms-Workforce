@@ -362,27 +362,18 @@ export const EmployerOnboarding: React.FC<EmployerOnboardingProps> = ({
                 onChange={(e) => setEstablishedYear(e.target.value)}
               />
 
-              <div className="space-y-1">
+              <div className="space-y-1.5">
                 <label className="text-xs font-bold text-[#0F1F1C] block">
-                  CAC Certificate of Incorporation Attachment
+                  CAC Certificate Document Attachment
                 </label>
-                <div className="flex items-center gap-2 p-2.5 bg-[#F7F7EE] rounded border border-[#EBEBDD] text-xs">
-                  <FileCheck className="w-4 h-4 text-[#0E5A46] shrink-0" />
-                  <span className="font-mono text-[11px] truncate flex-1">{uploadedDocName}</span>
-                  <label className="text-[10px] text-[#0E5A46] font-bold hover:underline cursor-pointer">
-                    Replace
-                    <input
-                      type="file"
-                      accept=".pdf,image/*"
-                      className="hidden"
-                      onChange={(e) => {
-                        if (e.target.files?.[0]) {
-                          setUploadedDocName(e.target.files[0].name);
-                          addToast({ type: 'info', title: 'File Attached', message: e.target.files[0].name });
-                        }
-                      }}
-                    />
-                  </label>
+                <div className="p-3 bg-[#F7F7EE] rounded border border-[#C4C8C5] text-xs space-y-1.5">
+                  <div className="flex items-center gap-2 text-[#5A6E68]">
+                    <FileCheck className="w-4 h-4 text-[#8E5A18] shrink-0" />
+                    <span className="font-semibold text-[#0F1F1C]">Binary Upload Deferred</span>
+                  </div>
+                  <p className="text-[11px] text-[#5A6E68] leading-relaxed">
+                    Binary document storage is currently awaiting Firebase Storage bucket activation by the project administrator. CAC verification is submitted via registration number and verified directly against the Corporate Affairs Commission gazette.
+                  </p>
                 </div>
               </div>
             </div>

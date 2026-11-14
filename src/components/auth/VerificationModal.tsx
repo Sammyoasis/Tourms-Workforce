@@ -160,7 +160,7 @@ export const VerificationModal: React.FC<VerificationModalProps> = ({
       const resp = await verifyTermiiOtp(pinId, enteredCode, targetValue);
       verified = resp.verified;
     } else {
-      verified = enteredCode === generatedCode || enteredCode === '123456';
+      verified = enteredCode === generatedCode;
     }
     setIsVerifying(false);
 

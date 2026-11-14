@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { SystemUser, AdminSubRole } from '../../types';
+import { SystemUser, AdminSubRole, AdminRole } from '../../types';
 import { Button } from '../ui/Button';
 import { Select } from '../ui/Select';
 import { useToast } from '../ui/Toast';
@@ -32,7 +32,7 @@ export const AdminUsersRolesView: React.FC<AdminUsersRolesViewProps> = ({
   const [isAddModalOpen, setIsAddModalOpen] = useState(false);
   const [newOperatorName, setNewOperatorName] = useState('');
   const [newOperatorEmail, setNewOperatorEmail] = useState('');
-  const [newOperatorRole, setNewOperatorRole] = useState<AdminSubRole>('operations');
+  const [newOperatorRole, setNewOperatorRole] = useState<AdminRole>('verifier');
   const [newOperatorPin, setNewOperatorPin] = useState('4821');
 
   const handleCreateOperator = (e: React.FormEvent) => {
@@ -46,13 +46,11 @@ export const AdminUsersRolesView: React.FC<AdminUsersRolesViewProps> = ({
       return;
     }
 
-    const defaultPermissionsMap: Record<AdminSubRole, string[]> = {
+    const defaultPermissionsMap: Record<AdminRole, string[]> = {
       super_admin: ['all_access', 'role_management', 'system_audit', 'content_publish', 'employer_verify', 'payout_authorize'],
-      operations: ['job_review', 'queue_dispatch', 'moderation_action'],
-      verification: ['employer_verify', 'worker_evidence_verify', 'cac_audit'],
-      editorial: ['content_edit', 'content_publish', 'opportunities_review'],
-      support: ['ticket_resolve', 'user_assistance'],
-      analyst: ['telemetry_read', 'data_export']
+      verifier: ['employer_verify', 'worker_evidence_verify', 'cac_audit'],
+      moderator: ['job_review', 'queue_dispatch', 'moderation_action', 'content_publish', 'opportunities_review'],
+      support_lead: ['ticket_resolve', 'user_assistance', 'reports_review']
     };
 
     const newStaffUser: SystemUser = {
@@ -152,15 +150,13 @@ export const AdminUsersRolesView: React.FC<AdminUsersRolesViewProps> = ({
                   <label className="font-bold text-[#0F1F1C] block">Assigned Role:</label>
                   <select
                     value={newOperatorRole}
-                    onChange={(e) => setNewOperatorRole(e.target.value as AdminSubRole)}
+                    onChange={(e) => setNewOperatorRole(e.target.value as AdminRole)}
                     className="w-full bg-[#F7F7EE] border border-[#C4C8C5] rounded p-2 text-xs focus:ring-1 focus:ring-[#0E5A46]"
                   >
-                    <option value="operations">Operations Officer</option>
-                    <option value="verification">Verification Lead</option>
-                    <option value="editorial">Senior Editorial Desk</option>
-                    <option value="support">Platform Support</option>
-                    <option value="analyst">Data Analyst</option>
-                    <option value="super_admin">Super Administrator</option>
+                    <option value="verifier">Verifier (CAC & Credentials)</option>
+                    <option value="moderator">Moderator (Content & Queue)</option>
+                    <option value="support_lead">Support Lead (User Support)</option>
+                    <option value="super_admin">Super Administrator (Full Access)</option>
                   </select>
                 </div>
 
@@ -249,16 +245,14 @@ export const AdminUsersRolesView: React.FC<AdminUsersRolesViewProps> = ({
                 <td className="p-3.5 text-right">
                   <select
                     value={user.role}
-                    onChange={(e) => handleRoleChange(user.id, e.target.value as AdminSubRole)}
+                    onChange={(e) => handleRoleChange(user.id, e.target.value as AdminRole)}
                     className="p-1 bg-white border border-[#C4C8C5] rounded text-xs text-[#0F1F1C] focus:outline-none focus:ring-1 focus:ring-[#0E5A46] min-h-[32px]"
                     aria-label={`Change role for ${user.name}`}
                   >
                     <option value="super_admin">Super Admin</option>
-                    <option value="operations">Operations</option>
-                    <option value="verification">Verification</option>
-                    <option value="editorial">Editorial</option>
-                    <option value="support">Support</option>
-                    <option value="analyst">Analyst</option>
+                    <option value="verifier">Verifier</option>
+                    <option value="moderator">Moderator</option>
+                    <option value="support_lead">Support Lead</option>
                   </select>
                 </td>
               </tr>

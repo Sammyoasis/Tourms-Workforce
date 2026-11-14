@@ -132,7 +132,8 @@ export const PostRegistrationOtpModal: React.FC<PostRegistrationOtpModalProps> =
   };
 
   const handleAutoFill = () => {
-    const targetCode = activeSession?.previewCode || '123456';
+    if (!activeSession?.previewCode) return;
+    const targetCode = activeSession.previewCode;
     setDigits(targetCode.split(''));
     inputRefs.current[5]?.focus();
     addToast({

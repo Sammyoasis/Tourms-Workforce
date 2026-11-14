@@ -132,7 +132,7 @@ export const EmployerPaymentHub: React.FC<EmployerPaymentHubProps> = ({
             jobTitle: currentEngagement.jobTitle,
             type: 'employer_funding',
             senderParty: currentEngagement.employerName,
-            recipientParty: 'TOURMS Dedicated Settlement Escrow (Provider-Neutral)',
+            recipientParty: 'TOURMS Settlement Demonstration Holding (Sandbox)',
             grossAmountNaira: currentEngagement.totalEmployerFundingNaira,
             feeAmountNaira: currentEngagement.employerFeeNaira,
             netAmountNaira: currentEngagement.grossCompensationNaira,
@@ -737,10 +737,10 @@ export const EmployerPaymentHub: React.FC<EmployerPaymentHubProps> = ({
                 ) : (
                   <div className="p-4 bg-[#FAF9F5] rounded border border-[#C4C8C5] space-y-2">
                     <span className="font-bold text-[#0F1F1C] block text-[11px] uppercase">
-                      Card Authorization Simulation
+                      Card Authorization Simulation (Specimen)
                     </span>
                     <p className="text-[11px] text-[#5A6E68]">
-                      Clicking "Initiate Payment" will invoke the encrypted CBN-compliant checkout gateway to hold funds securely in escrow.
+                      Clicking "Initiate Payment" executes a demonstration sandbox simulation. Live payment gateway integration is currently pending.
                     </p>
                   </div>
                 )}
@@ -749,7 +749,7 @@ export const EmployerPaymentHub: React.FC<EmployerPaymentHubProps> = ({
                 <div className="p-3 bg-[#FAF9F5] rounded border border-[#EBEBDD] flex items-center gap-2 text-[11px] text-[#5A6E68]">
                   <ShieldCheck className="w-4 h-4 text-[#0E5A46] shrink-0" />
                   <span>
-                    256-bit Encrypted Settlement Channel. Funds are conditionally locked until deliverable verification.
+                    Demonstration Specimen / Sandbox Payment Simulation (Payment Gateway Integration Pending).
                   </span>
                 </div>
 

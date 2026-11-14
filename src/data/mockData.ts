@@ -1426,7 +1426,7 @@ export const SAMPLE_ADMIN_USERS: SystemUser[] = [
     id: 'usr-2',
     name: 'Tosin Adeyemi',
     email: 'tosin.a@tourms.ng',
-    role: 'verification',
+    role: 'verifier',
     status: 'active',
     lastActive: '25 minutes ago',
     permissions: ['employer_verify', 'worker_evidence_verify', 'cac_audit']
@@ -1435,7 +1435,7 @@ export const SAMPLE_ADMIN_USERS: SystemUser[] = [
     id: 'usr-3',
     name: 'Fatima Sanusi',
     email: 'fatima.s@tourms.ng',
-    role: 'operations',
+    role: 'moderator',
     status: 'active',
     lastActive: '1 hour ago',
     permissions: ['job_review', 'queue_dispatch', 'moderation_action']
@@ -1444,7 +1444,7 @@ export const SAMPLE_ADMIN_USERS: SystemUser[] = [
     id: 'usr-4',
     name: 'Chinedu Eze',
     email: 'chinedu.e@tourms.ng',
-    role: 'editorial',
+    role: 'moderator',
     status: 'active',
     lastActive: '3 hours ago',
     permissions: ['content_edit', 'content_publish', 'opportunities_review']
@@ -1453,7 +1453,7 @@ export const SAMPLE_ADMIN_USERS: SystemUser[] = [
     id: 'usr-5',
     name: 'Bilikisu Mohammed',
     email: 'bilikisu.m@tourms.ng',
-    role: 'support',
+    role: 'support_lead',
     status: 'active',
     lastActive: 'Yesterday',
     permissions: ['user_inquiries', 'ticket_response']
@@ -1462,7 +1462,7 @@ export const SAMPLE_ADMIN_USERS: SystemUser[] = [
     id: 'usr-6',
     name: 'Adetola Balogun',
     email: 'adetola.b@tourms.ng',
-    role: 'analyst',
+    role: 'verifier',
     status: 'active',
     lastActive: 'Yesterday',
     permissions: ['analytics_read', 'audit_logs_read']

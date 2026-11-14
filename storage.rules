@@ -1,0 +1,46 @@
+rules_version = '2';
+
+service firebase.storage {
+  match /b/{bucket}/o {
+
+    function isSignedIn() {
+      return request.auth != null;
+    }
+
+    function isAdmin() {
+      return isSignedIn() && request.auth.token.role == 'admin';
+    }
+
+    function isOwner(uid) {
+      return isSignedIn() && request.auth.uid == uid;
+    }
+
+    function isValidVerificationDocument() {
+      return request.resource.size <= 5 * 1024 * 1024 // 5 MB maximum
+        && (
+          request.resource.contentType.matches('image/jpeg') ||
+          request.resource.contentType.matches('image/png') ||
+          request.resource.contentType.matches('application/pdf')
+        );
+    }
+
+    // Global default-deny rule
+    match /{allPaths=**} {
+      allow read, write: if false;
+    }
+
+    // Employer Verification Documents (CAC RC/BN certificates, premises leases)
+    match /employers/{employerId}/verification/{documentId} {
+      allow read: if isOwner(employerId) || isAdmin();
+      allow write: if isOwner(employerId) && isValidVerificationDocument();
+      allow delete: if isOwner(employerId) || isAdmin();
+    }
+
+    // Worker Verification Documents (Trade test diplomas, agricultural certifications)
+    match /workers/{workerId}/verification/{documentId} {
+      allow read: if isOwner(workerId) || isAdmin();
+      allow write: if isOwner(workerId) && isValidVerificationDocument();
+      allow delete: if isOwner(workerId) || isAdmin();
+    }
+  }
+}

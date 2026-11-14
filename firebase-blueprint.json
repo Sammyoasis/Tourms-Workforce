@@ -1,5 +1,35 @@
 {
   "entities": {
+    "UserAccount": {
+      "title": "UserAccount",
+      "description": "Base authenticated user record linking identity to profile and authorization tier.",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string", "pattern": "^[a-zA-Z0-9_-]+$" },
+        "email": { "type": "string", "format": "email" },
+        "role": { "type": "string", "enum": ["worker", "employer", "admin"] },
+        "subRole": { "type": "string" },
+        "displayName": { "type": "string" },
+        "phoneNumber": { "type": "string" },
+        "createdAt": { "type": "string" },
+        "updatedAt": { "type": "string" }
+      },
+      "required": ["uid", "email", "role"]
+    },
+    "AdminRecord": {
+      "title": "AdminRecord",
+      "description": "System administrative authority entry for server-side authorization check.",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string", "pattern": "^[a-zA-Z0-9_-]+$" },
+        "email": { "type": "string", "format": "email" },
+        "subRole": { "type": "string" },
+        "role": { "type": "string" },
+        "updatedAt": { "type": "string" },
+        "provisionedBy": { "type": "string" }
+      },
+      "required": ["uid", "email", "role"]
+    },
     "Job": {
       "title": "JobListing",
       "description": "Commercial agricultural job demand and operational placement in Nigeria.",
@@ -141,6 +171,14 @@
     }
   },
   "firestore": {
+    "/users/{userId}": {
+      "schema": "UserAccount",
+      "description": "Authenticated user records managing access roles and session identity."
+    },
+    "/admins/{adminId}": {
+      "schema": "AdminRecord",
+      "description": "Administrative authority registry checked by Firestore security rules."
+    },
     "/jobs/{jobId}": {
       "schema": "Job",
       "description": "Collection of commercial agricultural job listings."

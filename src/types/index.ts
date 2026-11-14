@@ -5,13 +5,8 @@
 
 export type UserRole = 'public' | 'worker' | 'employer' | 'admin';
 
-export type AdminSubRole =
-  | 'super_admin'
-  | 'operations'
-  | 'verification'
-  | 'editorial'
-  | 'support'
-  | 'analyst';
+export type AdminRole = 'super_admin' | 'verifier' | 'moderator' | 'support_lead';
+export type AdminSubRole = AdminRole;
 
 export type VerificationStatus = 'unverified' | 'pending' | 'verified' | 'rejected';
 
@@ -282,8 +277,20 @@ export interface SystemUser {
   id: string;
   name: string;
   email: string;
-  role: 'super_admin' | 'operations' | 'verification' | 'editorial' | 'support' | 'analyst';
+  role: AdminRole;
   status: 'active' | 'suspended' | 'invited';
   lastActive: string;
   permissions: string[];
 }
+
+export interface UserAccount {
+  uid: string;
+  email: string;
+  role: 'worker' | 'employer' | 'admin';
+  subRole?: AdminSubRole;
+  displayName?: string;
+  phoneNumber?: string;
+  createdAt: string;
+  updatedAt: string;
+}
+

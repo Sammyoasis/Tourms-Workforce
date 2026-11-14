@@ -207,7 +207,7 @@ export const SAMPLE_PAYMENT_TRANSACTIONS: PaymentTransaction[] = [
     engagementReference: 'TRM-ENG-2026-077',
     jobTitle: 'Cassava Harvester & Mechanical Lifter Operator',
     type: 'worker_payout',
-    senderParty: 'TOURMS Settlement Escrow Holding (Provider-Neutral)',
+    senderParty: 'TOURMS Settlement Demonstration Holding (Sandbox)',
     recipientParty: 'Oluwaseun Adeyemi',
     grossAmountNaira: 220000,
     feeAmountNaira: 0,

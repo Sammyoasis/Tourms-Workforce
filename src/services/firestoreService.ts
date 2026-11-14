@@ -8,9 +8,9 @@ import {
   deleteDoc,
   onSnapshot,
   query,
-  orderBy
+  where
 } from 'firebase/firestore';
-import { db, handleFirestoreError, OperationType } from '../lib/firebase';
+import { db, auth, handleFirestoreError, OperationType, isFirebaseConfigured } from '../lib/firebase';
 import {
   JobListing,
   WorkerProfile,
@@ -28,9 +28,10 @@ const OPPORTUNITIES_COLLECTION = 'opportunities';
 const INSIGHTS_COLLECTION = 'insights';
 
 /**
- * Fetch all jobs from Cloud Firestore
+ * Fetch all jobs from Cloud Firestore (Public read)
  */
 export async function getFirestoreJobs(): Promise<JobListing[]> {
+  if (!isFirebaseConfigured()) return [];
   try {
     const snap = await getDocs(collection(db, JOBS_COLLECTION));
     return snap.docs.map((d) => d.data() as JobListing);
@@ -41,9 +42,10 @@ export async function getFirestoreJobs(): Promise<JobListing[]> {
 }
 
 /**
- * Real-time listener for jobs
+ * Real-time listener for public jobs
  */
 export function subscribeFirestoreJobs(onUpdate: (jobs: JobListing[]) => void): () => void {
+  if (!isFirebaseConfigured()) return () => {};
   const q = collection(db, JOBS_COLLECTION);
   return onSnapshot(
     q,
@@ -52,7 +54,7 @@ export function subscribeFirestoreJobs(onUpdate: (jobs: JobListing[]) => void): 
       onUpdate(jobs);
     },
     (error) => {
-      handleFirestoreError(error, OperationType.LIST, JOBS_COLLECTION);
+      console.warn('Jobs subscription notice:', error.message);
     }
   );
 }
@@ -61,6 +63,7 @@ export function subscribeFirestoreJobs(onUpdate: (jobs: JobListing[]) => void): 
  * Create or update a job in Cloud Firestore
  */
 export async function saveFirestoreJob(job: JobListing): Promise<void> {
+  if (!isFirebaseConfigured()) return;
   const path = `${JOBS_COLLECTION}/${job.id}`;
   try {
     await setDoc(doc(db, JOBS_COLLECTION, job.id), job);
@@ -70,9 +73,14 @@ export async function saveFirestoreJob(job: JobListing): Promise<void> {
 }
 
 /**
- * Update job review status
+ * Update job review status (Admin or Employer)
  */
-export async function updateFirestoreJobStatus(jobId: string, status: JobListing['status'], notes?: string): Promise<void> {
+export async function updateFirestoreJobStatus(
+  jobId: string,
+  status: JobListing['status'],
+  notes?: string
+): Promise<void> {
+  if (!isFirebaseConfigured()) return;
   const path = `${JOBS_COLLECTION}/${jobId}`;
   try {
     const updatePayload: Record<string, any> = { status };
@@ -84,9 +92,10 @@ export async function updateFirestoreJobStatus(jobId: string, status: JobListing
 }
 
 /**
- * Fetch a worker profile by ID
+ * Fetch a worker profile by ID (Public capability view)
  */
 export async function getFirestoreWorker(workerId: string): Promise<WorkerProfile | null> {
+  if (!isFirebaseConfigured()) return null;
   const path = `${WORKERS_COLLECTION}/${workerId}`;
   try {
     const snap = await getDoc(doc(db, WORKERS_COLLECTION, workerId));
@@ -101,9 +110,10 @@ export async function getFirestoreWorker(workerId: string): Promise<WorkerProfil
 }
 
 /**
- * Save or update a worker profile in Firestore
+ * Save or update a worker profile in Firestore (Owner or Admin)
  */
 export async function saveFirestoreWorker(worker: WorkerProfile): Promise<void> {
+  if (!isFirebaseConfigured()) return;
   const path = `${WORKERS_COLLECTION}/${worker.id}`;
   try {
     await setDoc(doc(db, WORKERS_COLLECTION, worker.id), worker);
@@ -113,14 +123,15 @@ export async function saveFirestoreWorker(worker: WorkerProfile): Promise<void> 
 }
 
 /**
- * Fetch all workers (for Admin management and candidate matching)
+ * Fetch all workers (Admin management queue only)
  */
 export async function getFirestoreAllWorkers(): Promise<WorkerProfile[]> {
+  if (!isFirebaseConfigured() || !auth.currentUser) return [];
   try {
     const snap = await getDocs(collection(db, WORKERS_COLLECTION));
     return snap.docs.map((d) => d.data() as WorkerProfile);
   } catch (error) {
-    handleFirestoreError(error, OperationType.LIST, WORKERS_COLLECTION);
+    console.warn('Admin workers list query notice:', error);
     return [];
   }
 }
@@ -129,6 +140,7 @@ export async function getFirestoreAllWorkers(): Promise<WorkerProfile[]> {
  * Fetch an employer profile by ID
  */
 export async function getFirestoreEmployer(employerId: string): Promise<EmployerProfile | null> {
+  if (!isFirebaseConfigured()) return null;
   const path = `${EMPLOYERS_COLLECTION}/${employerId}`;
   try {
     const snap = await getDoc(doc(db, EMPLOYERS_COLLECTION, employerId));
@@ -143,9 +155,10 @@ export async function getFirestoreEmployer(employerId: string): Promise<Employer
 }
 
 /**
- * Save or update an employer profile in Firestore
+ * Save or update an employer profile in Firestore (Owner or Admin)
  */
 export async function saveFirestoreEmployer(employer: EmployerProfile): Promise<void> {
+  if (!isFirebaseConfigured()) return;
   const path = `${EMPLOYERS_COLLECTION}/${employer.id}`;
   try {
     await setDoc(doc(db, EMPLOYERS_COLLECTION, employer.id), employer);
@@ -155,36 +168,79 @@ export async function saveFirestoreEmployer(employer: EmployerProfile): Promise<
 }
 
 /**
- * Fetch all employers (for Admin CAC verification queue)
+ * Fetch all employers (Admin CAC verification queue only)
  */
 export async function getFirestoreAllEmployers(): Promise<EmployerProfile[]> {
+  if (!isFirebaseConfigured() || !auth.currentUser) return [];
   try {
     const snap = await getDocs(collection(db, EMPLOYERS_COLLECTION));
     return snap.docs.map((d) => d.data() as EmployerProfile);
   } catch (error) {
-    handleFirestoreError(error, OperationType.LIST, EMPLOYERS_COLLECTION);
+    console.warn('Admin employers list query notice:', error);
     return [];
   }
 }
 
 /**
- * Fetch all applications
+ * Fetch applications for a specific applicant (Owner scoped query)
  */
-export async function getFirestoreApplications(): Promise<JobApplication[]> {
+export async function getFirestoreWorkerApplications(applicantId: string): Promise<JobApplication[]> {
+  if (!isFirebaseConfigured() || !applicantId) return [];
   try {
-    const snap = await getDocs(collection(db, APPLICATIONS_COLLECTION));
+    const q = query(collection(db, APPLICATIONS_COLLECTION), where('applicantId', '==', applicantId));
+    const snap = await getDocs(q);
     return snap.docs.map((d) => d.data() as JobApplication);
   } catch (error) {
-    handleFirestoreError(error, OperationType.LIST, APPLICATIONS_COLLECTION);
+    console.warn('Worker applications query notice:', error);
+    return [];
+  }
+}
+
+/**
+export async function getFirestoreApplications(
+  filter?: { applicantId?: string; employerId?: string }
+): Promise<JobApplication[]> {
+  if (!isFirebaseConfigured() || !auth.currentUser) return [];
+  try {
+    let q;
+    if (filter?.applicantId) {
+      q = query(collection(db, APPLICATIONS_COLLECTION), where('applicantId', '==', filter.applicantId));
+    } else if (filter?.employerId) {
+      q = query(collection(db, APPLICATIONS_COLLECTION), where('employerId', '==', filter.employerId));
+    } else {
+      q = collection(db, APPLICATIONS_COLLECTION);
+    }
+    const snap = await getDocs(q);
+    return snap.docs.map((d) => d.data() as JobApplication);
+  } catch (error) {
+    console.warn('Applications list query notice (unauthenticated or unprivileged):', error);
     return [];
   }
 }
 
 /**
  * Real-time listener for job applications
+ * Guards against unauthenticated calls and supports employer/applicant scoped queries.
  */
-export function subscribeFirestoreApplications(onUpdate: (apps: JobApplication[]) => void): () => void {
-  const q = collection(db, APPLICATIONS_COLLECTION);
+export function subscribeFirestoreApplications(
+  onUpdate: (apps: JobApplication[]) => void,
+  filter?: { applicantId?: string; employerId?: string } | string
+): () => void {
+  if (!isFirebaseConfigured() || !auth.currentUser) {
+    return () => {};
+  }
+
+  let q;
+  if (typeof filter === 'string') {
+    q = query(collection(db, APPLICATIONS_COLLECTION), where('applicantId', '==', filter));
+  } else if (filter?.applicantId) {
+    q = query(collection(db, APPLICATIONS_COLLECTION), where('applicantId', '==', filter.applicantId));
+  } else if (filter?.employerId) {
+    q = query(collection(db, APPLICATIONS_COLLECTION), where('employerId', '==', filter.employerId));
+  } else {
+    q = collection(db, APPLICATIONS_COLLECTION);
+  }
+
   return onSnapshot(
     q,
     (snapshot) => {
@@ -192,15 +248,16 @@ export function subscribeFirestoreApplications(onUpdate: (apps: JobApplication[]
       onUpdate(apps);
     },
     (error) => {
-      handleFirestoreError(error, OperationType.LIST, APPLICATIONS_COLLECTION);
+      console.warn('Applications subscription notice:', error.message);
     }
   );
 }
 
 /**
- * Save a job application to Firestore
+ * Save a job application to Firestore (Applicant owner)
  */
 export async function saveFirestoreApplication(application: JobApplication): Promise<void> {
+  if (!isFirebaseConfigured()) return;
   const path = `${APPLICATIONS_COLLECTION}/${application.id}`;
   try {
     await setDoc(doc(db, APPLICATIONS_COLLECTION, application.id), application);
@@ -210,9 +267,13 @@ export async function saveFirestoreApplication(application: JobApplication): Pro
 }
 
 /**
- * Update application status (e.g., shortlisted, accepted, rejected)
+ * Update application status (Employer or Admin)
  */
-export async function updateFirestoreApplicationStatus(appId: string, status: JobApplication['status']): Promise<void> {
+export async function updateFirestoreApplicationStatus(
+  appId: string,
+  status: JobApplication['status']
+): Promise<void> {
+  if (!isFirebaseConfigured()) return;
   const path = `${APPLICATIONS_COLLECTION}/${appId}`;
   try {
     await updateDoc(doc(db, APPLICATIONS_COLLECTION, appId), { status });
@@ -222,22 +283,24 @@ export async function updateFirestoreApplicationStatus(appId: string, status: Jo
 }
 
 /**
- * Fetch all opportunities from Cloud Firestore
+ * Fetch all opportunities from Cloud Firestore (Public read)
  */
 export async function getFirestoreOpportunities(): Promise<OpportunityListing[]> {
+  if (!isFirebaseConfigured()) return [];
   try {
     const snap = await getDocs(collection(db, OPPORTUNITIES_COLLECTION));
     return snap.docs.map((d) => d.data() as OpportunityListing);
   } catch (error) {
-    handleFirestoreError(error, OperationType.LIST, OPPORTUNITIES_COLLECTION);
+    console.warn('Opportunities list query notice:', error);
     return [];
   }
 }
 
 /**
- * Real-time listener for opportunities
+ * Real-time listener for public opportunities
  */
 export function subscribeFirestoreOpportunities(onUpdate: (opps: OpportunityListing[]) => void): () => void {
+  if (!isFirebaseConfigured()) return () => {};
   const q = collection(db, OPPORTUNITIES_COLLECTION);
   return onSnapshot(
     q,
@@ -246,15 +309,16 @@ export function subscribeFirestoreOpportunities(onUpdate: (opps: OpportunityList
       onUpdate(opps);
     },
     (error) => {
-      handleFirestoreError(error, OperationType.LIST, OPPORTUNITIES_COLLECTION);
+      console.warn('Opportunities subscription notice:', error.message);
     }
   );
 }
 
 /**
- * Create or update an opportunity in Cloud Firestore
+ * Create or update an opportunity in Cloud Firestore (Admin only)
  */
 export async function saveFirestoreOpportunity(opportunity: OpportunityListing): Promise<void> {
+  if (!isFirebaseConfigured()) return;
   const path = `${OPPORTUNITIES_COLLECTION}/${opportunity.id}`;
   try {
     await setDoc(doc(db, OPPORTUNITIES_COLLECTION, opportunity.id), opportunity);
@@ -264,9 +328,10 @@ export async function saveFirestoreOpportunity(opportunity: OpportunityListing):
 }
 
 /**
- * Delete an opportunity from Cloud Firestore
+ * Delete an opportunity from Cloud Firestore (Admin only)
  */
 export async function deleteFirestoreOpportunity(id: string): Promise<void> {
+  if (!isFirebaseConfigured()) return;
   const path = `${OPPORTUNITIES_COLLECTION}/${id}`;
   try {
     await deleteDoc(doc(db, OPPORTUNITIES_COLLECTION, id));
@@ -276,22 +341,24 @@ export async function deleteFirestoreOpportunity(id: string): Promise<void> {
 }
 
 /**
- * Fetch all insights/articles from Cloud Firestore
+ * Fetch all insights/articles from Cloud Firestore (Public read)
  */
 export async function getFirestoreInsights(): Promise<InsightArticle[]> {
+  if (!isFirebaseConfigured()) return [];
   try {
     const snap = await getDocs(collection(db, INSIGHTS_COLLECTION));
     return snap.docs.map((d) => d.data() as InsightArticle);
   } catch (error) {
-    handleFirestoreError(error, OperationType.LIST, INSIGHTS_COLLECTION);
+    console.warn('Insights list query notice:', error);
     return [];
   }
 }
 
 /**
- * Real-time listener for insights/articles
+ * Real-time listener for public insights/articles
  */
 export function subscribeFirestoreInsights(onUpdate: (articles: InsightArticle[]) => void): () => void {
+  if (!isFirebaseConfigured()) return () => {};
   const q = collection(db, INSIGHTS_COLLECTION);
   return onSnapshot(
     q,
@@ -300,15 +367,16 @@ export function subscribeFirestoreInsights(onUpdate: (articles: InsightArticle[]
       onUpdate(articles);
     },
     (error) => {
-      handleFirestoreError(error, OperationType.LIST, INSIGHTS_COLLECTION);
+      console.warn('Insights subscription notice:', error.message);
     }
   );
 }
 
 /**
- * Create or update an insight article in Cloud Firestore
+ * Create or update an insight article in Cloud Firestore (Admin only)
  */
 export async function saveFirestoreInsight(article: InsightArticle): Promise<void> {
+  if (!isFirebaseConfigured()) return;
   const path = `${INSIGHTS_COLLECTION}/${article.id}`;
   try {
     await setDoc(doc(db, INSIGHTS_COLLECTION, article.id), article);
@@ -318,9 +386,10 @@ export async function saveFirestoreInsight(article: InsightArticle): Promise<voi
 }
 
 /**
- * Delete an insight article from Cloud Firestore
+ * Delete an insight article from Cloud Firestore (Admin only)
  */
 export async function deleteFirestoreInsight(id: string): Promise<void> {
+  if (!isFirebaseConfigured()) return;
   const path = `${INSIGHTS_COLLECTION}/${id}`;
   try {
     await deleteDoc(doc(db, INSIGHTS_COLLECTION, id));
@@ -330,8 +399,8 @@ export async function deleteFirestoreInsight(id: string): Promise<void> {
 }
 
 /**
- * Seed initial mock data to Cloud Firestore if collections are empty.
- * This guarantees the database is pre-populated for testing without overwriting user data.
+ * Controlled initial Firestore data seeding.
+ * Only attempts writes when authenticated with administrative authority.
  */
 export async function seedInitialFirestoreData(
   initialJobs: JobListing[],
@@ -340,51 +409,19 @@ export async function seedInitialFirestoreData(
   initialOpportunities?: OpportunityListing[],
   initialInsights?: InsightArticle[]
 ): Promise<void> {
+  if (!isFirebaseConfigured() || !auth.currentUser) {
+    // Unauthenticated visitors do not attempt database mutations
+    return;
+  }
+
   try {
     const jobsSnap = await getDocs(collection(db, JOBS_COLLECTION));
     if (jobsSnap.empty && initialJobs.length > 0) {
-      console.log('Seeding initial jobs into Cloud Firestore...');
       for (const j of initialJobs) {
         await setDoc(doc(db, JOBS_COLLECTION, j.id), j);
       }
     }
-
-    const workersSnap = await getDocs(collection(db, WORKERS_COLLECTION));
-    if (workersSnap.empty && initialWorkers.length > 0) {
-      console.log('Seeding initial workers into Cloud Firestore...');
-      for (const w of initialWorkers) {
-        await setDoc(doc(db, WORKERS_COLLECTION, w.id), w);
-      }
-    }
-
-    const employersSnap = await getDocs(collection(db, EMPLOYERS_COLLECTION));
-    if (employersSnap.empty && initialEmployers.length > 0) {
-      console.log('Seeding initial employers into Cloud Firestore...');
-      for (const e of initialEmployers) {
-        await setDoc(doc(db, EMPLOYERS_COLLECTION, e.id), e);
-      }
-    }
-
-    if (initialOpportunities && initialOpportunities.length > 0) {
-      const oppsSnap = await getDocs(collection(db, OPPORTUNITIES_COLLECTION));
-      if (oppsSnap.empty) {
-        console.log('Seeding initial opportunities into Cloud Firestore...');
-        for (const opp of initialOpportunities) {
-          await setDoc(doc(db, OPPORTUNITIES_COLLECTION, opp.id), opp);
-        }
-      }
-    }
-
-    if (initialInsights && initialInsights.length > 0) {
-      const insightsSnap = await getDocs(collection(db, INSIGHTS_COLLECTION));
-      if (insightsSnap.empty) {
-        console.log('Seeding initial insights into Cloud Firestore...');
-        for (const art of initialInsights) {
-          await setDoc(doc(db, INSIGHTS_COLLECTION, art.id), art);
-        }
-      }
-    }
-  } catch (err) {
-    console.warn('Initial seeding notice (non-fatal):', err);
+  } catch {
+    // Non-fatal notice during boot
   }
 }

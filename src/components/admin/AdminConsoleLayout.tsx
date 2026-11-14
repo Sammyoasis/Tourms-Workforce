@@ -74,14 +74,31 @@ export const AdminConsoleLayout: React.FC<AdminConsoleLayoutProps> = ({
 
   const subRoleTitles: Record<AdminSubRole, string> = {
     super_admin: 'Super Administrator',
-    operations: 'Operations Officer',
-    verification: 'Verification Desk Lead',
-    editorial: 'Senior Editorial Desk',
-    support: 'Platform Support Lead',
-    analyst: 'Data & Telemetry Analyst'
+    verifier: 'Verification Desk Lead',
+    moderator: 'Content & Review Moderator',
+    support_lead: 'Platform Support Lead'
   };
 
-  const activeItem = navItems.find((item) => item.id === currentTab) || navItems[0];
+  const allowedTabsByRole: Record<AdminSubRole, string[]> = {
+    super_admin: [
+      'dashboard',
+      'jobs-queue',
+      'employers',
+      'workers',
+      'payments',
+      'opportunities',
+      'content',
+      'reports',
+      'users'
+    ],
+    verifier: ['dashboard', 'jobs-queue', 'employers', 'workers'],
+    moderator: ['dashboard', 'jobs-queue', 'opportunities', 'content', 'reports'],
+    support_lead: ['dashboard', 'workers', 'employers', 'reports']
+  };
+
+  const allowedTabs = allowedTabsByRole[adminSubRole] || ['dashboard'];
+  const visibleNavItems = navItems.filter((item) => allowedTabs.includes(item.id));
+  const activeItem = visibleNavItems.find((item) => item.id === currentTab) || visibleNavItems[0] || navItems[0];
 
   return (
     <div className="w-full min-h-[85vh] bg-[#F7F7EE] text-left flex flex-col md:flex-row border-t border-[#C4C8C5]">
@@ -115,7 +132,7 @@ export const AdminConsoleLayout: React.FC<AdminConsoleLayoutProps> = ({
         {/* Mobile Nav Dropdown */}
         {mobileNavOpen && (
           <div className="pt-3 border-t border-[#243B36] mt-3 space-y-1 animate-in fade-in">
-            {navItems.map((item) => {
+            {visibleNavItems.map((item) => {
               const isActive = currentTab === item.id;
               return (
                 <button
@@ -184,7 +201,7 @@ export const AdminConsoleLayout: React.FC<AdminConsoleLayoutProps> = ({
 
           {/* Navigation Links */}
           <nav className="space-y-1" aria-label="Admin Navigation">
-            {navItems.map((item) => {
+            {visibleNavItems.map((item) => {
               const isActive = currentTab === item.id;
               return (
                 <button

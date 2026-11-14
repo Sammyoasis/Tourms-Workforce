@@ -3,104 +3,260 @@ rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
 
-    // Helper functions
+    // ====================================================================
+    // 1. GLOBAL SAFETY NET (DEFAULT-DENY CATCH-ALL)
+    // ====================================================================
+    match /{document=**} {
+      allow read, write: if false;
+    }
+
+    // ====================================================================
+    // 2. SECURITY PRIMITIVES & IDENTITY HELPERS
+    // ====================================================================
     function isValidId(docId) {
       return docId is string && docId.size() > 0 && docId.size() <= 128 && docId.matches('^[a-zA-Z0-9_\\-]+$');
     }
 
-    // Connectivity test document
+    function isSignedIn() {
+      return request.auth != null;
+    }
+
+    function isOwner(uid) {
+      return isSignedIn() && request.auth.uid == uid;
+    }
+
+    // --------------------------------------------------------------------
+    // Administrator Role Hierarchy & Custom Claims Protection
+    // --------------------------------------------------------------------
+    function getAdminClaim() {
+      return request.auth.token.keys().hasAny(['adminRole']) ? request.auth.token.adminRole :
+             (request.auth.token.keys().hasAny(['role']) && request.auth.token.role == 'admin' ? 'super_admin' : 'none');
+    }
+
+    function isSuperAdmin() {
+      return isSignedIn() && (
+        getAdminClaim() == 'super_admin' ||
+        (exists(/databases/$(database)/documents/admins/$(request.auth.uid)) &&
+         get(/databases/$(database)/documents/admins/$(request.auth.uid)).data.role == 'super_admin')
+      );
+    }
+
+    function isVerifier() {
+      return isSignedIn() && (
+        isSuperAdmin() ||
+        getAdminClaim() == 'verifier' ||
+        (exists(/databases/$(database)/documents/admins/$(request.auth.uid)) &&
+         get(/databases/$(database)/documents/admins/$(request.auth.uid)).data.role == 'verifier')
+      );
+    }
+
+    function isModerator() {
+      return isSignedIn() && (
+        isSuperAdmin() ||
+        getAdminClaim() == 'moderator' ||
+        (exists(/databases/$(database)/documents/admins/$(request.auth.uid)) &&
+         get(/databases/$(database)/documents/admins/$(request.auth.uid)).data.role == 'moderator')
+      );
+    }
+
+    function isSupportLead() {
+      return isSignedIn() && (
+        isSuperAdmin() ||
+        getAdminClaim() == 'support_lead' ||
+        (exists(/databases/$(database)/documents/admins/$(request.auth.uid)) &&
+         get(/databases/$(database)/documents/admins/$(request.auth.uid)).data.role == 'support_lead')
+      );
+    }
+
+    function isAdmin() {
+      return isSuperAdmin() || isVerifier() || isModerator() || isSupportLead();
+    }
+
+    // ====================================================================
+    // 3. ENTITY VALIDATION HELPERS
+    // ====================================================================
+    function isValidUser(data) {
+      return data.keys().hasAll(['uid', 'email', 'role']) &&
+             data.uid is string &&
+             data.email is string &&
+             data.role in ['worker', 'employer', 'admin'];
+    }
+
+    function isValidJob(data) {
+      return data.keys().hasAll(['id', 'title', 'organisation', 'employerId', 'status']) &&
+             data.id is string && isValidId(data.id) &&
+             data.title is string && data.title.size() > 0 && data.title.size() <= 200 &&
+             data.organisation is string && data.organisation.size() <= 200 &&
+             data.employerId is string && isValidId(data.employerId) &&
+             data.status is string;
+    }
+
+    function isValidWorker(data) {
+      return data.keys().hasAll(['id', 'fullName', 'phone']) &&
+             data.id is string && isValidId(data.id) &&
+             data.fullName is string && data.fullName.size() > 0 && data.fullName.size() <= 150 &&
+             data.phone is string && data.phone.size() <= 25;
+    }
+
+    function isValidEmployer(data) {
+      return data.keys().hasAll(['id', 'companyName', 'registrationNumber']) &&
+             data.id is string && isValidId(data.id) &&
+             data.companyName is string && data.companyName.size() > 0 && data.companyName.size() <= 200 &&
+             data.registrationNumber is string && data.registrationNumber.size() <= 50;
+    }
+
+    function isValidApplication(data) {
+      return data.keys().hasAll(['id', 'jobId', 'applicantId', 'applicantName', 'status']) &&
+             data.id is string && isValidId(data.id) &&
+             data.jobId is string && isValidId(data.jobId) &&
+             data.applicantId is string && isValidId(data.applicantId) &&
+             data.applicantName is string && data.applicantName.size() <= 150 &&
+             data.status in ['submitted', 'under_review', 'shortlisted', 'rejected', 'accepted'];
+    }
+
+    function isValidOpportunity(data) {
+      return data.keys().hasAll(['id', 'title', 'provider', 'status']) &&
+             data.id is string && isValidId(data.id) &&
+             data.title is string && data.title.size() > 0 && data.title.size() <= 250 &&
+             data.provider is string && data.provider.size() <= 200 &&
+             data.status is string;
+    }
+
+    function isValidInsight(data) {
+      return data.keys().hasAll(['id', 'title', 'category', 'status']) &&
+             data.id is string && isValidId(data.id) &&
+             data.title is string && data.title.size() > 0 && data.title.size() <= 250 &&
+             data.category is string &&
+             data.status is string;
+    }
+
+    // ====================================================================
+    // 4. COLLECTION ACCESS RULES
+    // ====================================================================
+
+    // Connectivity test probe
     match /test/{docId} {
-      allow read, write: if true;
+      allow get: if true;
+      allow list, write: if false;
     }
 
-    // Jobs collection: Public reads for discovery, authenticated/verified updates
+    // Authenticated User Accounts
+    match /users/{userId} {
+      allow get: if isOwner(userId) || isAdmin();
+      allow list: if isAdmin();
+      // Users can only create their own profile with non-admin roles (worker or employer)
+      allow create: if isOwner(userId) && isValidUser(request.resource.data) &&
+                    request.resource.data.role in ['worker', 'employer'];
+      // Users cannot elevate their own role
+      allow update: if (isOwner(userId) && isValidUser(request.resource.data) &&
+                        request.resource.data.role == resource.data.role) || isSuperAdmin();
+      allow delete: if isSuperAdmin();
+    }
+
+    // Administrative Registry (Strictly SuperAdmin-controlled to prevent privilege escalation)
+    match /admins/{adminId} {
+      allow get: if isAdmin();
+      allow list: if isSuperAdmin();
+      allow create, update, delete: if isSuperAdmin();
+    }
+
+    // Jobs Collection (Public discovery for approved jobs; owner/admin management)
     match /jobs/{jobId} {
-      allow get: if isValidId(jobId);
-      allow list: if true;
-      allow create: if isValidId(jobId) && 
-                    request.resource.data.id == jobId &&
-                    request.resource.data.title is string &&
-                    request.resource.data.title.size() <= 200 &&
-                    request.resource.data.organisation is string &&
-                    request.resource.data.status is string;
-      allow update: if isValidId(jobId) &&
-                    request.resource.data.title is string &&
-                    request.resource.data.title.size() <= 200;
-      allow delete: if isValidId(jobId);
+      allow get: if isValidId(jobId) && (
+        resource.data.status == 'approved' ||
+        (isSignedIn() && (resource.data.employerId == request.auth.uid || isVerifier() || isModerator() || isSuperAdmin()))
+      );
+      allow list: if (
+        resource.data.status == 'approved' ||
+        (isSignedIn() && (resource.data.employerId == request.auth.uid || isVerifier() || isModerator() || isSuperAdmin()))
+      );
+      allow create: if (isSignedIn() && isValidJob(request.resource.data) &&
+                        request.resource.data.employerId == request.auth.uid) || isSuperAdmin();
+      allow update: if (isSignedIn() && isValidJob(request.resource.data) &&
+                        (resource.data.employerId == request.auth.uid || isVerifier() || isModerator() || isSuperAdmin()));
+      allow delete: if (isSignedIn() && (resource.data.employerId == request.auth.uid || isSuperAdmin()));
     }
 
-    // Workers collection: Capability profiles
+    // Workers Collection (Public capability inspection, owner-only profile write, verifier gate)
     match /workers/{workerId} {
       allow get: if isValidId(workerId);
-      allow list: if true;
-      allow create: if isValidId(workerId) &&
-                    request.resource.data.id == workerId &&
-                    request.resource.data.fullName is string &&
-                    request.resource.data.fullName.size() <= 150 &&
-                    request.resource.data.phone is string;
-      allow update: if isValidId(workerId) &&
-                    request.resource.data.fullName is string &&
-                    request.resource.data.phone is string;
-      allow delete: if isValidId(workerId);
+      allow list: if isAdmin();
+      // On create, non-admins cannot mark themselves as verified
+      allow create: if (isOwner(workerId) && isValidWorker(request.resource.data) &&
+                        (!request.resource.data.keys().hasAny(['isVerified']) || request.resource.data.isVerified == false)) || isVerifier() || isSuperAdmin();
+      // On update, non-admins cannot tamper with verification status
+      allow update: if (isOwner(workerId) && isValidWorker(request.resource.data) &&
+                        request.resource.data.isVerified == resource.data.isVerified) || isVerifier() || isSuperAdmin();
+      allow delete: if isOwner(workerId) || isSuperAdmin();
+
+      // Private subcollection for sensitive PII (contact details, address, private verification records)
+      match /private/{docId} {
+        allow read, write: if isOwner(workerId) || isVerifier() || isSuperAdmin();
+      }
     }
 
-    // Employers collection: Agribusiness & enterprise profiles
+    // Employers Collection (Public profile inspection, owner-only write, verifier CAC gate)
     match /employers/{employerId} {
       allow get: if isValidId(employerId);
-      allow list: if true;
-      allow create: if isValidId(employerId) &&
-                    request.resource.data.id == employerId &&
-                    request.resource.data.companyName is string &&
-                    request.resource.data.companyName.size() <= 200;
-      allow update: if isValidId(employerId) &&
-                    request.resource.data.companyName is string;
-      allow delete: if isValidId(employerId);
+      allow list: if isAdmin();
+      allow create: if (isOwner(employerId) && isValidEmployer(request.resource.data) &&
+                        (!request.resource.data.keys().hasAny(['cacVerified']) || request.resource.data.cacVerified == false)) || isVerifier() || isSuperAdmin();
+      allow update: if (isOwner(employerId) && isValidEmployer(request.resource.data) &&
+                        request.resource.data.cacVerified == resource.data.cacVerified) || isVerifier() || isSuperAdmin();
+      allow delete: if isOwner(employerId) || isSuperAdmin();
+
+      // Private subcollection for sensitive corporate KYC/PII (executive contact, internal notes, private audit)
+      match /private/{docId} {
+        allow read, write: if isOwner(employerId) || isVerifier() || isSuperAdmin();
+      }
     }
 
-    // Applications collection: Worker submissions to job demands
+    // Applications Collection (Applicant privacy, owner employer review, admin audit)
     match /applications/{applicationId} {
-      allow get: if isValidId(applicationId);
-      allow list: if true;
-      allow create: if isValidId(applicationId) &&
-                    request.resource.data.id == applicationId &&
-                    request.resource.data.jobId is string &&
-                    request.resource.data.applicantId is string &&
-                    request.resource.data.status is string;
-      allow update: if isValidId(applicationId) &&
-                    request.resource.data.status is string;
-      allow delete: if isValidId(applicationId);
+      allow get: if isSignedIn() && isValidId(applicationId) && (
+        resource.data.applicantId == request.auth.uid ||
+        (resource.data.keys().hasAny(['employerId']) && resource.data.employerId == request.auth.uid) ||
+        isVerifier() || isModerator() || isSuperAdmin()
+      );
+      allow list: if isSignedIn() && (
+        resource.data.applicantId == request.auth.uid ||
+        (resource.data.keys().hasAny(['employerId']) && resource.data.employerId == request.auth.uid) ||
+        isVerifier() || isModerator() || isSuperAdmin()
+      );
+      allow create: if isSignedIn() && isValidApplication(request.resource.data) &&
+                    request.resource.data.applicantId == request.auth.uid;
+      allow update: if isSignedIn() && (
+        resource.data.applicantId == request.auth.uid ||
+        (resource.data.keys().hasAny(['employerId']) && resource.data.employerId == request.auth.uid) ||
+        isVerifier() || isModerator() || isSuperAdmin()
+      );
+      allow delete: if isSignedIn() && (resource.data.applicantId == request.auth.uid || isSuperAdmin());
     }
 
-    // Opportunities collection: Public reads for grants, scholarships, loans & fellowships
+    // Opportunities Collection (Public reading of active/published records only; moderator/super_admin write)
     match /opportunities/{oppId} {
-      allow get: if isValidId(oppId);
-      allow list: if true;
-      allow create: if isValidId(oppId) &&
-                    request.resource.data.id == oppId &&
-                    request.resource.data.title is string &&
-                    request.resource.data.title.size() <= 250 &&
-                    request.resource.data.provider is string &&
-                    request.resource.data.status is string;
-      allow update: if isValidId(oppId) &&
-                    request.resource.data.title is string &&
-                    request.resource.data.title.size() <= 250;
-      allow delete: if isValidId(oppId);
+      allow get: if isValidId(oppId) && (
+        resource.data.status in ['active', 'published'] || isModerator() || isSuperAdmin()
+      );
+      allow list: if (
+        resource.data.status in ['active', 'published'] || isModerator() || isSuperAdmin()
+      );
+      allow create: if (isModerator() || isSuperAdmin()) && isValidOpportunity(request.resource.data);
+      allow update: if (isModerator() || isSuperAdmin()) && isValidOpportunity(request.resource.data);
+      allow delete: if isModerator() || isSuperAdmin();
     }
 
-    // Insights collection: Field research briefs & editorial publications
+    // Insights Collection (Public reading of published agronomic briefs only; moderator/super_admin write)
     match /insights/{insightId} {
-      allow get: if isValidId(insightId);
-      allow list: if true;
-      allow create: if isValidId(insightId) &&
-                    request.resource.data.id == insightId &&
-                    request.resource.data.title is string &&
-                    request.resource.data.title.size() <= 250 &&
-                    request.resource.data.category is string &&
-                    request.resource.data.status is string;
-      allow update: if isValidId(insightId) &&
-                    request.resource.data.title is string &&
-                    request.resource.data.title.size() <= 250;
-      allow delete: if isValidId(insightId);
+      allow get: if isValidId(insightId) && (
+        resource.data.status == 'published' || isModerator() || isSuperAdmin()
+      );
+      allow list: if (
+        resource.data.status == 'published' || isModerator() || isSuperAdmin()
+      );
+      allow create: if (isModerator() || isSuperAdmin()) && isValidInsight(request.resource.data);
+      allow update: if (isModerator() || isSuperAdmin()) && isValidInsight(request.resource.data);
+      allow delete: if isModerator() || isSuperAdmin();
     }
   }
 }
